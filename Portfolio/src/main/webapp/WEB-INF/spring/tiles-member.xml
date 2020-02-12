@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<!-- 코딩날짜:2017년05월22일 -->
+<!-- 개발자:윤원용 -->
+<tiles-definitions>
+	<definition name="/member/create" extends="main">
+		<put-attribute name="title" value="회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views/member/create.jsp" />
+	</definition>
+	<definition name="/member/login" extends="main">
+		<put-attribute name="title" value="로그인" />
+		<put-attribute name="body" value="/WEB-INF/views/member/login.jsp" />
+	</definition>
+	<definition name="/member/update" extends="main">
+		<put-attribute name="title" value="회원수정" />
+		<put-attribute name="body" value="/WEB-INF/views/member/update.jsp" />
+	</definition>
+	<definition name="/member/passwdCheck" extends="main">
+		<put-attribute name="title" value="비밀번호확인" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/passwdCheck.jsp" />
+	</definition>
+	<definition name="/member/fileupdate" extends="main">
+		<put-attribute name="title" value="사진수정" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/fileupdate.jsp" />
+	</definition>
+	<definition name="/member/updateread" extends="main">
+		<put-attribute name="title" value="수정된정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updateread.jsp" />
+	</definition>
+	<definition name="/member/read" extends="main">
+		<put-attribute name="title" value="회원정보" />
+		<put-attribute name="body" value="/WEB-INF/views/member/read.jsp" />
+	</definition>
+	<definition name="/member/list" extends="main">
+		<put-attribute name="title" value="회원목록" />
+		<put-attribute name="body" value="/WEB-INF/views/member/list.jsp" />
+	</definition>
+
+</tiles-definitions>  

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  						http://www.springframework.org/schema/aop
+    					http://www.springframework.org/schema/aop/spring-aop.xsd
+    					http://www.springframework.org/schema/tx
+    					http://www.springframework.org/schema/tx/spring-tx.xsd
+    					http://www.springframework.org/schema/context 
+    					http://www.springframework.org/schema/context/spring-context.xsd
+	">
+	<!-- 
+	코딩날짜:2017년05월16일
+	개발자:윤원용
+	코딩목적:파일 업로드	
+	 -->
+	<bean id="multipartResolver" 
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+    </bean>
+    <!-- 
+	코딩날짜:2017년05월16일
+	개발자:윤원용
+	코딩목적:DB연결	
+	 -->
+	 <bean id="dataSource" 
+          destroy-method="close"
+          class="org.apache.commons.dbcp.BasicDataSource" 
+	      p:driverClassName="oracle.jdbc.driver.OracleDriver" 
+		  p:url="jdbc:oracle:thin:@localhost:1521:XE" 
+		  p:username="ywy"  
+		  p:password="921107"/>  
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 
+	코딩날짜:2017년05월16일
+	개발자:윤원용
+	코딩목적:타일즈사용
+	 -->
+    <bean id="tilesconfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+			<value>/WEB-INF/spring/tiles-main.xml</value>
+			<value>/WEB-INF/spring/tiles-member.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+		</property>
+		<property name="order">
+			<value>1</value>
+		</property>
+	</bean>			
+	<!-- 
+	코딩날짜:2017년05월16일
+	개발자:윤원용
+	코딩목적:DAO객체 생성 
+	 -->
+	<context:component-scan base-package="spring.portfolio.*"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Component" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	<!-- 
+	코딩날짜:2017년05월16일
+	개발자:윤원용
+	코딩목적:MyBatis에 사용할  쿼리문과 모델과의 연결 
+	 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="spring.portfolio" />
+		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+</beans>

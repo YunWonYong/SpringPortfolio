@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+<!-- 코딩날짜:2017년05월18일 -->
+<!-- 개발자:윤원용 -->
+<!-- 코딩목적:tiles로 사용할 기본 template설정 -->
+<tiles-definitions>
+	<definition name="main" template="/WEB-INF/views/template/template.jsp">
+		<put-attribute name="top" value="/WEB-INF/views/template/top.jsp"/>
+		<put-attribute name="bottom" value="/WEB-INF/views/template/bottom.jsp"/>
+	</definition>
+	<definition name="/home" extends="main">
+		<put-attribute name="title" value="Home"/>
+		<put-attribute name="body" value="/WEB-INF/views/template/main.jsp"/>
+	</definition>
+</tiles-definitions> 
