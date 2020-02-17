@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring.portfolio.accounts">
+
+	<select id="login" resultType="map">
+		<![CDATA[
+		select m_id,m_grant from portfolio_member
+		where m_id = #{m_id} and m_password = #{m_password}
+		]]>
+	</select>
+</mapper>
