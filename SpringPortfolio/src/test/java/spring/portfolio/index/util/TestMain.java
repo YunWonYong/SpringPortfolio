@@ -1,24 +1,17 @@
 package spring.portfolio.index.util;
 
 import java.util.List;
+import java.util.Map;
 
-import com.spring.portfolio.common.util.member.MemberUtil;
+import com.spring.portfolio.common.util.member.MemberUtility;
 
 public class TestMain {
 
 	public static void main(String[] args) {
-		MemberUtil util = new MemberUtil();
-		List<String> years = util.getYear();
-		for(String year : years) {
-			System.out.println(year+"년");
-		}
-		System.out.println("years Size = "+years.size());
-		List<String> months = util.getMonth();
-		for(String month : months) {
-			System.out.println(month+"달");
-		}
-		System.out.println("months Size = "+months.size()); 
-	
+		Map<String,List<String>> map = new MemberUtility().getBirth();
+		map.keySet().iterator().forEachRemaining(msg->{
+			System.out.println(map.get(msg));
+		});
 	
 	}
 }

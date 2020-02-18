@@ -1,33 +1,42 @@
 package com.spring.portfolio.common.util.member;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.spring.portfolio.common.UtilityCommad;
+import org.springframework.stereotype.Component;
+
+import com.spring.portfolio.common.util.UtilityCommand;
 import com.spring.portfolio.common.vo.LoopVO;
-
-public class MemberUtil implements UtilityCommad {
+@Component(value="memberUtil")
+public class MemberUtility implements UtilityCommand {
 
 	private int start, end;
 
-	public MemberUtil() {
+	public MemberUtility() {
 		// TODO Auto-generated constructor stub
 	}
-
 	public String getGender(char gender) {
 		return gender == '1' ? "여자" : "남자";
 	}
-
+	
 	public int getAge(final String year) {
 		return (Calendar.getInstance().get(Calendar.YEAR) - parsingInteger(year)) + 1;
 	}
 
-	public List<String> getYear() {
+	public Map<String,List<String>> getBirth(){
+		Map<String,List<String>> map = new HashMap<String, List<String>>();
+		map.put("year",getYear());
+		map.put("month",getMonth());
+		return map;
+	}
+	private List<String> getYear() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		return listLoop(new LoopVO(year, 100, 1));
 	}
 
-	public List<String> getMonth() {
+	private List<String> getMonth() {
 		return listLoop(new LoopVO(1, 12, 0));
 	}
 

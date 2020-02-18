@@ -30,6 +30,7 @@
 	<bean id = "sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory"/>
 	</bean>
-	<context:component-scan base-package="com.spring.portfolio.member.repository"/>
-	<context:component-scan base-package="com.spring.portfolio.member.service"/>
+	<context:component-scan base-package="com.spring.portfolio,com.spring.portfolio.common.util.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 </beans>

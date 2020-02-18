@@ -1,4 +1,4 @@
-package com.spring.portfolio.member.impl;
+package com.spring.portfolio.member.service;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
 import com.spring.portfolio.member.repository.MemberDAO;
-import com.spring.portfolio.member.service.MemberService;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {

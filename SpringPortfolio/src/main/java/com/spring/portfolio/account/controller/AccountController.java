@@ -1,4 +1,4 @@
-package com.spring.portfolio.account;
+package com.spring.portfolio.account.controller;
 
 import javax.annotation.Resource;
 

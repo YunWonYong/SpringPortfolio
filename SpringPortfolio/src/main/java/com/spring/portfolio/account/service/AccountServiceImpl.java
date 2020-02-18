@@ -1,11 +1,10 @@
-package com.spring.portfolio.account.impl;
+package com.spring.portfolio.account.service;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.spring.portfolio.account.repository.AccountDAO;
-import com.spring.portfolio.account.service.AccountService;
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
 	@Inject

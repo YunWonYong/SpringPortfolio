@@ -13,7 +13,6 @@ public class MemberDTO implements Serializable {
 	private String m_id,m_password,m_name,m_birth,m_zipcode,
 				   m_address1,m_address2,m_email,m_phone,m_registdate,genderCheck;
 	public MemberDTO() {
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * @param m_index

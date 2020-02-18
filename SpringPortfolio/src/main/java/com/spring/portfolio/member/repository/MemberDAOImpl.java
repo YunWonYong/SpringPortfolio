@@ -1,4 +1,4 @@
-package com.spring.portfolio.member.impl;
+package com.spring.portfolio.member.repository;
 
 import java.util.List;
 
@@ -8,12 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
-import com.spring.portfolio.member.repository.MemberDAO;
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	private final String namespace = "com.spring.portfolio.member.";
+	private final String NAMESPACE = "com.spring.portfolio.member.";
 	
 	
 	public MemberDAOImpl() {
@@ -22,38 +21,38 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int insert(MemberDTO dto) throws Exception {
-		return sqlSession.insert(namespace+"insert", dto);
+		return sqlSession.insert(NAMESPACE+"insert", dto);
 		
 	}
 
 
 	@Override
 	public MemberDTO read(String m_id) throws Exception {
-		return sqlSession.selectOne(namespace+"read",m_id);
+		return sqlSession.selectOne(NAMESPACE+"read",m_id);
 	}
 
 
 	@Override
 	public int update(MemberDTO dto) throws Exception {
-		return sqlSession.update(namespace+"update",dto);
+		return sqlSession.update(NAMESPACE+"update",dto);
 	}
 
 
 	@Override
 	public int delete(String m_id) throws Exception {
-		return sqlSession.delete(namespace+"delete", m_id);
+		return sqlSession.delete(NAMESPACE+"delete", m_id);
 	}
 
 
 	@Override
 	public List<MemberDTO> list() throws Exception {
-		return sqlSession.selectList(namespace+"list");
-	}
+		return sqlSession.selectList(NAMESPACE+"list");
+	} 
 
  
 	@Override
 	public boolean duplicate(DuplicateVO vo) throws Exception {
-		return sqlSession.selectOne(namespace+"duplicate",vo);
+		return sqlSession.selectOne(NAMESPACE+"duplicate",vo);
 	}
 	
 

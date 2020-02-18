@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.spring.portfolio.index" />
-	<context:component-scan base-package="com.spring.portfolio.member" />
-	<context:component-scan base-package="com.spring.portfolio.account" />
+	<context:component-scan base-package="com.spring.portfolio" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 </beans:beans>

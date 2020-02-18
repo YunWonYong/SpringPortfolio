@@ -1,10 +1,8 @@
-package com.spring.portfolio.account.impl;
+package com.spring.portfolio.account.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.spring.portfolio.account.repository.AccountDAO;
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 	@Autowired
