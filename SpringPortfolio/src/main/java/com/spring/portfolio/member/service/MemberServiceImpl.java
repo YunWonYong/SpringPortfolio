@@ -54,8 +54,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean checkDuplicate(DuplicateVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.duplicate(vo)!=null?false:true;
 	}
 	
 	

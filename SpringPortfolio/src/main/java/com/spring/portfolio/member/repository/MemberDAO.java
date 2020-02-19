@@ -17,5 +17,5 @@ public interface MemberDAO {
 	
 	public abstract List<MemberDTO> list()throws Exception;
 
-	public abstract boolean duplicate(DuplicateVO vo)throws Exception;
+	public abstract MemberDTO duplicate(DuplicateVO vo)throws Exception;
 }

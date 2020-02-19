@@ -51,7 +51,7 @@ public class MemberDAOImpl implements MemberDAO {
 
  
 	@Override
-	public boolean duplicate(DuplicateVO vo) throws Exception {
+	public MemberDTO duplicate(DuplicateVO vo) throws Exception { 
 		return sqlSession.selectOne(NAMESPACE+"duplicate",vo);
 	}
 	

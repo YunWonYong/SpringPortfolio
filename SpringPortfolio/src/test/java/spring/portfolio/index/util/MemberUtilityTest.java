@@ -2,20 +2,22 @@ package spring.portfolio.index.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.spring.portfolio.common.util.member.MemberUtility;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/wepapp/WEB-INF/spring/**/*.xml" })
 public class MemberUtilityTest {
-	@Qualifier("memberUtil")
-	@Autowired
-	private MemberUtility util;
+	private MemberUtility util = new MemberUtility();
 
 	/**
 	 * @param util
@@ -34,7 +36,11 @@ public class MemberUtilityTest {
 
 	@Test
 	public void testGetBirth() {
-		
+		Map<String,List<String>> map = util.getBirth();
+		Iterator<String> it = map.keySet().iterator();
+		it.forEachRemaining(key ->{
+			System.out.println(map.get(key));
+		});
 	}
 //	@Test
 //	public void testGetYear() {
