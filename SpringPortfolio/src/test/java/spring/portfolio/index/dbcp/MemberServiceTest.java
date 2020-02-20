@@ -38,14 +38,14 @@ public class MemberServiceTest {
 	public void testMemberDuplicate() {
 		DuplicateVO vo =new DuplicateVO();
 		vo.setTarget("m_id");
-		vo.setValue("admins");
-		boolean flag = false;
+		vo.setValue("admin");
+		String msg = null;
 		try {
-			flag = memberService.checkDuplicate(vo);
+			msg = memberService.checkDuplicate(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			assertTrue(flag);
+			System.out.println(msg);
 		}
 		
 	}

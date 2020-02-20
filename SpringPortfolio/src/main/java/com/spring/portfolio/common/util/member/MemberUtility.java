@@ -8,29 +8,51 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.spring.portfolio.common.util.UtilityCommand;
+import com.spring.portfolio.common.util.UtilityImpl;
 import com.spring.portfolio.common.vo.LoopVO;
-@Component(value="memberUtil")
-public class MemberUtility implements UtilityCommand {
+
+@Component(value = "memberUtil")
+public class MemberUtility extends UtilityImpl implements UtilityCommand {
 
 	private int start, end;
 
 	public MemberUtility() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public String getGender(char gender) {
 		return gender == '1' ? "여자" : "남자";
 	}
-	
+
 	public int getAge(final String year) {
 		return (Calendar.getInstance().get(Calendar.YEAR) - parsingInteger(year)) + 1;
 	}
 
-	public Map<String,List<String>> getBirth(){
-		Map<String,List<String>> map = new HashMap<String, List<String>>();
-		map.put("year",getYear());
-		map.put("month",getMonth());
+	public Map<String, List<String>> getBirth() {
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		map.put("year", getYear());
+		map.put("month", getMonth());
 		return map;
 	}
+
+	public String ajaxDuplicateResult(Map<String,String> map) {
+		String selecter = (String) map.get("selecter");
+		String msg = (String) map.get("msg");
+		String flagmsg = (String) map.get("flag");
+		boolean flag = flagmsg.equals("1")?true:false;
+		StringBuffer msgSB = new StringBuffer();
+		msgSB.append(selecter);
+		msgSB.append(",");
+		msgSB.append("<span class='");
+		msgSB.append(flag?"fail":"success");
+		msgSB.append("'>");
+		msgSB.append(flag?"중복된 ":"사용할수 "); 
+		msgSB.append(msg);
+		msgSB.append(" 입니다.");
+		msgSB.append("</span>");
+		return msgSB.toString();
+	}
+
 	private List<String> getYear() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		return listLoop(new LoopVO(year, 100, 1));

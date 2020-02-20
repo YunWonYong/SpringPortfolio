@@ -1,11 +1,13 @@
 package com.spring.portfolio.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,30 +42,8 @@ public class MemberController {
 
 	@RequestMapping(value = "duplicate", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
 	@ResponseBody
-	public String duplicate(DuplicateVO vo) {
-		StringBuffer result = new StringBuffer();
-		boolean flag =false;
-		result.append(vo.getTarget().equals("m_id") ? "#idcheck" : "#nicknamecheck");
-		result.append(",");
-		String msg = vo.getTarget().equals("m_id") ? "아이디" : "닉네임";
-		try {
-			flag = memberService.checkDuplicate(vo);
-			if (!flag)
-				throw new Exception();
-			result.append("사용하셔도 좋은 ");
-			result.append(msg);
-			result.append(" 입니다.");
-		} catch (Exception e) {
-			result.append("사용중인 ");
-			result.append(msg);
-			result.append(" 입니다.");
-		}finally {
-			result.append(",");
-			result.append(!flag?"0":"1");
-			
-		}
-		return result.toString();
-
+	public String duplicate(DuplicateVO vo)throws Exception {
+		return memberService.checkDuplicate(vo);
 	}
 
 	@RequestMapping("read")

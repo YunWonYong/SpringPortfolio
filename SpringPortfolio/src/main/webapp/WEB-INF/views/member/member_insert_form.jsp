@@ -21,53 +21,7 @@ msg {
 	src="/resources/js/member/member_insert.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-		var $id_input = $("input[name='m_id']");
-		var msg = "";
-		var key = "";
-		$($id_input)
-				.change(
-						function() {
-							var id = $id_input.val();
-							key = "m_id";
-							msg = id.length >= 5 && id.length <= 12 ? /^[0-9]/
-									.test(id) ? "숫자로 시작하실수 없습니다."
-									: /^[a-zA-Z0-9]*$/.test(id) ? null
-											: "특수문자나 한글을 사용하실수 없습니다."
-									: "최소 4글자 최대 12글자 입니다.";
-							if (msg != null) {
-								$("#idcheck").html(msg);
-								$("#idcheck").attr("style", "color:red;");
-								return;
-							}
-							ajax(key, id);
-						});
-
-	});
-
-	function ajax(key, value) {
-		$.ajax({
-			type : 'POST',
-			url : '/member/duplicate',
-			data : {
-				target : key,
-				value : value
-			},
-			dateType : 'text',
-			success : function(result) {
-				var results = result.split(",");
-				var selecter = results[0];
-				var msg = results[1];
-				var flag = results[2];
-				var color = flag == 1 ? '00a8cc;' : 'c81912;';
-				$(selecter).html(msg);
-				$(selecter).attr("style", "color:" + color);
-
-			}
-
-		});
-
-	}
+	
 </script>
 
 <!-- <script type="text/javascript">
@@ -78,20 +32,35 @@ msg {
 	}
 </script> -->
 <style>
-body{
-
-}
-form{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-
-
-
+body {
+	
 }
 
+form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 </style>
+<script type="text/javascript">
+	$(function(){
+		var $password_1 = $("#password_1");
+		var $password_2 = $("#password_2");
+		$($password_1).change(function(){
+			var password_1 = $password_1.val();
+			var msg =null; 
+			msg = passwordCheck(password_1);
+					
+			$("#password_msg_1").html(msg);
+		});
+	});
+	
+	
+	function passwordCheck(password){
+		return (password.length>=8) && (password.length<=15)?"성공":"최소 8글자 최대 15글자";
+	}
+</script>
 </head>
 <body>
 	<form method="POST">
@@ -108,7 +77,7 @@ transform:translate(-50%,-50%);
 				<td><input type="password" name="m_password" id="password_1" /></td>
 			</tr>
 			<tr>
-				<th id="" class="msg">&nbsp;</th>
+				<th id="password_msg_1" class="msg">&nbsp;</th>
 			</tr>
 			<tr>
 				<th>비밀번호 재확인</th>

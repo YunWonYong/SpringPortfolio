@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
-@Repository
+@Repository(value = "memberDAO")
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
@@ -52,6 +52,7 @@ public class MemberDAOImpl implements MemberDAO {
  
 	@Override
 	public MemberDTO duplicate(DuplicateVO vo) throws Exception { 
+		
 		return sqlSession.selectOne(NAMESPACE+"duplicate",vo);
 	}
 	

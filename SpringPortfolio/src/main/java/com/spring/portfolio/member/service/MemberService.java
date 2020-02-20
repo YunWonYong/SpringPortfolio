@@ -17,5 +17,5 @@ public interface MemberService extends MainService {
 	
 	public abstract List<MemberDTO> allList()throws Exception; 
 	
-	public abstract boolean checkDuplicate(DuplicateVO vo) throws Exception;
+	public abstract String checkDuplicate(DuplicateVO vo) throws Exception;
 }
