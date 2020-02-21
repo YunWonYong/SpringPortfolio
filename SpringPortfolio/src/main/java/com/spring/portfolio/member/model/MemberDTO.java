@@ -11,7 +11,7 @@ public class MemberDTO implements Serializable {
 	private int m_index,m_age;
 	private char m_grant,m_gender; 
 	private String m_id,m_password,m_name,m_birth,m_zipcode,
-				   m_address1,m_address2,m_email,m_phone,m_registdate,genderCheck;
+				   m_address1,m_address2,m_email,m_phone,m_registdate;
 	public MemberDTO() {
 	}
 	/**
@@ -45,7 +45,7 @@ public class MemberDTO implements Serializable {
 		this.m_address2 = m_address2;
 		this.m_email = m_email;
 		this.m_phone = m_phone;
-		this.m_gender = genderCheck!=null?'0':'1';
+		this.m_gender =m_gender; 
 		this.m_registdate = m_registdate;
 	}
 	public int getM_index() {
@@ -158,4 +158,12 @@ public class MemberDTO implements Serializable {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [m_index=" + m_index + ", m_age=" + m_age + ", m_grant=" + m_grant + ", m_gender=" + m_gender
+				+ ", m_id=" + m_id + ", m_password=" + m_password + ", m_name=" + m_name + ", m_birth=" + m_birth
+				+ ", m_zipcode=" + m_zipcode + ", m_address1=" + m_address1 + ", m_address2=" + m_address2
+				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_registdate=" + m_registdate + ", genderCheck=";
+	}
+	
 }

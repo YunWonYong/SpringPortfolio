@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
+import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.service.MemberService;
 
 @Controller
@@ -36,7 +37,11 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
-	public ModelAndView insert(MemberDTO dto, ModelAndView mv) throws Exception {
+	public ModelAndView insert(MemberDTO dto,MemberVO vo, ModelAndView mv) throws Exception {
+		mv.addObject("dto",dto);
+		mv.addObject("vo", vo);
+		memberService.register(mv);
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 

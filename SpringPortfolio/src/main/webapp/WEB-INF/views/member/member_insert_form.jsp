@@ -17,9 +17,7 @@ msg {
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript"
-	src="/resources/js/member/member_insert.js"></script>
-
+<script type="text/javascript" src="/resources/js/member/member_insert.js"></script>
 <script type="text/javascript">
 	
 </script>
@@ -63,7 +61,7 @@ form {
 </script>
 </head>
 <body>
-	<form method="POST">
+	<form action="/member/insert" method="POST">
 		<table>
 			<tr>
 				<th>아이디</th>
@@ -122,7 +120,7 @@ form {
 			<tr>
 				<th>이메일</th>
 				<td><input type="text" name="m_email" />@<input type="text"
-					name="m_domain" /></td>
+					name="emailAdrress" /></td>
 			</tr>
 			<tr>
 				<th id="" class="msg">&nbsp;</th>
@@ -151,7 +149,7 @@ form {
 			</tr>
 			<tr>
 				<th>상세주소</th>
-				<td><input name="m_address2" id="m_address2" /></td>
+				<td><input name="m_address2" id="m_address2"  required/></td>
 			</tr>
 			<tr>
 				<th id="" class="msg">&nbsp;</th>

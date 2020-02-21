@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
+import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.repository.MemberDAO;
 
 @Service("memberService")
@@ -32,11 +33,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView register(ModelAndView mv) throws Exception {
 		MemberDTO dto = (MemberDTO) mv.getModel().get("dto");
-		if (dao.insert(dto) != 0) {
-			mv.setViewName("redirect:continu/fail");
-			transaction();
-		}
-		mv.setViewName("redirect:account/login");
+		MemberVO vo = (MemberVO)mv.getModel().get("vo");
+		dto.setM_email(util.setEmail(dto.getM_email(), vo.getEmailAdrress()));
+		dto.setM_gender(util.setGender(vo.getGenderCheck()));
+		dto.setM_age(util.getAge(vo.getYear()));
+		System.out.println(util.getGender(dto.getM_gender()));
+		System.out.println(dto.getM_email());
+		System.out.println(dto.getM_age());
 		return mv;
 	}
 
