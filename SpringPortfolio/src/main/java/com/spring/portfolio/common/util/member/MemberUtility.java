@@ -42,19 +42,11 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 
 	public String ajaxDuplicateResult(Map<String,String> map) {
 		String selecter = (String) map.get("selecter");
-		String msg = (String) map.get("msg");
 		String flagmsg = (String) map.get("flag");
-		boolean flag = flagmsg.equals("1")?true:false;
 		StringBuffer msgSB = new StringBuffer();
 		msgSB.append(selecter);
 		msgSB.append(",");
-		msgSB.append("<span class='");
-		msgSB.append(flag?"fail":"success");
-		msgSB.append("'>");
-		msgSB.append(flag?"중복된 ":"사용할수 "); 
-		msgSB.append(msg);
-		msgSB.append(" 입니다.");
-		msgSB.append("</span>");
+		msgSB.append(flagmsg);
 		return msgSB.toString();
 	}
 

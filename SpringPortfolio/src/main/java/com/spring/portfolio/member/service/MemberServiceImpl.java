@@ -37,9 +37,6 @@ public class MemberServiceImpl implements MemberService {
 		dto.setM_email(util.setEmail(dto.getM_email(), vo.getEmailAdrress()));
 		dto.setM_gender(util.setGender(vo.getGenderCheck()));
 		dto.setM_age(util.getAge(vo.getYear()));
-		System.out.println(util.getGender(dto.getM_gender()));
-		System.out.println(dto.getM_email());
-		System.out.println(dto.getM_age());
 		return mv;
 	}
 
@@ -63,11 +60,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String checkDuplicate(DuplicateVO vo) throws Exception {
-		Map<String, String> map = new HashMap<>();
-		map.put("selecter", vo.getTarget().equals("m_id") ? "#idcheck" : "#nicknamecheck");
-		map.put("msg", vo.getTarget().equals("m_id") ? "아이디" : "닉네임");
-		map.put("flag", dao.duplicate(vo) != null ? "1" : "0");
-		return util.ajaxDuplicateResult(map).toString();
+		return util.booleanTransform(dao.duplicate(vo))?"true":"false";
 	}
 
 }
