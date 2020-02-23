@@ -9,12 +9,24 @@ $(function() {
 	var $genderMan = $("input[name = 'genderCheck']");
 	var $email_input = $("input[name ='m_email']");
 	var $genderWoman = $("#woman");
-
+	var $phone_input = $("input[name='m_phone']");
+	var $zipcode = $("input[name='m_zipcode']");
+	var $address1 = $("input[name='m_address1']");
+	var $address2 = $("input[name='m_address2']");
 	var $old_year = $year.val();
 	var $old_month = $month.val();
 	var $new_year = null;
 	var $new_month = null; 
 	var dbTarget = "";
+	$($address1||$address2).click(function(){
+		if($($zipcode).val()==''){
+			$("button").focus();
+			msgSwi
+		}
+		
+	});
+	
+	
 	$($year).change(function() {
 		$new_year = $(this).val();
 		$old_year = null;
@@ -33,13 +45,12 @@ $(function() {
 	});
 	$($date).change(function() {
 		if (birthArr()==4) {
-			$("input[name='m_email']").focus();
+			$($email_input).focus();
+			emailCheck($email_input);
 		}
 	});
 	$($email_input).click(function(){
-		if(birthArr($new_year==null?"년도를 선택해 주세요.":undefined)==4){
-			emailCheck($(this));
-		}
+		birthArr($new_year==null?"년도를 선택해 주세요.":undefined);
 	});
 	$($id_input).change(function() {
 						var id = $id_input.val();
@@ -47,10 +58,8 @@ $(function() {
 						var msg = !(id.length >= 5 && id.length <= 12) ? "최소 5글자 최대 12글자 입니다."
 								: (/[.*\s.*]/.test(id)) ? "공백을 포함할수 없습니다."
 										: (/^[0-9]/.test(id)) ? "숫자로 시작하실수 없습니다."
-												: (/[ㄱ-ㅎ|가-힣|ㅏ-ㅣ|ㄱ-ㅎ가-힣ㅏ-ㅣ]/
-														.test(id)) ? "한글은 사용하실수 없습니다."
-														: !(/^[a-zA-Z0-9]*$/
-																.test(id)) ? "특수문자를 포함할수 없습니다."
+												: (/[ㄱ-ㅎ|가-힣|ㅏ-ㅣ|ㄱ-ㅎ가-힣ㅏ-ㅣ]/.test(id)) ? "한글은 사용하실수 없습니다."
+														: !(/^[a-zA-Z0-9]*$/.test(id)) ? "특수문자를 포함할수 없습니다."
 																: null;
 						if (msg == null) {
 							duplicateAjax([ dbTarget, id,$(this) ]);
@@ -110,28 +119,6 @@ $(function() {
 			}
 		});
 	});
-	function birthCheck(birth) {
-		var continueValue = ((new Date().getFullYear()) - $(birth[0]).val());
-		var msg =null;
-		var flag = 0;
-		if (continueValue <= 12) {
-			msg =  birth[3]!=undefined?birth[3]:"만12세 이상부터 회원가입이 가능합니다.";
-			$(birth[0]).focus();
-			flag = msg !="만12세 이상부터 회원가입이 가능합니다."?0:1;
-		} else if ($(birth[1]).val() == 0) {
-			msg = "월을 선택해 주세요";
-			$(birth[1]).focus();
-			flag = 2;
-		} else if ($(birth[2]).val() == 0) {
-			msg = "날짜를 선택해 주세요.";
-			$(birth[2]).focus();
-			flag = 3;
-		}else{
-			flag =4;
-		}
-		msgSwith(msg, "#birth_msg");
-		return flag;
-	}
 	$($month).click(function(){
 		if(birthArr()==1){
 			$(this).children('option').prop('disabled',false);
@@ -149,22 +136,77 @@ $(function() {
 		}
 		birthArr(msg);
 	});
-	dateCheck($date);
-	dateChange([ $old_year, $old_month ]);
-	function birthArr(msg){
-		return birthCheck([ $year, $month, $date,msg ]);
-	}
-});  
-function emailCheck(email){
-	$(email).change(function(){
-		if($(email).val()!=''){
-		console.log("emailCheck call");
-		var email = $(email).val();
-		var msg = (/.*[@|.]?/.test(email))?"ywyi1992@gmail.com 형식으로 입력해 주세요.":null;
-		msgSwith(msg,"#email_msg");
+	$($phone_input).change(function() {
+		var msg = null;
+		var phone = $(this).val();
+		console.log(phone);
+		if (phone != "") {
+			msg = !(/^[010]{3}.-?[0-9]{3,4}.-?[0-9]{4}/.test(phone)) ?
+						"010-2222-2222 형식으로 입력해 주세요."
+								: null;
+		} else {
+			msg = "핸드폰 번호를 입력해 주세요.";
+		}
+		if(msg!=null){
+			$(this).focus();
+		}
+		focusing(msgSwith(msg, "#phone_msg"), $(this));
+	});
+	
+	$($zipcode).focusout(function(){
+		var zip = $(this).val();
+		if(zip==''){
+			
 		}
 	});
+	dateCheck($date);
+	dateChange([ $old_year, $old_month ]);
+	function birthArr(msg) {
+		return birthCheck([ $year, $month, $date, msg ]);
+	}
+});  
+function birthCheck(birth) {
+	var continueValue = ((new Date().getFullYear()) - $(birth[0]).val());
+	var msg =null;
+	var flag = 0;
+	if (continueValue <= 12) {
+		msg =  birth[3]!=undefined?birth[3]:"만12세 이상부터 회원가입이 가능합니다.";
+		$(birth[0]).focus();
+		flag = msg !="만12세 이상부터 회원가입이 가능합니다."?0:1;
+	} else if ($(birth[1]).val() == 0) {
+		msg = "월을 선택해 주세요";
+		$(birth[1]).focus();
+		flag = 2;
+	} else if ($(birth[2]).val() == 0) {
+		msg = "날짜를 선택해 주세요.";
+		$(birth[2]).focus();
+		flag = 3;
+	}else{
+		flag =4;
+	}
+	msgSwith(msg, "#birth_msg");
+	return flag;
 }
+
+function emailCheck($email){
+	$($email).focusout(function(){
+		var msg = null;
+		var email = $($email).val();
+		if(email!=''){
+			msg =(/^[0-9]/.test(email))?"숫자로 시작하실수 없습니다."
+						:(/.*\s.*/.test(email))?"공백은 포함하실수 없습니다."
+								:!(/^[a-zA-Z0-9|@|.]*$/.test(email))?"특수문자 또는 한글을 포함할수 없습니다."
+										:!(/^[a-zA-Z0-9]{6,12}/.test(email))?"이메일 아이디는 최소 6 최대 12 입력해주세요,"
+												:!((/^[a-zA-Z0-9]{6,12}.@?[a-zA-Z]{4,10}..?[a-z]{2,3}$/i).test(email))?"이메일 형식에 맞지 않습니다."
+														:null;
+		}else{
+			$(this).focus();
+			msg="Email을 입력해 주세요.";
+		}
+		focusing(msgSwith(msg,"#email_msg"),$(this));
+	});
+}
+
 function dateCheck(date){
 	$(date).change(function(){
 		if($(date).val()!=0){
@@ -184,11 +226,11 @@ function successMsg(target) {
 		msg+="비밀번호";
 		break;
 	case "#name_msg":
-		return "&nbsp;";
 	case "#birth_msg":
-		return "&nbsp;";
+	case "#email_msg":
+	case "#phone_msg":
 	default:
-		break;
+		return "&nbsp;";
 	}
 	return 	msg+= " 입니다.";
 }
@@ -211,6 +253,9 @@ function setMsgSelecter(target,select){
 		break;
 	case "#email_msg":
 		select+="_email";
+		break;
+	case "#phone_msg":
+		select+="_phone";
 		break;
 	default:
 		break;
@@ -244,7 +289,6 @@ function focusing(searchClass,target){
 		$(target).focus();
 	}else{
 		var inputs = $($(target).parents("form")).find('input');
-		console.log($(inputs).index($(target))+1);
 		$.each(inputs,function(i){
 			if($(inputs).index($(target))+1==$(inputs).index($(inputs[i]))){
 				$(inputs[i]).focus(); 
