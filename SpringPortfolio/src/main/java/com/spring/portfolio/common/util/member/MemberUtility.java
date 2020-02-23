@@ -56,7 +56,7 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 	}
 
 	private List<String> getMonth() {
-		return listLoop(new LoopVO(1, 12, 0));
+		return listLoop(new LoopVO(0, 12, 0));
 	}
 
 	private List<String> listLoop(final LoopVO vo) {
