@@ -11,19 +11,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript"
-	src="/resources/js/member/member_insert.js"></script>
-<script type="text/javascript">
-	
-</script>
-
-<!-- <script type="text/javascript">
-	function blankFocus(target, value) {
-		$(target).forcusout(function() {
-			if (value.length)
-		});
-	}
-</script> -->
+<script type="text/javascript" src="/resources/js/member/member_insert.js"></script>
 <style>
 	thead,tbody{
 		display: inline;
