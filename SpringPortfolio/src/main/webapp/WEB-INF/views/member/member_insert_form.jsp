@@ -25,16 +25,9 @@
 	}
 </script> -->
 <style>
-msg {
-	border-collapse: 2;
-}
-
-form {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
+	thead,tbody{
+		display: inline;
+	}
 </style>
 <script type="text/javascript">
 	
@@ -102,13 +95,13 @@ form {
 					<th>주소</th>
 				</tr>
 				<tr>
-					<th id="adderss_msg_1" class="msg">&nbsp;</th>
+					<th id="address_msg_1" class="msg">&nbsp;</th>
 				</tr>
 				<tr>
 					<th>상세주소</th>
 				</tr>
 				<tr>
-					<th id="adderss_msg_2" class="msg">&nbsp;</th>
+					<th id="address_msg_2" class="msg">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -148,9 +141,6 @@ form {
 				</tr>
 				<tr>
 					<td><input name="m_phone" /></td>
-				</tr>
-				<tr>
-					<th id="phone_msg" class="msg">&nbsp;</th>
 				</tr>
 				<tr>
 					<td><input name="m_zipcode" id="m_zipcode" />

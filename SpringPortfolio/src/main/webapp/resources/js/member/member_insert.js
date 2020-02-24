@@ -10,23 +10,40 @@ $(function() {
 	var $email_input = $("input[name ='m_email']");
 	var $genderWoman = $("#woman");
 	var $phone_input = $("input[name='m_phone']");
-	var $zipcode = $("input[name='m_zipcode']");
-	var $address1 = $("input[name='m_address1']");
-	var $address2 = $("input[name='m_address2']");
+	var $zipcode_input = $("input[name='m_zipcode']");
 	var $old_year = $year.val();
 	var $old_month = $month.val();
 	var $new_year = null;
 	var $new_month = null; 
-	var dbTarget = "";
-	$($address1||$address2).click(function(){
-		if($($zipcode).val()==''){
-			$("button").focus();
-			msgSwi
-		}
-		
+	var dbTarget = ""; 
+	var addressflag = null;
+	$("input[name='m_zipcode'],input[name='m_address1'],input[name='m_address2']").click(function() {
+			var msg = null;
+			if (($($zipcode_input).val() == '') && 
+					(confirm("우편번호가 입력이 안되있습니다.\n 입력하시겠습니까?"))) {
+				daumPostcode();
+				addressflag = true;
+			}
+			
+
 	});
-	
-	
+	if($($zipcode_input).val()!=''&&addressflag){
+		$("input[name='m_address2']").focus();
+	}
+	$("input[name='m_address2']").focusout(function() {
+				var msg  = null;
+				if ($(this).val() == "") {
+					console.log("가즈아!!");
+					msg = "상세주소를 입력해 주세요.";
+					$(this).focus();
+					msgSwith(msg, "#address_msg_2");
+				} else {
+					var arr = [ "#zipcode_msg", "#address_msg_1","#address_msg_2" ];
+					$.each(arr, function(i) {
+						msgSwith(msg, arr[i]);
+					});
+				}
+			});
 	$($year).change(function() {
 		$new_year = $(this).val();
 		$old_year = null;
@@ -152,13 +169,6 @@ $(function() {
 		}
 		focusing(msgSwith(msg, "#phone_msg"), $(this));
 	});
-	
-	$($zipcode).focusout(function(){
-		var zip = $(this).val();
-		if(zip==''){
-			
-		}
-	});
 	dateCheck($date);
 	dateChange([ $old_year, $old_month ]);
 	function birthArr(msg) {
@@ -229,6 +239,9 @@ function successMsg(target) {
 	case "#birth_msg":
 	case "#email_msg":
 	case "#phone_msg":
+	case "#zipcode_msg":
+	case "#address_msg_1":
+	case "#address_msg_2":
 	default:
 		return "&nbsp;";
 	}
@@ -256,6 +269,15 @@ function setMsgSelecter(target,select){
 		break;
 	case "#phone_msg":
 		select+="_phone";
+		break;
+	case "#zipcode_msg":
+		select+="_zipcode";
+		break;
+	case "#address_msg_1":
+		select+="_address1";
+		break;
+	case "#address_msg_2":
+		select+="_address2";
 		break;
 	default:
 		break;
