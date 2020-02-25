@@ -33,7 +33,6 @@ $(function() {
 	$("input[name='m_address2']").focusout(function() {
 				var msg  = null;
 				if ($(this).val() == "") {
-					console.log("가즈아!!");
 					msg = "상세주소를 입력해 주세요.";
 					$(this).focus();
 					msgSwith(msg, "#address_msg_2");
