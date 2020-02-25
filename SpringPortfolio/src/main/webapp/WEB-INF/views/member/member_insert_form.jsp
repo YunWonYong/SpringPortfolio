@@ -11,7 +11,8 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/js/member/member_insert.js"></script> 
+<script type="text/javascript"
+	src="/resources/js/member/member_insert.js"></script>
 <script type="text/javascript">
 	
 </script>
@@ -94,14 +95,14 @@ form {
 				</select></td>
 			</tr>
 			<tr>
-				<th id="birth_msg" class="msg">&nbsp;</th>
+				<th id="" class="msg">&nbsp;</th>
 			</tr>
 			<tr>
 				<th>이메일</th>
 				<td><input type="text" name="m_email" />
 			</tr>
 			<tr>
-				<th id="email_msg" class="msg">&nbsp;</th>
+				<th id="" class="msg">&nbsp;</th>
 			</tr>
 			<tr>
 				<th>전화번호</th>

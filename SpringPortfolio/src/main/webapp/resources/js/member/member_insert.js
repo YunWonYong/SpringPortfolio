@@ -1,177 +1,106 @@
 $(function() {
 	var $year = $("select[name='year']");
 	var $month = $("select[name='month']");
-	var $date = $("select[name='date']");
 	var $id_input = $("input[name='m_id']");
-	var $name_input = $("input[name='m_name']");
+	var $name_input =$("input[name='m_name']");
 	var $password_1 = $("input[name='m_password']");
 	var $password_2 = $("input[name='password_2']");
 	var $genderMan = $("input[name = 'genderCheck']");
-	var $email_input = $("input[name ='m_email']");
 	var $genderWoman = $("#woman");
-
+	var $email = $("input[name = 'm_email']");
+	
 	var $old_year = $year.val();
 	var $old_month = $month.val();
 	var $new_year = null;
-	var $new_month = null; 
+	var $new_month = null;
+	var $date = $("select[name='date']");
 	var dbTarget = "";
 	$($year).change(function() {
 		$new_year = $(this).val();
 		$old_year = null;
-		dateChange([ $new_year, $old_month, $new_month ]);
-		if(birthArr()==1){
-			$(this).focus();
-		}
+		dateChange([$new_year,$old_month,$new_month]);
 	});
 	$($month).change(function() {
 		$new_month = $(this).val();
 		$old_month = null;
-		dateChange([ $old_year, $new_year, $new_month ]);
-		if(birthArr()==2){
-			$(this).focus();
-		}
+		dateChange([$old_year,$new_year,$new_month]);
 	});
-	$($date).change(function() {
-		if (birthArr()==4) {
-			$("input[name='m_email']").focus();
-		}
-	});
-	$($email_input).click(function(){
-		if(birthArr($new_year==null?"년도를 선택해 주세요.":undefined)==4){
-			emailCheck($(this));
-		}
-	});
+	
+	
 	$($id_input).change(function() {
 						var id = $id_input.val();
 						dbTarget = "m_id";
-						var msg = !(id.length >= 5 && id.length <= 12) ? "최소 5글자 최대 12글자 입니다."
-								: (/[.*\s.*]/.test(id)) ? "공백을 포함할수 없습니다."
-										: (/^[0-9]/.test(id)) ? "숫자로 시작하실수 없습니다."
-												: (/[ㄱ-ㅎ|가-힣|ㅏ-ㅣ|ㄱ-ㅎ가-힣ㅏ-ㅣ]/
-														.test(id)) ? "한글은 사용하실수 없습니다."
-														: !(/^[a-zA-Z0-9]*$/
-																.test(id)) ? "특수문자를 포함할수 없습니다."
-																: null;
-						if (msg == null) {
-							duplicateAjax([ dbTarget, id,$(this) ]);
+						var msg = !(id.length >= 5 && id.length <= 12) ? "최소 5글자 최대 12글자 입니다.":
+								   (/[.*\s.*]/.test(id))?"공백을 포함할수 없습니다.":
+									   (/^[0-9]/.test(id))?"숫자로 시작하실수 없습니다.":
+										   (/[ㄱ-ㅎ|가-힣|ㅏ-ㅣ|ㄱ-ㅎ가-힣ㅏ-ㅣ]/.test(id))?"한글은 사용하실수 없습니다.":
+											   !(/^[a-zA-Z0-9]*$/.test(id))?"특수문자를 포함할수 없습니다."
+												: null;
+						if(msg==null){
+							duplicateAjax([dbTarget,id]);
 							return;
 						}
-						focusing($(msgSwith(msg, "#id_msg")),$(this));
-
+						msgSwith(msg,"#id_msg");
+						
 					});
 
 	$($password_1).change(function() {
 						var password_1 = $password_1.val();
 						var msg = !((password_1.length >= 8) && (password_1.length <= 15)) ? "최소 8글자 최대 15글자"
 								: !(/^[a-zA-Z]+/.test(password_1)) ? "영문 대소문자로 시작해야 합니다."
-										: !(/.*[!|@|#|$|%|&|*|^|~]+/
-												.test(password_1)) ? "특수문자 한개 이상 포함해야 합니다.(~,!,@,#,$,%,&,^,*)"
-												: null;
-						focusing(msgSwith(msg, "#password_msg_1"),$(this));
-						
+									: !(/.*[!|@|#|$|%|&|*|^|~]+/.test(password_1)) ? "특수문자 한개 이상 포함해야 합니다.(~,!,@,#,$,%,&,^,*)"
+										: null;
+						msgSwith(msg, "#password_msg_1");
 					});
-	$($password_2).focus(function() {
+	
+	$($password_2).focus(function(){
 		var msg = null;
-		var password_1 = $($password_1).val();
-		if (password_1 == '') {
+		var password_1=$($password_1).val();
+		if(password_1==''){
 			msg = "비밀번호를 먼저 입력해 주세요.";
 			msgSwith(msg, "#password_msg_2");
 			$($password_1).focus();
-		} else {
+		}else{
 			$("#fail_password_2").html("&nbsp;");
-			passwordCheck(password_1, $($password_2));
+			passwordCheck(password_1,$($password_2));
 		}
 	});
-
-	$($name_input).change(function() {
-						var name = $name_input.val();
-						var msg = !((name.length >= 2) && (name.length <= 5)) ? "2이상 5글자 이하 입니다."
-								: (/.*\s.*/.test(name)) ? "공백을 포함할수 없습니다."
-										: (/.*[ㄱ-ㅎ|ㅏ-ㅣ].*/.test(name)) ? "자음 또는 모음은 사용할수 없습니다."
-												: !(/.*[가-힣].*/.test(name)) ? "한글만 입력가능합니다."
-														: null;
-						focusing(msgSwith(msg, "#name_msg"),$(this));
-					});
-
-	$("input[type='radio']").click(function() {
+	
+	$($name_input).change(function(){
+		var name = $name_input.val();
+		var msg = !((name.length>=2) && (name.length<=5))?"2이상 5글자 이하 입니다.":
+				   		(/.*\s.*/.test(name))?"공백을 포함할수 없습니다.":
+				   			(/^[ㄱ-ㅎ||ㅏ-ㅣ||ㄱ-ㅎㅏ-ㅣ]*$/.test(name))?"자음 또는 모음은 사용할수 없습니다.":
+				   				!(/^[가-힣]*$/.test(name))?"한글만 입력가능합니다."
+						   :null;
+		msgSwith(msg, "#name_msg");
+	});
+	
+	
+	$("input[type='radio']").click(function(){
 		var id = $(this).attr("id");
 		var arr = $("input[type='radio']");
 		var value = null;
-		$.each(arr, function(i) {
-			/*
-			 * if($(arr[i]).attr("id")==id){ $(arr[i]).prop('checked',true);
-			 * }else{ $(arr[i]).prop('checked',false); }
-			 */
-
-			if ($(arr[i]).attr("id") == id) {
-				$(arr[i]).attr("checked", "checked");
-			} else {
+		$.each(arr,function(i){
+		/*	if($(arr[i]).attr("id")==id){
+				$(arr[i]).prop('checked',true);
+			}else{
+				$(arr[i]).prop('checked',false);
+			}*/
+			
+			if($(arr[i]).attr("id")==id){
+				$(arr[i]).attr("checked","checked");
+			}else{
 				$(arr[i]).removeAttr("checked");
 			}
 		});
 	});
-	function birthCheck(birth) {
-		var continueValue = ((new Date().getFullYear()) - $(birth[0]).val());
-		var msg =null;
-		var flag = 0;
-		if (continueValue <= 12) {
-			msg =  birth[3]!=undefined?birth[3]:"만12세 이상부터 회원가입이 가능합니다.";
-			$(birth[0]).focus();
-			flag = msg !="만12세 이상부터 회원가입이 가능합니다."?0:1;
-		} else if ($(birth[1]).val() == 0) {
-			msg = "월을 선택해 주세요";
-			$(birth[1]).focus();
-			flag = 2;
-		} else if ($(birth[2]).val() == 0) {
-			msg = "날짜를 선택해 주세요.";
-			$(birth[2]).focus();
-			flag = 3;
-		}else{
-			flag =4;
-		}
-		msgSwith(msg, "#birth_msg");
-		return flag;
-	}
-	$($month).click(function(){
-		if(birthArr()==1){
-			$(this).children('option').prop('disabled',false);
-			birthArr($new_year==null?"년도를 선택해 주세요.":undefined);
-		}
-	});
-	$($date).click(function(){
-		var msg;
-		
-		if(birthArr()==1){
-			$(this).children('option').prop('disabled',false);
-			msg = $new_year==null?"년도를 선택해 주세요.":undefined;
-		}else if(birthArr()==2){
-			msg = "월을 선택해 주세요.";
-		}
-		birthArr(msg);
-	});
-	dateCheck($date);
-	dateChange([ $old_year, $old_month ]);
-	function birthArr(msg){
-		return birthCheck([ $year, $month, $date,msg ]);
-	}
-});  
-function emailCheck(email){
-	$(email).change(function(){
-		if($(email).val()!=''){
-		console.log("emailCheck call");
-		var email = $(email).val();
-		var msg = (/.*[@|.]?/.test(email))?"ywyi1992@gmail.com 형식으로 입력해 주세요.":null;
-		msgSwith(msg,"#email_msg");
-		}
-	});
-}
-function dateCheck(date){
-	$(date).change(function(){
-		if($(date).val()!=0){
-		msgSwith(null,"#birth_msg");  
-		}
-	});
-}
+	
+	
+	
+	dateChange([$old_year,$old_month]);
+}); 
+
 function successMsg(target) {
 	var msg= "사용하셔도 좋은 ";
 	switch (target) {
@@ -184,8 +113,6 @@ function successMsg(target) {
 		msg+="비밀번호";
 		break;
 	case "#name_msg":
-		return "&nbsp;";
-	case "#birth_msg":
 		return "&nbsp;";
 	default:
 		break;
@@ -206,12 +133,6 @@ function setMsgSelecter(target,select){
 	case "#name_msg":
 		select+="_name";
 		break;
-	case "#birth_msg":
-		select+="_birth";
-		break;
-	case "#email_msg":
-		select+="_email";
-		break;
 	default:
 		break;
 	}
@@ -223,8 +144,10 @@ function msgSwith(msg, target) {
 	var msgSelector = null;
 	var changeId = null;
 	var changeClass = null;
-	var idSelecter = null;  
+	
+	var idSelecter = null;
 	var classSelector = null;
+	
 	var continueValue = null;
 	msgSelector = setMsgSelecter(target,select);  
 	classSelector = "."+msgSelector.replace(select,change); 
@@ -233,29 +156,16 @@ function msgSwith(msg, target) {
 				(continueValue==undefined)?"#"+msgSelector:"#"+continueValue;
 	changeId=msgSelector;
 	changeClass=msgSelector;
+	console.log(idSelecter);
 	msg = (msg==null) ? successMsg(target) : msg;
 	$(idSelecter).attr("class",changeClass); 
 	$(idSelecter).html(msg);
-	$(idSelecter).attr("id",changeId);  
-	return "."+changeClass;
+	$(idSelecter).attr("id",changeId);
 }
-function focusing(searchClass,target){
-	if($(searchClass).attr("id").search("fail")==0){
-		$(target).focus();
-	}else{
-		var inputs = $($(target).parents("form")).find('input');
-		console.log($(inputs).index($(target))+1);
-		$.each(inputs,function(i){
-			if($(inputs).index($(target))+1==$(inputs).index($(inputs[i]))){
-				$(inputs[i]).focus(); 
-			}
-		})
-	}
-}
+
 function duplicateAjax(arr) {
-	var target = arr[0]; 
+	var target = arr[0];
 	var duplicateValue = arr[1];
-	var input = arr[2];
 	$.ajax({
 			type : 'POST',
 			url : '/member/duplicate',
@@ -266,11 +176,11 @@ function duplicateAjax(arr) {
 			dateType : 'text',
 			success : function(result) {
 				var selecter=target=="m_id"?"#id_msg":"#nickname_msg";
-				var msg = null;
 				if(eval(result)){
-					msg= "중복된"+((target=="m_id")?" 아이디 ":" 닉네임 ")+"입니다.";
-				} 
-				focusing($(msgSwith(msg,selecter)),input);
+					msgSwith("중복된"+((target=="m_id")?" 아이디 ":" 닉네임 ")+"입니다.",selecter);
+					return;
+				}
+				msgSwith(null,selecter);
 			}
 	/*		,
 			complete:function(){
@@ -290,11 +200,7 @@ function passwordCheck(password_1,password_2){
 		if(msg==null){
 			$("#success_password_1").html("&nbsp;");
 		}
-		var classSelecter = msgSwith(msg, "#password_msg_2");
-		
-		if($(classSelecter).attr("id").search("success")==0){
-			focusing(classSelecter,$(this));
-		}
+		msgSwith(msg, "#password_msg_2");
 	});
 }
 
