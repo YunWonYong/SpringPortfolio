@@ -8,16 +8,16 @@ public class AccountDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String m_id, m_password, autoLoing;
+	private String m_id, m_password, autoLogin;
 
 	public AccountDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDTO(String m_id, String m_password, String autoLoing) {
+	public AccountDTO(String m_id, String m_password, String autoLogin) {
 		this.m_id = m_id;
 		this.m_password = m_password;
-		this.autoLoing = autoLoing;
+		this.autoLogin = autoLogin;
 	}
 
 	public String getM_id() {
@@ -36,18 +36,18 @@ public class AccountDTO implements Serializable {
 		this.m_password = m_password;
 	}
 
-	public String getAutoLoing() {
-		return autoLoing;
+	public String getAutoLogin() {
+		return autoLogin;
 	}
 
-	public void setAutoLoing(String autoLoing) {
-		this.autoLoing = autoLoing;
+	public void setAutoLogin(String autoLoin) {
+		this.autoLogin = autoLoin;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+ 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,4 +72,10 @@ public class AccountDTO implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "AccountDTO [m_id=" + m_id + ", m_password=" + m_password + ", autoLoin=" + autoLogin + "]";
+	}
+	
 }

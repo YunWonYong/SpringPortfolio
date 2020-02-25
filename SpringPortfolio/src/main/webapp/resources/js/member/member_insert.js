@@ -32,7 +32,7 @@ $(function() {
 		var msg = null;
 		var nickname = $($nickname_input).val(); 
 		dbTarget = 'm_nickname';
-		duplicateAjax([ dbTarget, nickname,$(this) ]);
+		duplicateAjax([ dbTarget, nickname,$(this)]);
 	});
 	if($($zipcode_input).val()!=''&&addressflag){
 		$("input[name='m_address2']").focus();

@@ -201,5 +201,4 @@ public class MemberDTO implements Serializable {
 			return false;
 		return true;
 	}
-
 }

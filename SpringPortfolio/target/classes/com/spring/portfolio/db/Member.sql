@@ -15,6 +15,7 @@ m_phone varchar2(13) not null,
 m_gender char(1) check(m_gender in('1','0')) not null,
 m_registdate date default sysdate
 )
+drop 
 
 delete from portfolio_member
 
@@ -49,3 +50,4 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'0')
 									
 commit
+select * from portfolio_member
