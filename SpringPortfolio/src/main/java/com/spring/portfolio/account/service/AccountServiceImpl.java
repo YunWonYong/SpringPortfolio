@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.repository.AccountDAO;
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
@@ -15,6 +16,11 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void transaction() throws Exception {
+	}
+
+	@Override
+	public boolean login(AccountDTO dto) throws Exception {
+		return false;
 	}
 
 }

@@ -19,9 +19,7 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 	public MemberUtility() {
 		// TODO Auto-generated constructor stub
 	}
-	public String setEmail(String e_id,String e_address) {
-		return e_id+"@"+e_address;
-	}
+
 	public char setGender(String gender) {
 		return gender!=null?'0':'1';
 	}

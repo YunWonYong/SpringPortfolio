@@ -32,7 +32,6 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView register(ModelAndView mv) throws Exception {
 		MemberDTO dto = (MemberDTO) mv.getModel().get("dto");
 		MemberVO vo = (MemberVO)mv.getModel().get("vo");
-		dto.setM_email(util.setEmail(dto.getM_email(), vo.getEmailAdrress()));
 		dto.setM_gender(util.setGender(vo.getGenderCheck()));
 		dto.setM_age(util.getAge(vo.getYear()));
 		return mv;
