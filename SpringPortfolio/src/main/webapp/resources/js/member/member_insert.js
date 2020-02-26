@@ -32,7 +32,15 @@ $(function() {
 		var msg = null;
 		var nickname = $($nickname_input).val(); 
 		dbTarget = 'm_nickname';
-		duplicateAjax([ dbTarget, nickname,$(this) ]);
+		msg = (/.*\s.*/.test(nickname))?"빈문자를 포함할수 없습니다."
+								:(/^[a-zA-Z0-9]*$/.test(nickname))?(!(nickname.length>=4 && nickname.length<=15)?"최소 4글자 최대 15 글자 입니다.":null)
+										:(/^[가-힣0-9]*$/.test(nickname))?!(nickname.length>=2 && nickname.length<=5)?"최소 2글자 최대 5글자 입니다.":null
+												:!(/^[a-zA-Z0-9가-힣]*$/.test(nickname))?"특수문자나 자음,모음을 포함할수 없습니다.":null;
+		if(msg==null){
+			duplicateAjax([ dbTarget, nickname,$(this) ]);
+			return;
+		} 
+		focusing(msgSwith(msg,'#nickname_msg'));
 	});
 	if($($zipcode_input).val()!=''&&addressflag){
 		$("input[name='m_address2']").focus();
@@ -351,7 +359,7 @@ function duplicateAjax(arr) {
 }
 function passwordCheck(password_1,password_2){
 	var msg = null;
-	$(password_2).change(function(){
+	$(password_2).focusout(function(){
 		password_2 = $(this).val();
 		if(password_1!=password_2){
 			msg = "비밀번호가 맞지 않습니다.";
