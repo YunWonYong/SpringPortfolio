@@ -33,7 +33,6 @@ public class AccountController {
 			if(!accountService.login(mv)) {
 				throw new Exception();
 			}
-			request.getSession().setAttribute("test","TESt");
 			mv.setViewName("redirect:/");
 		} catch (Exception e) {
 			mv.clear();
