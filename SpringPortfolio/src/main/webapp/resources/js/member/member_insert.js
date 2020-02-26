@@ -41,6 +41,7 @@ $(function() {
 			return;
 		} 
 		focusing(msgSwith(msg,'#nickname_msg'));
+		duplicateAjax([ dbTarget, nickname,$(this)]);
 	});
 	if($($zipcode_input).val()!=''&&addressflag){
 		$("input[name='m_address2']").focus();
