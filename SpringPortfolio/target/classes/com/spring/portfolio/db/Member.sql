@@ -2,6 +2,7 @@ create table portfolio_member(
 m_index number(7) unique not null,
 m_id varchar2(15) primary key not null,
 m_password varchar2(20) not null,
+m_nickname varchar2(15) unique,
 m_name varchar2(21) not null,
 m_grant char(1) default 'z', 
 m_birth date not null,
@@ -14,12 +15,14 @@ m_phone varchar2(13) not null,
 m_gender char(1) check(m_gender in('1','0')) not null,
 m_registdate date default sysdate
 )
+drop 
 
 delete from portfolio_member
 
 insert into portfolio_member(m_index,
 						     m_id,
 						     m_password,
+						     m_nickname,
 						     m_name,
 						     m_grant,
 						     m_birth,
@@ -33,7 +36,8 @@ insert into portfolio_member(m_index,
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'admin',
-									'admin123',
+									'1234',
+									'admin',
 									'admin',
 									'a',
 									'1992-11-07',
@@ -44,3 +48,6 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'google@gmail.com',
 									'010-2222-2222',
 									'0')
+									
+commit
+select * from portfolio_member

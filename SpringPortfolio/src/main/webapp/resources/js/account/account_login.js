@@ -4,8 +4,12 @@
 		var requestM_id = "";
 		$("#form_submit").click(function() {
 			if (form_submit()) {
-				$("form").submit();
-			}
+				$("form").attr("onSubmit","true"); 
+			} 
+		});
+		$("input[type='checkbox']").change(function(){
+			$(this).attr("value",$(this).val()=="on"?"off":"on");
+			
 		});
 		$("input[name=m_id]").click(function() {
 			if ($(this).val() != '') {

@@ -22,7 +22,7 @@
 </script>
 </head>
 <body>
-	<form action="/member/insert" method="POST">
+	<%-- <form action="/member/insert" method="POST">
 		<table>
 			<thead>
 				<tr>
@@ -42,6 +42,12 @@
 				</tr>
 				<tr>
 					<th id="password_msg_2" class="msg">&nbsp;</th>
+				</tr>
+				<tr>
+					<th>닉네임</th>
+				</tr>
+				<tr>
+					<th id="nickname_msg" class="msg">&nbsp;</th>
 				</tr>
 				<tr>
 					<th>이름</th>
@@ -103,6 +109,9 @@
 					<td><input type="password" name="password_2" id="password_2" /></td>
 				</tr>
 				<tr>
+					<td><input type="text" name="m_nickname" /></td>
+				</tr>
+				<tr>
 					<td><input type="text" name="m_name" /></td>
 				</tr>
 				<tr>
@@ -150,6 +159,95 @@
 
 
 		</table>
-	</form>
+	</form> --%>
+	<div class="loginBox">
+		<h1>회원가입</h1>
+		<form class="login-form" action="/member/insert" method="POST">
+
+			<div class="id">
+				<p>아이디</p>
+				<input class="txtb" required type="text" name="m_id"> <span
+					id="id_msg" class="msg">&nbsp;</span>
+			</div>
+			<div class="pw">
+				<p>비밀번호</p>
+				<input class="txtb" type="password" name="m_password"
+					id="password_1"> <span id="password_msg_1" class="msg">&nbsp;</span>
+			</div>
+
+			<div class="pwcheck">
+				<p>비밀번호 재확인</p>
+				<input class="txtb" type="password" name="password_2"
+					id="password_2"> <span id="password_msg_2" class="msg">&nbsp;</span>
+			</div>
+
+			<div>
+				<p>닉네임</p>
+				<input class="txtb" type="text" name="m_nickname"> <span
+					id="nickname_msg" class="msg">&nbsp;</span>
+			</div>
+
+			<div class="gender">
+				<p>성별</p>
+				<div class="girl">
+					<span>여자</span> <input type="radio" id="woman">
+				</div>
+				<div class="man">
+					<span>남자</span> <input type="radio" name="genderCheck" id="man"
+						checked="checked" /> <span id="gender_msg" class="msg">&nbsp;</span>
+				</div>
+			</div>
+
+
+			<div class="birth">
+				<p>생년월일</p>
+				<select name="year">
+					<c:forEach items="${util.year }" var="year">
+						<option value="${year }">${year }</option>
+					</c:forEach>
+				</select>
+				<samp style="font-size: 20px;">-</samp>
+				<select name="month">
+					<c:forEach items="${util.month }" var="month">
+						<option value="${month }">${month }</option>
+					</c:forEach>
+				</select>
+				<samp style="font-size: 20px;">-</samp>
+				<select name="date" id="date">
+					<option value="00">00</option>
+				</select> <span id="birth_msg" class="msg">&nbsp;</span>
+			</div>
+
+			<div class="email">
+				<p>이메일</p>
+				<input class="txtb" type="text" name="m_email"> <span
+					id="email_msg" class="msg">&nbsp;</span>
+			</div>
+
+			<div class="phone">
+				<p>핸드폰 번호</p>
+				<input class="txtb" name="m_phone"> <span id="" class="msg">&nbsp;</span>
+			</div>
+
+			<div class="zipcode">
+				<p>우편번호</p>
+				<input class="txtb" name="m_zipcode" id="m_zipcode">
+				<button onclick="daumPostcode()">우편찾기</button>
+			</div>
+
+			<div class="adress">
+				<p>주소</p>
+				<input class="txtb" name="m_address1" id="m_address1"> <span
+					id="" class="msg">&nbsp;</span>
+			</div>
+			<div class="adress2">
+				<p>상세주소</p>
+				<input class="txtb" name="m_address2" id="m_address2" required>
+				<span id="" class="msg">&nbsp;</span>
+			</div>
+
+			<input class=".txtb" type="submit" name="" value="회원가입">
+		</form>
+	</div>
 </body>
 </html>

@@ -11,6 +11,7 @@ $(function() {
 	var $genderWoman = $("#woman");
 	var $phone_input = $("input[name='m_phone']");
 	var $zipcode_input = $("input[name='m_zipcode']");
+	var $nickname_input = $("input[name='m_nickname']");
 	var $old_year = $year.val();
 	var $old_month = $month.val();
 	var $new_year = null;
@@ -26,6 +27,12 @@ $(function() {
 			}
 			
 
+	});
+	$($nickname_input).focusout(function(){
+		var msg = null;
+		var nickname = $($nickname_input).val(); 
+		dbTarget = 'm_nickname';
+		duplicateAjax([ dbTarget, nickname,$(this)]);
 	});
 	if($($zipcode_input).val()!=''&&addressflag){
 		$("input[name='m_address2']").focus();
@@ -104,7 +111,7 @@ $(function() {
 			$($password_1).focus();
 		} else {
 			$("#fail_password_2").html("&nbsp;");
-			passwordCheck(password_1, $($password_2));
+			passwordCheck(password_1, $(this));
 		}
 	});
 
@@ -155,7 +162,6 @@ $(function() {
 	$($phone_input).change(function() {
 		var msg = null;
 		var phone = $(this).val();
-		console.log(phone);
 		if (phone != "") {
 			msg = !(/^[010]{3}.-?[0-9]{3,4}.-?[0-9]{4}/.test(phone)) ?
 						"010-2222-2222 형식으로 입력해 주세요."

@@ -6,7 +6,9 @@
 <title>Home</title>
 </head>
 <body>
-	<a href="/member/insert">회원가입</a>
+	${not empty login?"asd":"asdss"}
+	${not empty test ?'not null':'null'} 
+	<a href="/member/insert">회원가입</a>	
 	<a href="/account/login">로그인</a>
 	<a href="/account/logout">로그아웃</a>
 </body>
