@@ -32,6 +32,6 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "index";
+		return "/"; 
 	}
 }
