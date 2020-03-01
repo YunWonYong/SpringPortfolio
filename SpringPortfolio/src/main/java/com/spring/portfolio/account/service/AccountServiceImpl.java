@@ -29,17 +29,13 @@ public class AccountServiceImpl implements AccountService {
 	public boolean login(ModelAndView mv) throws Exception {
 		boolean flag = false;
 		try {
-			System.out.println("call");
 			ModelMap map = mv.getModelMap();
 			HttpServletRequest request = (HttpServletRequest) map.get("request");
 			HttpServletResponse response = (HttpServletResponse) map.get("response");
 			AccountDTO dto = (AccountDTO) map.get("dto");
 			MemberDTO login = dao.login(dto); 
-			System.out.println(dto.getAutoLogin());
-			System.out.println(login);
 			if(login!=null) {
 				request.getSession().setAttribute("login", login);
-				System.out.println(((MemberDTO)request.getSession().getAttribute("login")).getM_id()); 
 				if(dto.getAutoLogin()!=null) {
 //				Cookie cookie = new Cookie("asd",dto.getM_id());
 //				cookie.setPath("/");
@@ -47,11 +43,10 @@ public class AccountServiceImpl implements AccountService {
 //				response.addCookie(cookie);
 				}
 				flag = true;
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(flag);
 		return flag;
 	}
 

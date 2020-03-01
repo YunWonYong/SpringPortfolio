@@ -1,4 +1,4 @@
-package spring.portfolio.index.dbcp;
+package spring.portfolio.index.db;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
 public class DataSourceBeanTest {
 	@Inject
 	private DataSource dataFactory;
@@ -24,7 +24,7 @@ public class DataSourceBeanTest {
 	@Test
 	public void testDataFactoryBean1() {
 		assertNotNull(dataFactory);
-	}
+	} 
 	@Test
 	public void testDataFactoryBean2(){
 		Connection conn = null;

@@ -3,6 +3,7 @@ package com.spring.portfolio.account.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,14 @@ public class AccountController {
 			mv.addObject("msg","아이디와 비빌번호를 확인해 주세요.");
 			mv.setViewName("/account/account_login");
 		}
+		return mv;
+	}
+	@RequestMapping("logout")
+	public ModelAndView logout(ModelAndView mv,HttpSession sess) {
+		if(sess.getAttribute("login")!=null) {
+			sess.invalidate();
+		}
+		mv.setViewName("/");
 		return mv;
 	}
 }

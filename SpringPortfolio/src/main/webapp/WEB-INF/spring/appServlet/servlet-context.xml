@@ -25,13 +25,13 @@
 		<beans:property name="order" value="1"/>
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
 	</beans:bean>
- 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<beans:property name="definitions">
+	<beans:bean id= "tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions"> 
 			<beans:list>
 				<beans:value>/WEB-INF/spring/tiles/*Tiles.xml</beans:value>   
 			</beans:list> 
-		</beans:property>   
-	</beans:bean>  
+		</beans:property> 
+	</beans:bean>
 	<context:component-scan base-package="com.spring.portfolio" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>

@@ -18,9 +18,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-
-	<context:property-placeholder location="/WEB-INF/properties/db/db.properties"/> 
-
+	<context:property-placeholder location="file:src/main/webapp/WEB-INF/properties/db/db.properties"/> 
 	<bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="${dataSource.driver}"/>
 		<property name="url" value="${dataSource.url}"/> 
@@ -37,9 +35,5 @@
 		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory"/>
 	</bean>
 	
-	<context:component-scan base-package="com.spring.portfolio">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	
-	<util:properties id="namespace" location="/WEB-INF/properties/namespace/namespace.properties"/>
+	<util:properties id="namespace" location="file:src/main/webapp/WEB-INF/properties/namespace/namespace.properties"/>
 </beans>

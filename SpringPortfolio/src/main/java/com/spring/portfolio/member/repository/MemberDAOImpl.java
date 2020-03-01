@@ -6,14 +6,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.portfolio.common.namespace.NameSpace;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
 @Repository(value = "memberDAO")
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAOImpl implements MemberDAO{
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE = "com.spring.portfolio.member.";
-	
 	
 	public MemberDAOImpl() {
 	}
@@ -21,39 +20,38 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int insert(MemberDTO dto) throws Exception {
-		return sqlSession.insert(NAMESPACE+"insert", dto);
+		return sqlSession.insert(NameSpace.MEMBER+"insert", dto);
 		
 	}
 
 
 	@Override
 	public MemberDTO read(String m_id) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"read",m_id);
+		return sqlSession.selectOne(NameSpace.MEMBER+"read",m_id);
 	}
 
 
 	@Override
 	public int update(MemberDTO dto) throws Exception {
-		return sqlSession.update(NAMESPACE+"update",dto);
+		return sqlSession.update(NameSpace.MEMBER+"update",dto);
 	}
 
 
 	@Override
 	public int delete(String m_id) throws Exception {
-		return sqlSession.delete(NAMESPACE+"delete", m_id);
+		return sqlSession.delete(NameSpace.MEMBER+"delete", m_id);
 	}
 
 
 	@Override
 	public List<MemberDTO> list() throws Exception {
-		return sqlSession.selectList(NAMESPACE+"list");
+		return sqlSession.selectList(NameSpace.MEMBER+"list");
 	} 
 
- 
 	@Override
 	public MemberDTO duplicate(DuplicateVO vo) throws Exception { 
 		
-		return sqlSession.selectOne(NAMESPACE+"duplicate",vo);
+		return sqlSession.selectOne(NameSpace.MEMBER+"duplicate",vo);
 	}
 	
 

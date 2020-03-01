@@ -18,7 +18,6 @@ import com.spring.portfolio.member.service.MemberService;
 @Controller
 @RequestMapping("member")
 public class MemberController {
-
 	@Resource(name = "memberService")
 	private MemberService memberService;
 	@Resource(name = "memberUtil")
