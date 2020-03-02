@@ -6,8 +6,9 @@
 <!DOCTYPE html>
 <html> 
 <head>
-<meta charset="UTF-8">
-<tiles:insertAttribute name="css"/>  
+<meta charset="UTF-8"> 
+<tiles:insertAttribute name="css"/> 
+
 <tiles:insertAttribute name="script"/>
 <title><tiles:insertAttribute name="title" /></title>
 </head>

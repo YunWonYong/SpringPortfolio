@@ -3,6 +3,7 @@ package com.spring.portfolio.account.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class AccountController {
 
 	@RequestMapping("login")
 	public ModelAndView login(ModelAndView mv) {
-		mv.setViewName("account/account_login");
+		mv.setViewName("/account/login");
 		return mv;
 	}
 
@@ -33,13 +34,21 @@ public class AccountController {
 			if(!accountService.login(mv)) {
 				throw new Exception();
 			}
-			mv.setViewName("redirect:/");
+			mv.setViewName("/");
 		} catch (Exception e) {
 			mv.clear();
 			mv.addObject("m_id", dto.getM_id());
 			mv.addObject("msg","아이디와 비빌번호를 확인해 주세요.");
-			mv.setViewName("/account/account_login");
+			mv.setViewName("/account/login");
 		}
+		return mv;
+	}
+	@RequestMapping("logout")
+	public ModelAndView logout(ModelAndView mv,HttpSession sess) {
+		if(sess.getAttribute("login")!=null) {
+			sess.invalidate();
+		}
+		mv.setViewName("/");
 		return mv;
 	}
 }
