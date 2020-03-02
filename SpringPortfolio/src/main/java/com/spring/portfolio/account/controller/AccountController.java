@@ -21,7 +21,7 @@ public class AccountController {
 
 	@RequestMapping("login")
 	public ModelAndView login(ModelAndView mv) {
-		mv.setViewName("account/account_login");
+		mv.setViewName("/account/login");
 		return mv;
 	}
 
@@ -34,12 +34,12 @@ public class AccountController {
 			if(!accountService.login(mv)) {
 				throw new Exception();
 			}
-			mv.setViewName("redirect:/");
+			mv.setViewName("/");
 		} catch (Exception e) {
 			mv.clear();
 			mv.addObject("m_id", dto.getM_id());
 			mv.addObject("msg","아이디와 비빌번호를 확인해 주세요.");
-			mv.setViewName("/account/account_login");
+			mv.setViewName("/account/login");
 		}
 		return mv;
 	}
