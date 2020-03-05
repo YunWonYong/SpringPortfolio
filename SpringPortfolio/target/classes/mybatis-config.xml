@@ -4,5 +4,6 @@
 	<typeAliases>
 		<typeAlias type="com.spring.portfolio.member.model.MemberDTO" alias="memberDTO"/>
 		<typeAlias type="com.spring.portfolio.account.model.AccountDTO" alias="accountDTO"/>
+		<typeAlias type="com.spring.portfolio.common.vo.DuplicateVO" alias="duplicateVO"/>
 	</typeAliases>
 </configuration> 

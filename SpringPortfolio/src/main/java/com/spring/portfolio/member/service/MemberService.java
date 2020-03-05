@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.common.vo.DuplicateVO;
+import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
 import com.spring.portfolio.service.MainService;
 
@@ -15,7 +16,9 @@ public interface MemberService extends MainService {
 
 	public abstract boolean modify(String id) throws Exception;
 	
-	public abstract List<MemberDTO> allList()throws Exception; 
+	public abstract List<Object> allList()throws Exception; 
 	
 	public abstract String checkDuplicate(DuplicateVO vo) throws Exception;
+
+	public abstract List<Object> searchList(SearchVO searchVO) throws Exception;
 }

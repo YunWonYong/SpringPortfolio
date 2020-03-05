@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.portfolio.member">
-	<select id ="read" resultType="memberDTO">
+	<select id="read" resultType="memberDTO">
 		<![CDATA[
 			select * from portfolio_member
 			where m_id = #{m_id}
@@ -13,7 +13,30 @@
 			select m_id from portfolio_member
 		]]>
 		<where>
-			${target}= #{value}
+			#{target} = #{value}
 		</where>
+	</select>
+
+	<select id="list" resultType="memberDTO">
+		<![CDATA[
+			select m_index,
+				   m_id,
+				   m_nickname,
+				   m_name,
+				   m_age,
+				   m_gender,
+				   m_grant,
+				   m_registdate from portfolio_member
+		]]>
+		<if test="target != null">
+			<where>
+				<![CDATA[
+					${target} =  #{value}
+				]]>
+			</where>
+		</if>
+		<![CDATA[
+			order by m_index asc
+		]]>
 	</select>
 </mapper>

@@ -35,10 +35,10 @@ insert into portfolio_member(m_index,
 						     m_gender
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
-									'admin',
+									'admin2',
 									'1234',
-									'admin',
-									'admin',
+									'admin2',
+									'admin2',
 									'a',
 									'1992-11-07',
 									29,
@@ -50,4 +50,18 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'0')
 									
 commit
-select * from portfolio_member
+
+update portfolio_member set m_age = 32 where m_index = 2
+
+
+select m_index,
+	   m_id,
+	   m_nickname,
+	   m_name,
+	   m_grant,
+	   m_age,
+	   m_gender,
+	   m_registdate from portfolio_member
+where m_index = 1 order by m_index desc 
+
+				   

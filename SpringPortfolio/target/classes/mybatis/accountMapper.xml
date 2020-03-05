@@ -4,8 +4,8 @@
 
 	<select id="login" resultType="memberDTO">
 		<![CDATA[
-		select m_id,m_grant from portfolio_member
-		]]>
+		select m_id,m_grant,m_nickname from portfolio_member
+		]]> 
 			<where>
 			m_id = #{m_id} and m_password = #{m_password}
 			</where>

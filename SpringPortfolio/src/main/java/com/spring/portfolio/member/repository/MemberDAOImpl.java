@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.common.namespace.NameSpace;
 import com.spring.portfolio.common.vo.DuplicateVO;
+import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
 @Repository(value = "memberDAO")
 public class MemberDAOImpl implements MemberDAO{
@@ -44,7 +45,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 	@Override
-	public List<MemberDTO> list() throws Exception {
+	public List<Object> list() throws Exception {
 		return sqlSession.selectList(NameSpace.MEMBER+"list");
 	} 
 
@@ -52,6 +53,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberDTO duplicate(DuplicateVO vo) throws Exception { 
 		
 		return sqlSession.selectOne(NameSpace.MEMBER+"duplicate",vo);
+	}
+
+
+	@Override
+	public List<Object> searchList(SearchVO searchVO) throws Exception {
+		return sqlSession.selectList(NameSpace.MEMBER+"list",searchVO);
 	}
 	
 

@@ -19,8 +19,8 @@
 
 </style>
 <script type="text/javascript">
-	
 </script>
+<title></title>
 </head>
 <body>
 

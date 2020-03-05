@@ -12,7 +12,7 @@ import com.spring.portfolio.common.util.UtilityImpl;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ="file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
 public class UtilityImplTest {
 	private UtilityImpl util = new UtilityImpl();
 	

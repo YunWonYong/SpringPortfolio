@@ -34,7 +34,7 @@ public class AccountController {
 			if(!accountService.login(mv)) {
 				throw new Exception();
 			}
-			mv.setViewName("/");
+			mv.setViewName("redirect:/");
 		} catch (Exception e) {
 			mv.clear();
 			mv.addObject("m_id", dto.getM_id());
@@ -48,7 +48,7 @@ public class AccountController {
 		if(sess.getAttribute("login")!=null) {
 			sess.invalidate();
 		}
-		mv.setViewName("/");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

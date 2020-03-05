@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.vo.DuplicateVO;
+import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
 import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.repository.MemberDAO;
@@ -50,14 +51,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberDTO> allList() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object> allList() throws Exception {
+		return dao.list();
 	}
 
 	@Override
 	public String checkDuplicate(DuplicateVO vo) throws Exception {
 		return util.booleanTransform(dao.duplicate(vo))?"true":"false";
+	}
+
+	@Override
+	public List<Object> searchList(SearchVO searchVO) throws Exception {
+		return dao.searchList(searchVO);
 	}
 
 }

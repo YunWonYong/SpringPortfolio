@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${not empty sessionScope.login}">
-	<c:set scope="session" value="${login}" var="dto" />
-	<c:set value="${dto.m_grant}" var="grant" />
-	<c:set value="${dto.m_nickname}" var="nickname" />
-	<c:set value="${dto.m_id }" var="id" />
+<c:if test="${not empty sessionScope.login}"> 
+	<c:set value="${login.m_grant}" var="grant" />
+	<c:set value="${login.m_nickname}" var="nickname" />
+	<c:set value="${login.m_id }" var="id" /> 
 </c:if>
 <div id="header_wrap">
 	<div id="header_menu">
@@ -21,6 +20,7 @@
 						</c:when>
 						<c:otherwise>
 							<span>${nickname}운영자</span>
+							<a href="/member/list">list</a>
 						</c:otherwise>
 					</c:choose>
 				</div>

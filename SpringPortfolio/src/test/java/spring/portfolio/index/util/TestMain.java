@@ -1,15 +1,16 @@
 package spring.portfolio.index.util;
 
-
-
 public class TestMain {
 
-	public static void main(String[] args) {
-		/*
-		 * Map<String,List<String>> map = new MemberUtility().getBirth();
-		 * map.keySet().iterator().forEachRemaining(msg->{
-		 * System.out.println(map.get(msg)); });
-		 */
-
+	public static void main(String[] args) throws Exception {
+		Object value  = null;
+		value = (Integer)1;
+		System.out.println(value instanceof Integer);
+		value = (String)"text";
+		System.out.println(value instanceof String);
+		value = "test";
+		System.out.println(value instanceof String);
+		value = 1;
+		System.out.println(value.getClass().getSimpleName());
 	}
 }
