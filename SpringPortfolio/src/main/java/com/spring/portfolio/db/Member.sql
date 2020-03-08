@@ -35,11 +35,11 @@ insert into portfolio_member(m_index,
 						     m_gender
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
-									'admin2',
+									'tester15',
 									'1234',
-									'admin2',
-									'admin2',
-									'a',
+									'tester15',
+									'tester15',
+									'z',
 									'1992-11-07',
 									29,
 									00000,
@@ -47,7 +47,7 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'우리회사18평',
 									'google@gmail.com',
 									'010-2222-2222',
-									'0')
+									'0');
 									
 commit
 
@@ -63,5 +63,26 @@ select m_index,
 	   m_gender,
 	   m_registdate from portfolio_member
 where m_index = 1 order by m_index desc 
+
+select *
+from(
+	select * from(
+	   					select m_index,
+	   						   m_id,
+	                           m_nickname,
+	                           m_name,
+	                           m_grant,
+	                           m_age,
+	                           m_gender,
+	                           m_registdate,
+	                           rownum as r
+	                           from portfolio_member
+	                    where m_grant ='z' order by m_index desc 
+						)where r<=20
+)where r between 10 and 20
+
+
+
+
 
 				   

@@ -21,16 +21,12 @@ public class JsonParsing {
 	}
 
 	public String parsingList(final List<Object> list) throws Exception {
-		if(list.size()>0) {
-			parsingList = list;
-			return parsingSetting();
-		}
-		JSON.append("회원을 조회할수 없습니다.");
-		return JSON.toString();
+		this.parsingList=list;
+		return this.parsingList.size() > 0 ? parsingSetting() : null;
 	}
 
 	private String parsingSetting() throws Exception {
-		JSON.append("{");
+		JSON.append("{"); 
 		oldTarget = parsingList.get(0).getClass().getSimpleName().toLowerCase();
 		for (int i = 0; i < parsingList.size(); i++) {
 			obj = parsingList.get(i);
@@ -94,15 +90,17 @@ public class JsonParsing {
 		}
 		return fieldList;
 	}
+
 	private String typeExtract(String type) throws Exception {
 		return type.contains(".") ? type.substring(type.toString().lastIndexOf('.') + 1) : type;
 	}
+
 	private void typeSwith(String type, Field f) throws Exception {
 		Object not_a_string = null;
 		f.setAccessible(true);
 		switch (type.toLowerCase()) {
 		case "object":
-			objectParsing(f); 
+			objectParsing(f);
 			break;
 		case "char":
 			charParsing(f);
@@ -139,25 +137,25 @@ public class JsonParsing {
 		case "integer":
 		case "byte":
 		case "short":
-			appendNotAString(f,(Integer)value);
+			appendNotAString(f, (Integer) value);
 			break;
 		case "character":
-			appendText(f,String.valueOf((Character)value)); 
+			appendText(f, String.valueOf((Character) value));
 			break;
 		case "string":
-			appendText(f,(String)value);
+			appendText(f, (String) value);
 			break;
 		case "boolean":
-			appendNotAString(f,(Boolean)value);
+			appendNotAString(f, (Boolean) value);
 			break;
 		}
-		
+
 	}
 
 	private void charParsing(Field f) throws Exception {
 		f.setAccessible(true);
 		MemberUtility mu = new MemberUtility();
-		String value =null;
+		String value = null;
 		if (obj instanceof MemberDTO) {
 			switch (f.getName()) {
 			case "m_gender":
@@ -168,9 +166,8 @@ public class JsonParsing {
 				break;
 			}
 		}
-		appendText(f,value);
+		appendText(f, value);
 	}
-
 
 	private void appendKey(Field key) {
 		JSON.append("\"");
@@ -184,7 +181,7 @@ public class JsonParsing {
 	}
 
 	private void appendText(Field f, String value) throws Exception {
-		if(value==null) {
+		if (value == null) {
 			appendNotAString(f, value);
 			return;
 		}
@@ -193,7 +190,6 @@ public class JsonParsing {
 		JSON.append(value);
 		JSON.append("\"");
 	}
-
 
 	private String parsingEnd() {
 		JSON.delete(JSON.lastIndexOf(","), JSON.lastIndexOf(",") + 1);

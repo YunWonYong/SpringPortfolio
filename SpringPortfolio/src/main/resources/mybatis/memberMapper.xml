@@ -16,27 +16,48 @@
 			#{target} = #{value}
 		</where>
 	</select>
-
-	<select id="list" resultType="memberDTO">
+	<select id="allrow" resultType="integer">
+		select count(m_index) from portfolio_member
+	</select>
+	<select id="list" resultType="memberDTO" parameterType="hashmap">
 		<![CDATA[
-			select m_index,
-				   m_id,
-				   m_nickname,
-				   m_name,
-				   m_age,
-				   m_gender,
-				   m_grant,
-				   m_registdate from portfolio_member
+			select * from(
+						  select * from(
+						  				select m_index,
+				   							   m_id,
+				   							   m_nickname,
+				   							   m_name,
+				   							   m_age,
+				   							   m_gender,
+				   							   m_grant,
+				   							   m_registdate, 
+				   							   rownum as r from portfolio_member
 		]]>
-		<if test="target != null">
+		<if test="searchvo!=null ? searchvo.target != null:false">
 			<where>
 				<![CDATA[
-					${target} =  #{value}
+					${searchvo.target} =  #{searchvo.value}
 				]]>
 			</where>
 		</if>
 		<![CDATA[
 			order by m_index asc
 		]]>
+		<![CDATA[
+		)
+		]]>
+		<where>
+		<![CDATA[
+			r <=20
+		]]>
+		</where>
+		<![CDATA[
+		)
+		]]> 
+			<if test="pagingvo != null">
+		<where>
+				r between #{pagingvo.minimum} and #{pagingvo.maximum}
+		</where>
+			</if>
 	</select>
 </mapper>

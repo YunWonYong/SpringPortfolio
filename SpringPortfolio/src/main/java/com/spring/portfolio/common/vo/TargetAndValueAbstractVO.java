@@ -12,4 +12,13 @@ public abstract class TargetAndValueAbstractVO {
 		}
 		this.value = (Integer) value;
 	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public Object getValue() {
+		return value;
+	}
+
 }

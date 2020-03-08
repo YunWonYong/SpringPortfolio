@@ -1,6 +1,7 @@
 package com.spring.portfolio.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -51,8 +52,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Object> allList() throws Exception {
-		return dao.list();
+	public List<Object> allList(Map<String,Object> map) throws Exception {
+		return dao.list(map);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Object> searchList(SearchVO searchVO) throws Exception {
-		return dao.searchList(searchVO);
+	public int allRow() throws Exception {
+		return dao.allRow();
 	}
 
 }
