@@ -8,6 +8,7 @@ public class MemberVO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String year,genderCheck,emailAdrress;
+	private boolean test= true;
 	public MemberVO() {
 		// TODO Auto-generated constructor stub
 	}

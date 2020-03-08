@@ -1,77 +1,124 @@
-/*
- * package spring.portfolio.index.util;
- * 
- * import static org.junit.Assert.assertEquals; import static
- * org.junit.Assert.assertNotNull; import static org.junit.Assert.assertTrue;
- * 
- * import java.lang.reflect.Field; import java.util.ArrayList; import
- * java.util.Arrays; import java.util.Iterator; import java.util.List; import
- * java.util.Map;
- * 
- * import org.junit.Test; import org.junit.runner.RunWith; import
- * org.springframework.test.context.ContextConfiguration; import
- * org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
- * 
- * import com.spring.portfolio.account.model.AccountDTO; import
- * com.spring.portfolio.common.util.json.JsonParsing; import
- * com.spring.portfolio.common.util.json.JsonUnParsing; import
- * com.spring.portfolio.member.model.MemberDTO; import
- * com.spring.portfolio.member.model.MemberVO;
- * 
- * @RunWith(SpringJUnit4ClassRunner.class)
- * 
- * @ContextConfiguration(locations =
- * "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml") public class
- * JsonTest {
- * 
- * public JsonTest() { // TODO Auto-generated constructor stub }
- * 
- * @Test public void testParsing() throws Exception { List<Object> list =
- * Arrays.asList(new AccountDTO(), new AccountDTO(), new MemberVO());
- * List<Object> list2 = Arrays.asList( new MemberDTO(0, "tester1", "123",
- * "tester1", 'a', "2014/02/03", 7, "12345", "서울 강서구", "1020번지 12호",
- * "ywyi92@gmail.coom", "010-2571-3495", '1', "123", "tester"), new MemberDTO(1,
- * "tester2", "123", "tester1", 'a', "2014/02/03", 7, "12345", "서울 강서구",
- * "1020번지 12호", "ywyi92@gmail.coom", "010-2571-3495", '1', "123", "tester"),
- * new MemberDTO(2, "tester3", "123", "tester1", 'a', "2014/02/03", 7, "12345",
- * "서울 강서구", "1020번지 12호", "ywyi92@gmail.coom", "010-2571-3495", '1', "123",
- * "tester"), new AccountDTO(), new AccountDTO(), new MemberVO()); String test =
- * null; test = new JsonParsing().parsingList(list); assertNotNull(test); test =
- * new JsonParsing().parsingList(list2); assertNotNull(test); }
- * 
- * @Test public void testUnParsing() throws Exception { Map<String, Map<String,
- * String>> map = null; JsonUnParsing un = new JsonUnParsing(); List<Object>
- * jsonList = Arrays.asList(new AccountDTO(), new MemberVO()); String json = new
- * JsonParsing().parsingList(jsonList); map = un.unParsing(json);
- * assertNotNull(map); List<Boolean> flag1 = new ArrayList<Boolean>();
- * List<Boolean> flag2 = new ArrayList<Boolean>(); List<Boolean> flag3 = null;
- * flagList(jsonList, flag1); assertTrue(flag1.size() == 2); Iterator<String> it
- * = map.keySet().iterator(); int i = 0; while (it.hasNext()) { Class<? extends
- * Object> c = jsonList.get(i).getClass(); flag2.add(true); String key =
- * it.next(); flag3 = fieldEquals(map.get(key), c); key = key.replace("\"", "");
- * assertTrue(key.equals(c.getSimpleName().toLowerCase())); i++; }
- * assertTrue(Arrays.deepEquals(flag1.toArray(), flag2.toArray()));
- * flag3.forEach(flag -> { });
- * 
- * }
- * 
- * private List<Boolean> fieldEquals(Map<String, String> map, Class<? extends
- * Object> c) { Field[] f = getField(c); List<Boolean> list = new
- * ArrayList<Boolean>(); Iterator<String> it = map.keySet().iterator(); int i =
- * 0; while (it.hasNext()) { String key = it.next().replace("\"", ""); String
- * target = f[i].getName(); i++; } return list; }
- * 
- * private Field[] getField(Class<? extends Object> c) { Field[] f =
- * c.getDeclaredFields(); List<Field> list = new ArrayList<Field>(); for (int i
- * = 0; i < f.length; i++) { if (!f[i].getName().equals("serialVersionUID")) {
- * list.add(f[i]); } } return fieldAdd(list); }
- * 
- * private Field[] fieldAdd(List<Field> list) { Field[] f = new
- * Field[list.size()]; for (int i = 0; i < list.size(); i++) { f[i] =
- * list.get(i); } return f; }
- * 
- * private void flagList(List<Object> target, List<Boolean> flag) { for (int i =
- * 0; i < target.size(); i++) { flag.add(true); }
- * 
- * } }
- */
+
+package spring.portfolio.index.util;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.spring.portfolio.account.model.AccountDTO;
+import com.spring.portfolio.common.exception.json.JsonException;
+import com.spring.portfolio.common.exception.json.JsonStringException;
+import com.spring.portfolio.common.util.json.Json;
+import com.spring.portfolio.common.vo.DuplicateVO;
+import com.spring.portfolio.member.model.MemberDTO;
+import com.spring.portfolio.member.model.MemberVO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
+public class JsonTest {
+
+
+	@Test(expected = JsonException.class)
+	public void testJsonException() throws JsonException {
+		Json.parsing(new HashMap<String, Object>());
+		Json.parsing(1);
+	}
+
+	@Test(expected = JsonStringException.class)
+	public void testJsonStringException() throws JsonException {
+		Json.parsing("]");
+	}
+
+	@Test
+	public void testJsonStringParsing() {
+		String json = null;
+		try {
+			json = Json.parsing(
+					"{{{{{{{{\"test1\":\"test1,"
+					+ "test2\":test2,"
+					+ "test3:1,"
+					+ "test4:t1,"
+					+ "test5:123,"
+					+ "test6:null,"
+					+ "test7:true,"
+					+ "test8:false"
+					);
+			assertFalse(json.contains("]")&&json.contains("["));
+			json=Json.parsing("test:test,tests:tests");
+			assertTrue(json.contains("[")&&json.contains("},{")&&json.contains("]"));
+			json =Json.parsing("3test1:3test1,3test2:3test2");
+			assertTrue(json.indexOf("},{")!=json.lastIndexOf("},{"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			json = null; 
+		}finally {
+			assertNotNull("is json:"+json,json);
+			System.out.println(json);
+		}
+	}
+	
+	@Test
+	public void tesJsonStringElementArrayParsing() {
+		String json = null;
+		try {
+			json = Json.parsing(Arrays.asList("1test1:1test1,1test2:1test2"));
+			String fail = "is json:"+json;
+			assertFalse(fail,json.contains("]")&&json.contains("["));
+			json=Json.parsing(Arrays.asList("2test1:2test1,2test2:2test2"));
+			fail = "is json:"+json;
+			assertTrue(fail,json.contains("[")&&json.contains("},{")&&json.contains("]"));
+			json =Json.parsing(Arrays.asList("3test1:3test1,3test2:3test2","4test1:4test1,4test2:4test2","5test1:5test1,5test2:5test2,5test3:5test3"));
+			fail = "is json:"+json;
+			assertTrue(fail,json.indexOf("},{")!=json.lastIndexOf("},{"));
+			json = Json.parsing(Arrays.asList("6testFalse:false,6testTrue:true,6test:null"));
+			fail = "is json:"+json;
+			assertFalse(fail,json.contains("\"null\"")&&json.contains("\"false\"")&&json.contains("\"true\"")&&json.contains("}{")&&json.contains("}]{"));
+		} catch (JsonException e) {
+			e.printStackTrace();
+			json = null;
+		}finally {
+			assertNotNull(json);
+			System.out.println(json); 
+		}
+	}
+
+	@Test
+	public void testObjectEelementArrayParsing() {
+		String json = null;
+		try {	
+			json = Json.parsing(Arrays.asList(new MemberVO(),new MemberVO()));
+			System.out.println(json);
+		}catch (Exception e) {
+			e.printStackTrace();
+			json = null;
+		}finally {
+			assertNotNull("is json null!!!!!!!!!!!!!!",json);
+		}
+	}
+	
+	@Test
+	public void testArrayParsing() {
+		String json = null;
+		try {
+			json = Json.parsing(Arrays.asList(new MemberVO(),"test:test"));
+		}catch (Exception e) {
+			e.printStackTrace();
+			json  = null;
+		}finally {
+			assertNotNull("is json null!!!!!!!!!!!!!!",json);
+			System.out.println(json);
+		}
+	}
+}

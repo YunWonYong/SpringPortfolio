@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.common.exception.ListSwitch;
-import com.spring.portfolio.common.util.json.JsonParsing;
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.common.vo.SearchVO;
@@ -87,7 +86,7 @@ public class MemberController {
 			list = memberService.allList();
 		}finally {
 			if(list!=null) {
-				return new JsonParsing().parsingList(list);
+				//return new JsonParsing().parsingList(list);
 			}
 		}
 		return "회원을 조회할수 없습니다.";
