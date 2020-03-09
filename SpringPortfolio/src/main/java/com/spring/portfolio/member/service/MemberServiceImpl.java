@@ -9,18 +9,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.common.util.member.MemberUtility;
+import com.spring.portfolio.common.util.sql.SqlMultiObject;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
 import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.repository.MemberDAO;
+import com.spring.portfolio.paging.model.PagingEntity;
+import com.spring.portfolio.paging.repository.PagingDAO;
+import com.spring.portfolio.paging.service.PagingService;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
 	@Resource(name = "memberDAO")
-	private MemberDAO dao;
-	@Resource(name = "memberUtil")
-	private MemberUtility util;
+	private MemberDAO memberDAO;
+	@Resource(name = "pagingService")
+	private PagingService pagingService;
 
 	public MemberServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -31,39 +36,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView register(ModelAndView mv) throws Exception {
-		MemberDTO dto = (MemberDTO) mv.getModel().get("dto");
-		MemberVO vo = (MemberVO)mv.getModel().get("vo");
-		dto.setM_gender(util.setGender(vo.getGenderCheck()));
-		dto.setM_age(util.getAge(vo.getYear()));
-		return mv;
+	public int register(MemberDTO dto) throws Exception {
+		return memberDAO.insert(dto);
 	}
 
 	@Override
 	public MemberDTO getOne(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.read(id);
 	}
 
 	@Override
 	public boolean modify(String id) throws Exception {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Object> allList(Map<String,Object> map) throws Exception {
-		return dao.list(map);
+	public List<Object> allList(Map<String, Object> map) throws Exception {
+		PagingEntity entity = pagingService.recordSize(map);
+		map = SqlMultiObject.add(entity, map.get("searchvo"));
+		List<Object> list = memberDAO.list(map);
+		list.add(entity); 
+		return list; 
 	}
 
 	@Override
 	public String checkDuplicate(DuplicateVO vo) throws Exception {
-		return util.booleanTransform(dao.duplicate(vo))?"true":"false";
+		return memberDAO.duplicate(vo) == null ? "true" : "false";
 	}
-
-	@Override
-	public int allRow() throws Exception {
-		return dao.allRow();
-	}
-
 }

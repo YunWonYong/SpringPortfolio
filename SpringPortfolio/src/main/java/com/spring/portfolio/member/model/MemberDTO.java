@@ -11,7 +11,7 @@ public class MemberDTO implements Serializable {
 	private int m_index, m_age;
 	private char m_grant, m_gender;
 	private String m_id, m_password, m_name, m_birth, m_zipcode, m_address1, m_address2, m_email, m_phone, m_registdate,
-			m_nickname;
+			m_nickname, m_realGrant, m_realGender;
 
 	public MemberDTO() {
 	}
@@ -173,6 +173,22 @@ public class MemberDTO implements Serializable {
 		this.m_nickname = m_nickname;
 	}
 
+	public void setM_realGender(String m_gener) {
+		m_realGender = m_gener;
+	}
+
+	public void setM_realGrant(String m_grant) {
+		m_realGrant = m_grant;
+	}
+
+	public String getM_realGrant() {
+		return m_realGrant;
+	}
+
+	public String getM_realGender() {
+		return m_realGender;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -200,6 +216,15 @@ public class MemberDTO implements Serializable {
 		} else if (!m_id.equals(other.m_id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [m_index=" + m_index + ", m_age=" + m_age + ", m_grant=" + m_grant + ", m_gender=" + m_gender
+				+ ", m_id=" + m_id + ", m_password=" + m_password + ", m_name=" + m_name + ", m_birth=" + m_birth
+				+ ", m_zipcode=" + m_zipcode + ", m_address1=" + m_address1 + ", m_address2=" + m_address2
+				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_registdate=" + m_registdate + ", m_nickname="
+				+ m_nickname + "]";
 	}
 
 }

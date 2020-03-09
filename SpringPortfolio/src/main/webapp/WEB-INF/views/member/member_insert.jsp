@@ -50,15 +50,19 @@
 				<input class="txtb" type="text" name="m_nickname"/> <span
 					id="nickname_msg" class="msg">&nbsp;</span>
 			</div>
-
+			<div class="name">
+				<p>이름</p>
+				<!-- <label for="m_name"></label>  -->
+				<input class="txtb" type="text" name="m_name"/>
+			</div>
 			<div class="gender">
 				<div >성별</div>
-				<div class="girl">
-					<input type="radio" id="woman" /> <label for="woman">여자</label>
-				</div>
 				<div class="man">
 					<input type="radio" name="genderCheck" id="man" checked="checked" />
 					<label for="man">남자</label> <span id="gender_msg" class="msg">&nbsp;</span>
+				</div>
+				<div class="girl">
+					<input type="radio" id="woman" /> <label for="woman">여자</label>
 				</div>
 			</div>
 
@@ -87,7 +91,7 @@
 				<input class="txtb" type="text" name="m_email"> <span
 					id="email_msg" class="msg">&nbsp;</span>
 			</div>
-
+ 
 			<div class="phone">
 				<p>핸드폰 번호</p>
 				<input class="txtb" name="m_phone"> <span id="" class="msg">&nbsp;</span>

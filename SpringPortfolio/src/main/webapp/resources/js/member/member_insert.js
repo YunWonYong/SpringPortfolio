@@ -25,8 +25,6 @@ $(function() {
 				daumPostcode();
 				addressflag = true;
 			}
-			
-
 	});
 	$($nickname_input).focusout(function(){
 		var msg = null;
@@ -345,9 +343,11 @@ function duplicateAjax(arr) {
 			},
 			dateType : 'text',
 			success : function(result) {
+				console.log(result); 
+				console.log(eval(result));
 				var selecter=target=="m_id"?"#id_msg":"#nickname_msg";
 				var msg = null;
-				if(eval(result)){
+				if(!eval(result)){
 					msg= "중복된"+((target=="m_id")?" 아이디 ":" 닉네임 ")+"입니다.";
 				} 
 				focusing($(msgSwith(msg,selecter)),input);

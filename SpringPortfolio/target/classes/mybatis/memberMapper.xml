@@ -2,23 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.portfolio.member">
+
+	<insert id="insert">
+	<![CDATA[
+		insert into portfolio_member(
+									 m_index,
+						     		 m_id,
+						     		 m_password,
+						     		 m_nickname,
+						     		 m_name,
+						     		 m_birth,
+						     		 m_age,
+						     		 m_zipcode,
+						     		 m_address1,
+						     		 m_address2,
+						     		 m_email,
+						     		 m_phone,
+						     		 m_gender
+						     )
+						     values(
+									(select nvl(max(m_index),0)+1 from portfolio_member),
+									#{m_id},
+									#{m_password},
+									#{m_nickname},
+									#{m_name},
+									#{m_birth},
+									#{m_age},
+									#{m_zipcode},
+									#{m_address1},
+									#{m_address2},
+									#{m_email},
+									#{m_phone},
+									#{m_gender}
+							)
+	
+	]]>
+	</insert>
+
+
+
 	<select id="read" resultType="memberDTO">
 		<![CDATA[
-			select * from portfolio_member
-			where m_id = #{m_id}
+			select m_index,
+			       m_id,
+			       m_nickname,
+			       m_name,
+			       m_grant, 
+			       m_birth,
+			       m_age,
+			       m_zipcode,
+			       m_address1,
+			       m_address2,
+			       m_email,
+			       m_phone,
+			       m_gender,
+			       m_registdate from portfolio_member
 		]]>
+		<where>
+			m_id = #{m_id}
+		</where>
 	</select>
 	<select id="duplicate" resultType="memberDTO">
 		<![CDATA[
 			select m_id from portfolio_member
 		]]>
 		<where>
-			#{target} = #{value}
+			${target} = #{value}
 		</where>
 	</select>
-	<select id="allrow" resultType="integer">
-		select count(m_index) from portfolio_member
-	</select>
+
 	<select id="list" resultType="memberDTO" parameterType="hashmap">
 		<![CDATA[
 			select * from(
@@ -44,20 +96,12 @@
 			order by m_index asc
 		]]>
 		<![CDATA[
-		)
+		))
 		]]>
-		<where>
-		<![CDATA[
-			r <=20
-		]]>
-		</where>
-		<![CDATA[
-		)
-		]]> 
-			<if test="pagingvo != null">
-		<where>
-				r between #{pagingvo.minimum} and #{pagingvo.maximum}
-		</where>
-			</if>
+		<if test="pagingentity != null">
+			<where>
+				r between #{pagingentity.minimum} and #{pagingentity.maximum}
+			</where>
+		</if>
 	</select>
 </mapper>

@@ -21,6 +21,4 @@ public interface MemberDAO extends UtilityCommand{
 
 	public abstract MemberDTO duplicate(DuplicateVO vo)throws Exception;
 
-	public abstract int allRow()throws Exception;
-
 }

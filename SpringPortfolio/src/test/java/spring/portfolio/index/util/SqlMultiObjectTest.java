@@ -17,7 +17,7 @@ import com.spring.portfolio.common.vo.PagingVO;
 import com.spring.portfolio.common.vo.SearchVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class SqlMultiObjectTest {
 
 	public SqlMultiObjectTest() {

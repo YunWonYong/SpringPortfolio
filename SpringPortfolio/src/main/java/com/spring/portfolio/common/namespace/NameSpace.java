@@ -7,4 +7,6 @@ public interface NameSpace {
 	public static final String MEMBER = "";
 	@Value("#{namespace['account.namespace']}")
 	public static final String ACCOUNT = "";
+	@Value("#{namespace['paging.namespace']}")
+	public static final String PAGING = "";
 }

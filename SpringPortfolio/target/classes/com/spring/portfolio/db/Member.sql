@@ -15,7 +15,7 @@ m_phone varchar2(13) not null,
 m_gender char(1) check(m_gender in('1','0')) not null,
 m_registdate date default sysdate
 )
-drop 
+drop table portfolio_member
 
 delete from portfolio_member
 
@@ -35,11 +35,11 @@ insert into portfolio_member(m_index,
 						     m_gender
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
-									'tester15',
+									'admin',
 									'1234',
-									'tester15',
-									'tester15',
-									'z',
+									'admin',
+									'admin',
+									'a',
 									'1992-11-07',
 									29,
 									00000,
@@ -82,7 +82,10 @@ from(
 )where r between 10 and 20
 
 
+select * from portfolio_member
+
+delete from portfolio_member where m_index >2
 
 
+select count(m_index) from portfolio_member where m_gender = '1'
 
-				   

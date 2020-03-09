@@ -30,7 +30,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberDTO read(String m_id) throws Exception {
 		return sqlSession.selectOne(NameSpace.MEMBER + "read", m_id);
 	}
-
+ 
 	@Override
 	public int update(MemberDTO dto) throws Exception {
 		return sqlSession.update(NameSpace.MEMBER + "update", dto);
@@ -52,8 +52,4 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne(NameSpace.MEMBER + "duplicate", vo);
 	}
 
-	@Override
-	public int allRow() throws Exception {
-		return sqlSession.selectOne(NameSpace.MEMBER + "allrow");
-	}
 }

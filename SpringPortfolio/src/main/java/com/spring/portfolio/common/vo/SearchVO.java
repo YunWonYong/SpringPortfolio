@@ -1,7 +1,7 @@
 package com.spring.portfolio.common.vo;
 
 public class SearchVO extends TargetAndValueAbstractVO {
-	
+
 	@SuppressWarnings("unused")
 	private SearchVO() {
 	}
@@ -9,12 +9,4 @@ public class SearchVO extends TargetAndValueAbstractVO {
 	public SearchVO(String target, Object value) {
 		super.valueInit(target, value);
 	}
-
-//	public String getTarget() {
-//		return super.getTarget();
-//	}
-//
-//	public Object getValue() {
-//		return super.getValue();
-//	}
 }

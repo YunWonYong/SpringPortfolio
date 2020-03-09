@@ -21,4 +21,9 @@ public abstract class TargetAndValueAbstractVO {
 		return value;
 	}
 
+	@Override
+	public String toString() {
+		return "TargetAndValueAbstractVO [target=" + target + ", value=" + value + "]";
+	}
+
 }
