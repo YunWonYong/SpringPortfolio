@@ -52,14 +52,8 @@ public class MemberController {
 		dto.setM_gender(util.setGender(vo.getGenderCheck()));
 		dto.setM_age(util.getAge(vo.getYear()));
 		dto.setM_birth(vo.getBirth());
-		String id = dto.getM_id();
-		String nickname = dto.getM_nickname();
-		for(int i =0; i < 30;i++) {
-			dto.setM_id(id+i);
-			dto.setM_nickname(nickname+i);
-			memberService.register(dto);
-		} 
-		mv.setViewName("redirect:/"); 
+		memberService.register(dto);
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 

@@ -4,8 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<meta name = "viewport" content="width=device-width initial-scale=1">
+<link rel="stylesheet" href="/resources/css/member/member_list.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/common/dateSplit.js"></script>
 <script src="https://kit.fontawesome.com/84ab9164ab.js"></script>
 <script type="text/javascript">
@@ -60,7 +65,7 @@
 			success : function(data) {
 				console.log(data);
 				var jsonData = JSON.parse(data);
-				var msg = "<table><thead><tr>" + "<th>회원번호</th>"
+				var msg = "<table class='table'><thead><tr>" + "<th>회원번호</th>"
 						+ "<th>아이디</th>" + "<th>닉네임</th>" + "<th>이름</th>"
 						+ "<th>나이</th>" + "<th>성별</th>" + "<th>등급</th>"
 						+ "<th>가입날짜</th>" + "</tr></thead>";
@@ -86,27 +91,27 @@
 					msg += e;
 				} finally {
 					var paging = jsonData.pagingentity[0];
-					msg += "</tbody></table><div>";
+					msg += "</tbody></table><div class='pagnation'>";
 					if (paging.stopNumber == 0) {
 						msg += "<a href='javascript:pageFunction("
 								+ paging.beginNumber + ")'>"
 								+ paging.beginNumber + "</a>";
 					} else {
 						var curr = paging.currentPage;
-						if(curr >10){
-							msg += "<a href='javascript:pageFunction(" + 1
-							+ ")'><i class='fas fa-angle-double-left'></i></a>&nbsp";
-						}
 						if (curr > 1) {
 						
 							msg += "<a href='javascript:pageFunction("
 									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>";
 						}
+						if(curr >10){
+							msg += "<a href='javascript:pageFunction(" + 1
+							+ ")'><i class='fas fa-angle-double-left'></i></a>&nbsp";
+						}
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
 									: "";
 							msg += "<a href='javascript:pageFunction(" + i
-									+ ")'" + linkColor + ">[" + i + "]</a>";
+									+ ")'" + linkColor + ">" + i + "</a>";
 						}
 						if (curr != paging.totalPage) {
 							msg += "<a href='javascript:pageFunction("
@@ -116,7 +121,7 @@
 						}
 					} 
 					msg += "</div>";
-					$("#member_list").html(msg); 
+					$("#member_list").html(msg);
 				}
 			}
 		});
@@ -133,18 +138,19 @@
 </script>
 </head>
 <body>
-	<div>
+<div class="wrap">
+	<div class="logo">
 		<h1>회원리스트 로고</h1>
 	</div>
-	<div class="wrap">
+	
 		<div class="member_list_search">
 			<div class="member_search_target">
 				<select name="target">
 					<option value="m_index">회원번호</option>
 					<option value="m_grant">회원등급</option>
-					<option value="m_name">이름</option>
 					<option value="m_id">아이디</option>
 					<option value="m_nickname">닉네임</option>
+					<option value="m_name">이름</option>
 					<option value="m_age">나이</option>
 					<option value="m_gender">성별</option>
 					<!-- <optgroup label="성별">
@@ -160,8 +166,13 @@
 				<button id="search">검색</button>
 			</div>
 		</div>
+		
+		
+		
+		
 		<div class="" id="member_list"></div>
 		<div class="all_list">
+		
 			<button id='all_list'>전체리스트</button>
 		</div>
 	</div>

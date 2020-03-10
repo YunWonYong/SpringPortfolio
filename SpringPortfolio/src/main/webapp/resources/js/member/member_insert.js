@@ -316,6 +316,21 @@ function msgSwith(msg, target) {
 	$(idSelecter).attr("class",changeClass); 
 	$(idSelecter).html(msg);
 	$(idSelecter).attr("id",changeId);  
+	
+	var span = $("."+changeClass).parents("div").children("span");
+	var input =$("."+changeClass).parents("div").children("input").attr("class","txtb success");
+	var color = "color:green;";
+	if($(span).attr("class").search("fail_")==0){
+		$(input).attr("class","txtb fail");
+		color="color:red;"; 
+	}
+	$(span).attr('style',color); 
+	
+	
+	
+	
+	
+	
 	return "."+changeClass;
 }
 function focusing(searchClass,target){
