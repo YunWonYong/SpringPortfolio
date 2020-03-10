@@ -107,8 +107,8 @@
 							msg += "<a href='javascript:pageFunction("
 									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>&nbsp";
 						}
-						msg+="</div>";
-						msg+="<div>"; 
+						msg+="</div><div>";
+						
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
 									: "";

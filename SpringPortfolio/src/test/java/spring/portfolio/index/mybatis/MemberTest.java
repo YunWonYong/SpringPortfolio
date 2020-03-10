@@ -2,25 +2,16 @@ package spring.portfolio.index.mybatis;
 
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.portfolio.common.namespace.NameSpace;
-import com.spring.portfolio.common.util.sql.SqlMultiObject;
 import com.spring.portfolio.common.vo.DuplicateVO;
-import com.spring.portfolio.common.vo.PagingVO;
-import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.common.vo.TargetAndValueAbstractVO;
 import com.spring.portfolio.member.model.MemberDTO;
 
@@ -45,14 +36,14 @@ public class MemberTest {
 		testDuplicate();
 		MemberDTO dto = new MemberDTO(2, id, "1234", "테스터", 'z', "2020-03-09", 1, "00000", "테스터는집이없어요", "그래서 주소가없어요.",
 				"email@email.com", "02-1992-1107", '0', null, nickName);
-		assertTrue(sqlSession.insert(NameSpace.MEMBER + "insert", dto) == 1);
+		assertTrue(sqlSession.insert("insert", dto) == 1);
 		testRead();
 	}
 
 	@Test
 	public void testDuplicate() {
 		TargetAndValueAbstractVO duplicate = new DuplicateVO("m_id", id);
-		MemberDTO dto = sqlSession.selectOne(NameSpace.MEMBER + "duplicate", duplicate);
+		MemberDTO dto = sqlSession.selectOne("duplicate", duplicate);
 		assertNull("중복된아이디.", dto);
 
 	}
@@ -61,7 +52,7 @@ public class MemberTest {
 	public void testRead() {
 		MemberDTO dto = new MemberDTO();
 		dto.setM_id(id);
-		dto = sqlSession.selectOne(NameSpace.MEMBER + "read", dto);
+		dto = sqlSession.selectOne("read", dto);
 		assertNotNull(dto);
 		assertTrue(dto.getM_nickname().equals(nickName));
 	}

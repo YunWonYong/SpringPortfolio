@@ -1,13 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>	
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.portfolio.account">
-
-	<select id="login" resultType="memberDTO">
+	<insert id="insert">
+		<![CDATA[
+		insert into portfolio_account values(#{m_id},#{a_jsession_id},#{a_holding_time})		
+		]]>
+		
+	</insert>
+	<select id="autologin" resultType="accountDTO" parameterType="String">
+		<![CDATA[ 
+		select
+			m.m_id,
+			m.m_grant,
+			m.m_nickname 
+			from portfolio_member m, portfolio_account a
+		]]>
+			<where>
+				m.m_id = a.m_id and a_jsession_id =#{jsessionID}
+			</where>
+	</select>
+	<select id="login" resultType="accountDTO">
 		<![CDATA[
 		select m_id,m_grant,m_nickname from portfolio_member
-		]]> 
-			<where>
+		]]>
+		<where>
 			m_id = #{m_id} and m_password = #{m_password}
-			</where>
+		</where>
 	</select>
 </mapper>

@@ -15,14 +15,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.portfolio.common.namespace.NameSpace;
 import com.spring.portfolio.common.util.sql.SqlMultiObject;
 import com.spring.portfolio.common.vo.PagingVO;
 import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.paging.model.PagingEntity;
-import com.spring.portfolio.paging.service.PagingService;
-import com.spring.portfolio.paging.service.PagingServiceImpl;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml"})
@@ -50,8 +46,6 @@ public class PagingTest {
 					assertNull(vo.getTarget());
 					assertNull(vo.getValue());
 				} else {
-					System.out.println(vo.getTarget());
-					System.out.println(vo.getValue());
 					assertTrue(vo.getTarget().equals(target));
 					assertTrue(vo.getValue().equals(value));
 				}
@@ -61,7 +55,7 @@ public class PagingTest {
 			assertTrue(vo.getPrimaryKey().equals(primaryKey)); 
 			assertTrue(vo.getTableName().equals(tablaName));
 		}
-		int i = sqlSession.selectOne(NameSpace.PAGING + "amount", map);
+		int i = sqlSession.selectOne( "amount", map);
 		System.out.println(i);
 	}
 
@@ -72,7 +66,7 @@ public class PagingTest {
 		Map<String, Object> map = SqlMultiObject.add(new PagingVO(primaryKey, tablaName, 1),
 				new SearchVO(target, value));
 		PagingEntity entity= new PagingEntity();
-		int amount = sqlSession.selectOne(NameSpace.PAGING+"amount",map);
+		int amount = sqlSession.selectOne("amount",map);
 		entity.setAmount(amount,(PagingVO)map.get("pagingvo"));
 		int minimum = entity.getMinimum();  
 		int maximum = entity.getMaximum();

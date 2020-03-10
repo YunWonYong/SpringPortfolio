@@ -1,8 +1,6 @@
 package com.spring.portfolio.account.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,33 +17,31 @@ public class AccountController {
 	@Resource(name = "accountService")
 	private AccountService accountService;
 
-	@RequestMapping("login")
+	@RequestMapping("login_form")
 	public ModelAndView login(ModelAndView mv) {
 		mv.setViewName("/account/login");
 		return mv;
 	}
 
-	@RequestMapping(value="login",method = RequestMethod.POST)
-	public ModelAndView login(ModelAndView mv, AccountDTO dto,HttpServletRequest request,HttpServletResponse response) {
-		mv.addObject("request",request);
-		mv.addObject("response", response);
-		mv.addObject("dto",	dto);
-		try { 
-			if(!accountService.login(mv)) {
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public ModelAndView login(ModelAndView mv, AccountDTO dto) {
+		System.out.println("autoLogin:"+dto.getAutoLogin());
+		try {
+			dto = accountService.login(dto);
+			if (dto == null) {
 				throw new Exception();
 			}
-			mv.setViewName("redirect:/");
+			mv.addObject("dto", dto);
 		} catch (Exception e) {
-			mv.clear();
 			mv.addObject("m_id", dto.getM_id());
-			mv.addObject("msg","아이디와 비빌번호를 확인해 주세요.");
-			mv.setViewName("/account/login");
+			mv.addObject("msg", "아이디와 비빌번호를 확인해 주세요.");
 		}
 		return mv;
 	}
+
 	@RequestMapping("logout")
-	public ModelAndView logout(ModelAndView mv,HttpSession sess) {
-		if(sess.getAttribute("login")!=null) {
+	public ModelAndView logout(ModelAndView mv, HttpSession sess) {
+		if (sess.getAttribute("login") != null) {
 			sess.invalidate();
 		}
 		mv.setViewName("redirect:/");

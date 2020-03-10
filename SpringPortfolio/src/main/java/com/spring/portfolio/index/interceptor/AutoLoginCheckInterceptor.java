@@ -1,14 +1,19 @@
 package com.spring.portfolio.index.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.spring.portfolio.account.model.AccountDTO;
+import com.spring.portfolio.account.service.AccountService;
+
 public class AutoLoginCheckInterceptor extends HandlerInterceptorAdapter {
+	@Resource(name = "accountService")
+	private AccountService accountService;
 
 	public AutoLoginCheckInterceptor() {
 	}
@@ -16,13 +21,16 @@ public class AutoLoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		HttpSession sess = request.getSession(false);
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				System.out.print("cookieName:"+cookie.getName()+"\t"); 
-				System.out.print("cookieValue:"+cookie.getValue()+"\t");
-				System.out.println("cookieMaxAge:"+cookie.getMaxAge());
-			} 
+				AccountDTO dto = accountService.getOne(cookie.getValue());
+				if(dto != null) {
+					sess = request.getSession();
+					sess.setAttribute("login",dto);
+				}
+			}
 		}
 		return true;
 	}
