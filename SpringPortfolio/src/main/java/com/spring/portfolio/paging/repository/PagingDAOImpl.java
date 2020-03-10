@@ -18,7 +18,6 @@ public class PagingDAOImpl implements PagingDAO {
 
 	@Override
 	public int getAmmount(Map<String, Object> map) throws Exception {
-		System.out.println("DAO:"+map.get("pagingvo"));
 		return sqlSession.selectOne(NameSpace.PAGING + "amount", map);
 	}
 

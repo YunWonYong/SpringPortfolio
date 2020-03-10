@@ -36,15 +36,15 @@
 						$($content).focus();
 						return;
 					}
-					getData([ $target, $content.serialize(),1]);
+					getData([ $target, $content.serialize(), 1 ]);
 				});
 		$("#all_list").click(function() {
 			$("input[name='content']").val("");
 			$("option[value='m_index']").prop("selected", true);
-			getData([ null, null,1 ]);
+			getData([ null, null, 1 ]);
 		});
-		getData([ $target, $content,1]);
-	
+		getData([ $target, $content, 1 ]);
+
 	});
 	function getData(arr) {
 		console.log(arr);
@@ -54,7 +54,7 @@
 			data : {
 				target : arr[0],
 				content : arr[1],
-				currentPage:arr[2]
+				currentPage : arr[2]
 			},
 			success : function(data) {
 				console.log(data);
@@ -70,8 +70,7 @@
 					}
 					var arrs = jsonData.memberdto;
 					$.each(arrs, function(i, dto) {
-						msg += "<tr>";
-						msg += "<td>" + dto.m_index + "</td>";
+						msg += "<tr><td>" + dto.m_index + "</td>";
 						msg += "<td><a href='/member/read/"+dto.m_index+"'>";
 						msg += dto.m_id + "</a></td>";
 						msg += "<td>" + dto.m_nickname + "</td>";
@@ -85,39 +84,47 @@
 				} catch (e) {
 					msg += e;
 				} finally {
-					var pasing = jsonData.pagingentity[0];
-					console.log(pasing);
-					msg += "</tbody>";
-					msg += "<tfoot>";
-					msg += "</tfoot>";
-					msg += "<tr>";
-					msg += "<td>";
-					if(pasing.stopNumber==0){
-						//console.log(arr[0]);
-						//console.log(arr[1]);
-						msg+="<a href=javascript:pageFunction("+pasing.beginNumber+")>"+pasing.beginNumber+"</a>";
-					}else{
-						for(var i =1;i<pasing.stopNumber+1;i++){ 
-							console.log(i);
-							msg+="<a href='javascript:pageFunction("+i+")'>"+i+"</a>";
-						} 
+					var paging = jsonData.pagingentity[0];
+					msg += "</tbody></table><div>";
+					if (paging.stopNumber == 0) {
+						msg += "<a href='javascript:pageFunction("
+								+ paging.beginNumber + ")'>"
+								+ paging.beginNumber + "</a>";
+					} else {
+						var curr = paging.currentPage;
+						if (curr > 1) {
+							msg += "<a href='javascript:pageFunction(" + 1
+									+ ")'><<</a>&nbsp";
+							msg += "<a href='javascript:pageFunction("
+									+ (curr - 1) + ")'><</a>";
+						}
+						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
+							var linkColor = curr == i ? "style='color:red;'"
+									: "";
+							msg += "<a href='javascript:pageFunction(" + i
+									+ ")'" + linkColor + ">[" + i + "]</a>";
+						}
+						if (curr != paging.totalPage) {
+							msg += "<a href='javascript:pageFunction("
+									+ (curr + 1) + ")'>></a>&nbsp";
+							msg += "<a href='javascript:pageFunction("
+									+ paging.totalPage + ")'>>></a>";
+						}
 					}
-					msg+="</td>";
-					msg += "</tr>";
-					msg += "</table>";
+					msg += "</div>";
 					$("#member_list").html(msg);
 				}
 			}
 		});
-		
+
 	}
-	function pageFunction(crrunt){
+	function pageFunction(crrunt) {
 		var $target = $("select[name='target']").val();
 		var $content = $("input[name='content']");
 		var content = $($content).val();
-		$target = content.length==0?"null":$target;
-		content = $target == "null"? "null" :$content.serialize();
-		getData([$target,content,crrunt]);
+		$target = content.length == 0 ? "null" : $target;
+		content = $target == "null" ? "null" : $content.serialize();
+		getData([ $target, content, crrunt ]);
 	}
 </script>
 </head>

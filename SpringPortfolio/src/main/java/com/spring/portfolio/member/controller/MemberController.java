@@ -53,7 +53,7 @@ public class MemberController {
 		dto.setM_age(util.getAge(vo.getYear()));
 		dto.setM_birth(vo.getBirth());
 		memberService.register(dto);
-		mv.setViewName("redirect:/");
+		mv.setViewName("redirect:/"); 
 		return mv;
 	}
 
@@ -74,15 +74,15 @@ public class MemberController {
 				if (dto == null)
 					throw new Exception();
 				id = dto.getM_id();
-			} 
+			}
 			dto = memberService.getOne(id);
 			dto.setM_realGender(util.getGender(dto.getM_gender()));
-			dto.setM_realGrant(util.getGrant(dto.getM_grant())); 
+			dto.setM_realGrant(util.getGrant(dto.getM_grant()));
 			dto.setM_birth(dto.getM_birth().split(" ")[0]);
-			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);  
+			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);
 		} catch (Exception e) {
 			mv.setViewName("fail");
-		}finally {
+		} finally {
 			mv.addObject("dto", dto);
 			mv.setViewName("/member/read");
 		}

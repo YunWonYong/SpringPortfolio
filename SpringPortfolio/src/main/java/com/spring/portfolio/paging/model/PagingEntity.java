@@ -10,7 +10,8 @@ import com.spring.portfolio.common.vo.PagingVO;
  */
 @SuppressWarnings("unused")
 public class PagingEntity {
-	private int amount, currentPage, beginNumber, stopNumber, minimum, maximum;
+	private int amount, currentPage, beginNumber, totalPage, stopNumber, minimum, maximum;
+
 	public PagingEntity() {
 	}
 
@@ -64,12 +65,19 @@ public class PagingEntity {
 	}
 
 	public void execute(PagingVO vo) {
+		int ten = 10;
 		this.currentPage = vo.getCurrentPage();
-		minimum = currentPage == 1 ? 0 : ((currentPage - 1) * 10) + 1;
+		minimum = (currentPage == 1) ? 0 : ((currentPage - 1) * 10) + 1;
 		maximum = minimum + (currentPage == 1 ? 10 : 9);
 		float setAmount = amount / 10F;
-		String[] getStopNumber = String.valueOf(setAmount).split("\\.");
-		int setStopNumber = Integer.parseInt(getStopNumber[0]);
-		stopNumber = getStopNumber[1].equals("0") ? setStopNumber : setStopNumber + 1;
+		String[] gettotal = String.valueOf(setAmount).split("\\.");
+		int settotal = Integer.parseInt(gettotal[0]);
+		totalPage = gettotal[1].equals("0") ? settotal : settotal + 1;
+		beginNumber = (Integer.parseInt(String.valueOf(currentPage / 10f).split("\\.")[1]) == 0)
+				? (((currentPage - ten) / ten) * ten)
+				: ((currentPage / ten) * ten);
+		beginNumber++;
+		stopNumber = beginNumber + 9;
+		stopNumber = stopNumber > totalPage ? totalPage : stopNumber;
 	}
 }
