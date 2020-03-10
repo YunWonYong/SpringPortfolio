@@ -3,7 +3,8 @@
 <mapper namespace="com.spring.portfolio.account">
 	<insert id="insert">
 		<![CDATA[
-		insert into portfolio_account values(#{m_id},#{a_jsession_id},#{a_holding_time})		
+		insert into portfolio_account 
+		values(#{m_id},#{a_jsession_id},#{a_holding_time})		
 		]]>
 		
 	</insert>
@@ -11,8 +12,11 @@
 		<![CDATA[ 
 		select
 			m.m_id,
+			m.m_password,
 			m.m_grant,
-			m.m_nickname 
+			m.m_nickname, 
+			a.a_jsession_id,
+			a.a_holding_time
 			from portfolio_member m, portfolio_account a
 		]]>
 			<where>

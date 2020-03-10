@@ -23,12 +23,19 @@ public class AutoLoginCheckInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession sess = request.getSession(false);
 		Cookie[] cookies = request.getCookies();
+		AccountDTO dto = null;
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				AccountDTO dto = accountService.getOne(cookie.getValue());
-				if(dto != null) {
-					sess = request.getSession();
-					sess.setAttribute("login",dto);
+				if (cookie.getName().equals("jsession_id")) {
+					dto = accountService.getOne(cookie.getValue());
+					
+				} 
+				if (dto != null) {
+					System.out.println(dto.getA_jsession_id());
+					System.out.println(dto.getA_holding_time());
+					System.out.println(dto.getM_id());
+					System.out.println(dto.getM_password());
+					request.getSession().setAttribute("login",accountService.login(dto));
 				}
 			}
 		}

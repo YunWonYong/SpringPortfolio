@@ -35,9 +35,13 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 				if (cookies != null) {
 					Calendar c = Calendar.getInstance();
 					int holdingTime = Integer.parseInt(String.valueOf(c.getTimeInMillis()).substring(0, 7));
-					dto.setA_holding_time(holdingTime);
+					dto.setA_holding_time(holdingTime+(60*60*24));
 					dto.setA_jsession_id(cookies[0].getValue());
 					accountService.register(dto);
+					Cookie cookie = new Cookie("jsession_id",cookies[0].getValue());
+					cookie.setPath("/"); 
+					response.addCookie(cookie); 
+					System.out.println("account interceptor jsession ID:"+cookies[0].getValue());
 				}
 			}
 			mv.clear();
