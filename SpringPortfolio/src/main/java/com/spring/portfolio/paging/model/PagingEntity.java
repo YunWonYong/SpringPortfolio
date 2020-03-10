@@ -67,8 +67,8 @@ public class PagingEntity {
 	public void execute(PagingVO vo) {
 		int ten = 10;
 		this.currentPage = vo.getCurrentPage();
-		minimum = (currentPage == 1) ? 0 : ((currentPage - 1) * 10) + 1;
-		maximum = minimum + (currentPage == 1 ? 10 : 9);
+		minimum = (currentPage == 1) ? 0 : ((currentPage - 1) * ten) + 1;
+		maximum = minimum + (currentPage == 1 ? ten : 9); 
 		float setAmount = amount / 10F;
 		String[] gettotal = String.valueOf(setAmount).split("\\.");
 		int settotal = Integer.parseInt(gettotal[0]);

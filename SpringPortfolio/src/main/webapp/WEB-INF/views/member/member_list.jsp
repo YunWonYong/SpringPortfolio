@@ -93,10 +93,13 @@
 					} else {
 						var curr = paging.currentPage;
 						if (curr > 1) {
-							msg += "<a href='javascript:pageFunction(" + 1
-									+ ")'><<</a>&nbsp";
+						
 							msg += "<a href='javascript:pageFunction("
 									+ (curr - 1) + ")'><</a>";
+						}
+						if(curr >10){
+							msg += "<a href='javascript:pageFunction(" + 1
+							+ ")'><<</a>&nbsp";
 						}
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
@@ -108,7 +111,7 @@
 							msg += "<a href='javascript:pageFunction("
 									+ (curr + 1) + ")'>></a>&nbsp";
 							msg += "<a href='javascript:pageFunction("
-									+ paging.totalPage + ")'>>></a>";
+								+ paging.totalPage + ")'>>></a>";
 						}
 					}
 					msg += "</div>";
@@ -138,6 +141,7 @@
 				<select name="target">
 					<option value="m_index">회원번호</option>
 					<option value="m_grant">회원등급</option>
+					<option value="m_name">이름</option>
 					<option value="m_id">아이디</option>
 					<option value="m_nickname">닉네임</option>
 					<option value="m_age">나이</option>
