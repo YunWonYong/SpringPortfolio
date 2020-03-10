@@ -7,6 +7,7 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/common/dateSplit.js"></script>
+<script src="https://kit.fontawesome.com/84ab9164ab.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var $target = null;
@@ -92,14 +93,14 @@
 								+ paging.beginNumber + "</a>";
 					} else {
 						var curr = paging.currentPage;
+						if(curr >10){
+							msg += "<a href='javascript:pageFunction(" + 1
+							+ ")'><i class='fas fa-angle-double-left'></i></a>&nbsp";
+						}
 						if (curr > 1) {
 						
 							msg += "<a href='javascript:pageFunction("
-									+ (curr - 1) + ")'><</a>";
-						}
-						if(curr >10){
-							msg += "<a href='javascript:pageFunction(" + 1
-							+ ")'><<</a>&nbsp";
+									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>";
 						}
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
@@ -109,13 +110,13 @@
 						}
 						if (curr != paging.totalPage) {
 							msg += "<a href='javascript:pageFunction("
-									+ (curr + 1) + ")'>></a>&nbsp";
+									+ (curr + 1) + ")'><i class='fas fa-angle-right'></i></a>&nbsp";
 							msg += "<a href='javascript:pageFunction("
-								+ paging.totalPage + ")'>>></a>";
+								+ paging.totalPage + ")'><i class='fas fa-angle-double-right'></i></a>";
 						}
-					}
+					} 
 					msg += "</div>";
-					$("#member_list").html(msg);
+					$("#member_list").html(msg); 
 				}
 			}
 		});
