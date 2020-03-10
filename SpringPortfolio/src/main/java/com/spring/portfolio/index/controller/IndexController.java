@@ -1,4 +1,4 @@
-package com.spring.portfolio.index;
+package com.spring.portfolio.index.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

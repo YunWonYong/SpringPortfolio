@@ -91,36 +91,39 @@
 					msg += e;
 				} finally {
 					var paging = jsonData.pagingentity[0];
-					msg += "</tbody></table><div class='pagnation'>";
+					msg += "</tbody></table><div class='pagnation'><div>";
 					if (paging.stopNumber == 0) {
 						msg += "<a href='javascript:pageFunction("
 								+ paging.beginNumber + ")'>"
 								+ paging.beginNumber + "</a>";
 					} else {
 						var curr = paging.currentPage;
-						if (curr > 1) {
-						
-							msg += "<a href='javascript:pageFunction("
-									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>";
-						}
 						if(curr >10){
 							msg += "<a href='javascript:pageFunction(" + 1
 							+ ")'><i class='fas fa-angle-double-left'></i></a>&nbsp";
 						}
+						if (curr > 1) {
+						
+							msg += "<a href='javascript:pageFunction("
+									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>&nbsp";
+						}
+						msg+="</div>";
+						msg+="<div>"; 
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
 									: "";
 							msg += "<a href='javascript:pageFunction(" + i
-									+ ")'" + linkColor + ">" + i + "</a>";
+									+ ")'" + linkColor + ">" + i + "</a>&nbsp";
 						}
+						msg+="</div><div>";
 						if (curr != paging.totalPage) {
 							msg += "<a href='javascript:pageFunction("
 									+ (curr + 1) + ")'><i class='fas fa-angle-right'></i></a>&nbsp";
 							msg += "<a href='javascript:pageFunction("
-								+ paging.totalPage + ")'><i class='fas fa-angle-double-right'></i></a>";
+								+ paging.totalPage + ")'><i class='fas fa-angle-double-right'></i></a>&nbsp";
 						}
 					} 
-					msg += "</div>";
+					msg += "</div></div>";
 					$("#member_list").html(msg);
 				}
 			}
