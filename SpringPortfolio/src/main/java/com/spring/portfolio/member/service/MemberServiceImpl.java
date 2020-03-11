@@ -2,23 +2,14 @@ package com.spring.portfolio.member.service;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.util.sql.SqlMultiObject;
 import com.spring.portfolio.common.vo.DuplicateVO;
-import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
-import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.repository.MemberDAO;
 import com.spring.portfolio.paging.model.PagingEntity;
-import com.spring.portfolio.paging.repository.PagingDAO;
 import com.spring.portfolio.paging.service.PagingService;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -55,8 +46,8 @@ public class MemberServiceImpl implements MemberService {
 		PagingEntity entity = pagingService.recordSize(map);
 		map = SqlMultiObject.add(entity, map.get("searchvo"));
 		List<Object> list = memberDAO.list(map);
-		list.add(entity); 
-		return list; 
+		list.add(entity);
+		return list;
 	}
 
 	@Override

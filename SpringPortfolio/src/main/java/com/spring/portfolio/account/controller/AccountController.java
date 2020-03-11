@@ -1,6 +1,9 @@
 package com.spring.portfolio.account.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.service.AccountService;
+import com.spring.portfolio.common.namespace.ControllerNameSpaces;
+import com.spring.portfolio.common.namespace.ServiceNameSpaces;
 
 @Controller
-@RequestMapping("account")
+@RequestMapping(ControllerNameSpaces.ACCOUNT)
 public class AccountController {
-	@Resource(name = "accountService")
+	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;
 
 	@RequestMapping("login_form")
@@ -24,27 +29,25 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public ModelAndView login(ModelAndView mv, AccountDTO dto) {
-		System.out.println("autoLogin:"+dto.getAutoLogin());
-		try {
-			dto = accountService.login(dto);
-			if (dto == null) {
-				throw new Exception();
-			}
-			mv.addObject("dto", dto);
-		} catch (Exception e) {
-			mv.addObject("m_id", dto.getM_id());
-			mv.addObject("msg", "아이디와 비빌번호를 확인해 주세요.");
-		}
+	public ModelAndView login(ModelAndView mv, AccountDTO dto) throws Exception {
+		mv.addObject("dto", accountService.login(dto));
+		mv.addObject("m_id", dto.getM_id());
 		return mv;
 	}
 
 	@RequestMapping("logout")
-	public ModelAndView logout(ModelAndView mv, HttpSession sess) {
-		if (sess.getAttribute("login") != null) {
-			sess.invalidate();
+	public ModelAndView logout(ModelAndView mv, HttpSession sess, HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("a_jsession_id")) {
+					mv.addObject("cookie", cookie);
+				}
+
+			}
 		}
-		mv.setViewName("redirect:/");
+		mv.addObject("request",request);
+		mv.addObject("session", sess);
 		return mv;
 	}
 }

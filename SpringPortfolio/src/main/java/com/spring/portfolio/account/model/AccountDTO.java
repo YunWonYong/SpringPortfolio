@@ -8,17 +8,17 @@ public class AccountDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String m_id, m_password, autoLogin, m_nickname, m_grant, a_jsession_id;
+	private String m_id, m_password, a_autologin_check, m_nickname, m_grant, a_jsession_id;
 	private int a_holding_time;
 
 	public AccountDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDTO(String m_id, String m_password, String autoLogin) {
+	public AccountDTO(String m_id, String m_password, String a_autologin_check) {
 		this.m_id = m_id;
 		this.m_password = m_password;
-		this.autoLogin = autoLogin;
+		this.a_autologin_check = a_autologin_check;
 	}
 
 	public String getM_id() {
@@ -37,12 +37,12 @@ public class AccountDTO implements Serializable {
 		this.m_password = m_password;
 	}
 
-	public String getAutoLogin() {
-		return autoLogin;
+	public String getA_autologin_check() {
+		return a_autologin_check;
 	}
 
-	public void setAutoLogin(String autoLoin) {
-		this.autoLogin = autoLoin;
+	public void setA_autologin_check(String a_autologin_check) {
+		this.a_autologin_check = a_autologin_check;
 	}
 
 	public static long getSerialversionuid() {
@@ -108,7 +108,9 @@ public class AccountDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AccountDTO [m_id=" + m_id + ", m_password=" + m_password + ", autoLoin=" + autoLogin + "]";
+		return "AccountDTO [m_id=" + m_id + ", m_password=" + m_password + ", a_autologin_check=" + a_autologin_check
+				+ ", m_nickname=" + m_nickname + ", m_grant=" + m_grant + ", a_jsession_id=" + a_jsession_id
+				+ ", a_holding_time=" + a_holding_time + "]";
 	}
 
 }

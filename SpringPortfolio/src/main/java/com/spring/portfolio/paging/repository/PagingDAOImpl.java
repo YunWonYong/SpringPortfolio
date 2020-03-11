@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.spring.portfolio.common.namespace.NameSpaces;
+import com.spring.portfolio.common.namespace.MapperNameSpaces;
 
 
 @Repository("pagingDAO")
 public class PagingDAOImpl implements PagingDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	@Value(NameSpaces.PAGING)
+	@Value(MapperNameSpaces.PAGING)
 	private String ns;
 	public PagingDAOImpl() {
 	}

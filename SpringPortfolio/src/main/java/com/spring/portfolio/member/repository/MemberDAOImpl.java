@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.spring.portfolio.common.namespace.NameSpaces;
+import com.spring.portfolio.common.namespace.MapperNameSpaces;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
 
@@ -16,7 +16,7 @@ import com.spring.portfolio.member.model.MemberDTO;
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	@Value(NameSpaces.MEMBER)
+	@Value(MapperNameSpaces.MEMBER)
 	private String ns;
 
 	public MemberDAOImpl() {

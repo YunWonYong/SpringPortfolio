@@ -35,10 +35,10 @@ insert into portfolio_member(m_index,
 						     m_gender
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
-									'admin',
+									'tester_A',
 									'1234',
-									'admin',
-									'admin',
+									'tester_A',
+									'테스트',
 									'a',
 									'1992-11-07',
 									29,

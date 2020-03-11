@@ -49,12 +49,16 @@
 	</context:component-scan>
 	<interceptors>
 		<interceptor>
-			<mapping path="/" />
-			<beans:bean class="com.spring.portfolio.index.interceptor.AutoLoginCheckInterceptor" />
+			<mapping path="/" />										 
+			<beans:bean class="com.spring.portfolio.index.interceptor.AutoLoginInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/account/login"/>  
-			<beans:bean class="com.spring.portfolio.account.interceptor.LoginCheckInterceptor"/> 
+			<mapping path="/account/login"/>   
+			<beans:bean class="com.spring.portfolio.account.interceptor.LoginInterceptor"/> 
+		</interceptor>
+		<interceptor>
+			<mapping path="/account/logout"/>
+			<beans:bean class="com.spring.portfolio.account.interceptor.LogoutInterceptor"/> 
 		</interceptor>
 	</interceptors>
 </beans:beans>

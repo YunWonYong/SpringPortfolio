@@ -4,28 +4,24 @@ import static org.junit.Assert.*;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Properties;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.tomcat.util.file.Matcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.portfolio.common.namespace.NameSpaces;
+import com.spring.portfolio.common.namespace.MapperNameSpaces;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class PropertiesTset {
-	@Value(NameSpaces.MEMBER)
+	@Value(MapperNameSpaces.MEMBER)
 	private final String MEMBER;
-	@Value(NameSpaces.ACCOUNT)
+	@Value(MapperNameSpaces.ACCOUNT)
 	private final String ACCOUNT;
-	@Value(NameSpaces.PAGING)
+	@Value(MapperNameSpaces.PAGING)
 	private final String PAGING;
 
 	public PropertiesTset() {

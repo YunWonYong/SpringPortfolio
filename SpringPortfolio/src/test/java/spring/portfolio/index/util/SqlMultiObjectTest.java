@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

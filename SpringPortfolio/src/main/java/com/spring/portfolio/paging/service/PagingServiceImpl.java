@@ -7,10 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.spring.portfolio.common.vo.PagingVO;
-import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.paging.model.PagingEntity;
 import com.spring.portfolio.paging.repository.PagingDAO;
-import com.spring.portfolio.paging.repository.PagingDAOImpl;
 
 @Service("pagingService")
 public class PagingServiceImpl implements PagingService {
@@ -25,10 +23,10 @@ public class PagingServiceImpl implements PagingService {
 		PagingEntity entity = new PagingEntity();
 		int amount = dao.getAmmount(map);
 		PagingVO paginVO = null;
-		if(map.get("pagingvo")!= null) {
-			paginVO =(PagingVO)map.get("pagingvo");
+		if (map.get("pagingvo") != null) {
+			paginVO = (PagingVO) map.get("pagingvo");
 		}
-		entity.setAmount(amount,paginVO);
+		entity.setAmount(amount, paginVO);
 		return entity;
 	}
 

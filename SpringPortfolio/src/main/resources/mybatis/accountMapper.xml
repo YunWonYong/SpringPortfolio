@@ -4,11 +4,12 @@
 	<insert id="insert">
 		<![CDATA[
 		insert into portfolio_account 
-		values(#{m_id},#{a_jsession_id},#{a_holding_time})		
+		values(#{m_id},#{m_id},#{a_jsession_id},#{a_holding_time},#{a_autologin_check})		
 		]]>
-		
+
 	</insert>
-	<select id="autologin" resultType="accountDTO" parameterType="String">
+	<select id="autologin" resultType="accountDTO"
+		parameterType="String">
 		<![CDATA[ 
 		select
 			m.m_id,
@@ -16,12 +17,13 @@
 			m.m_grant,
 			m.m_nickname, 
 			a.a_jsession_id,
-			a.a_holding_time
+			a.a_holding_time,
+			a.a_autologin_check
 			from portfolio_member m, portfolio_account a
 		]]>
-			<where>
-				m.m_id = a.m_id and a_jsession_id =#{jsessionID}
-			</where>
+		<where>
+			m.m_id = a.a_id and a.a_jsession_id =#{a_jsession_id}
+		</where>
 	</select>
 	<select id="login" resultType="accountDTO">
 		<![CDATA[
@@ -31,4 +33,21 @@
 			m_id = #{m_id} and m_password = #{m_password}
 		</where>
 	</select>
+	<update id="update">
+		<![CDATA[
+		update portfolio_account set a_holding_time = #{a_holding_time}
+		]]>
+		<where>
+			a_jsession_id = #{a_jsession_id}
+		</where>
+	</update>
+
+	<delete id="delete">
+		<![CDATA[ 
+			delete from portfolio_account
+		]]>
+		<where>
+			a_id = #{m_id} and a_jsession_id = #{a_jsession_id}
+		</where>
+	</delete>
 </mapper>

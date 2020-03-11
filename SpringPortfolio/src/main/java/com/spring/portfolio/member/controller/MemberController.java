@@ -1,16 +1,12 @@
 package com.spring.portfolio.member.controller;
 
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,8 +22,6 @@ import com.spring.portfolio.common.vo.SearchVO;
 import com.spring.portfolio.member.model.MemberDTO;
 import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.service.MemberService;
-
-import oracle.net.aso.s;
 
 @Controller
 @RequestMapping("member")
@@ -113,7 +107,6 @@ public class MemberController {
 		}
 
 		return result;
-		// return null;
 	}
 
 	@RequestMapping("list")

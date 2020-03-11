@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.account.model.AccountDTO;
-import com.spring.portfolio.common.namespace.NameSpaces;
+import com.spring.portfolio.common.namespace.MapperNameSpaces;
+import com.spring.portfolio.common.namespace.RepositoryNameSpaces;
 
-@Repository("accountDAO")
+@Repository(RepositoryNameSpaces.ACCOUNT)
 public class AccountDAOImpl implements AccountDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	@Value(NameSpaces.ACCOUNT)
+	@Value(MapperNameSpaces.ACCOUNT)
 	private String ns;
 
 	public AccountDAOImpl() {
@@ -24,14 +25,27 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public AccountDTO read(String jsessionID) throws Exception {
-		return sqlSession.selectOne(ns + "autologin", jsessionID);
+	public AccountDTO read(String a_jsession_id) throws Exception {
+		return sqlSession.selectOne(ns + "autologin", a_jsession_id);
 	}
 
 	@Override
 	public void insert(AccountDTO dto) throws Exception {
 		sqlSession.insert(ns + "insert", dto);
 
+	}
+ 
+	@Override
+	public int delete(AccountDTO dto) throws Exception {
+		System.out.println("data delete!");
+		
+		return sqlSession.delete(ns + "delete", dto);
+	}
+
+	@Override
+	public int update(AccountDTO dto) throws Exception {
+		System.out.println("data update !!");
+		return sqlSession.update(ns + "update", dto);
 	}
 
 }

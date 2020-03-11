@@ -8,8 +8,12 @@ public interface AccountService extends MainService {
 
 	public abstract AccountDTO login(AccountDTO dto) throws Exception;
 
-	public abstract AccountDTO getOne(String jsessionID)throws Exception ;
+	public abstract AccountDTO getOne(String a_jsession_id)throws Exception ;
 
 	public abstract void register(AccountDTO dto)throws Exception;
 
+	public abstract int remove(AccountDTO dto)throws Exception;
+
+	public abstract int modify(AccountDTO dto)throws Exception;
+ 
 }

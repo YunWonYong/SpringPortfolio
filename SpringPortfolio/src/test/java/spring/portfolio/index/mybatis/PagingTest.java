@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;

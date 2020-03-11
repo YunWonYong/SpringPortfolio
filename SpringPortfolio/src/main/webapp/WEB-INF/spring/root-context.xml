@@ -41,5 +41,6 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<util:properties id="namespace" location="/WEB-INF/properties/namespace/namespace.properties"/>
+	<util:properties id="namespace" location="/WEB-INF/properties/namespace/*NameSpace.properties"/>
 </beans>
+ 
