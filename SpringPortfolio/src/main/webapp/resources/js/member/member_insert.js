@@ -9,7 +9,7 @@ $(function() {
 	var $genderMan = $("input[name = 'genderCheck']");
 	var $email_input = $("input[name ='m_email']");
 	var $genderWoman = $("#woman");
-	var $phone_input = $("input[name='m_phone']");
+	var $phone_input = $("input[name='m_phone']"); 
 	var $zipcode_input = $("input[name='m_zipcode']");
 	var $nickname_input = $("input[name='m_nickname']");
 	var $old_year = $year.val();
@@ -25,8 +25,6 @@ $(function() {
 				daumPostcode();
 				addressflag = true;
 			}
-			
-
 	});
 	$($nickname_input).focusout(function(){
 		var msg = null;
@@ -318,6 +316,21 @@ function msgSwith(msg, target) {
 	$(idSelecter).attr("class",changeClass); 
 	$(idSelecter).html(msg);
 	$(idSelecter).attr("id",changeId);  
+	
+	var span = $("."+changeClass).parents("div").children("span");
+	var input =$("."+changeClass).parents("div").children("input").attr("class","txtb success");
+	var color = "color:green;";
+	if($(span).attr("class").search("fail_")==0){
+		$(input).attr("class","txtb fail");
+		color="color:red;"; 
+	}
+	$(span).attr('style',color); 
+	
+	
+	
+	
+	
+	
 	return "."+changeClass;
 }
 function focusing(searchClass,target){
@@ -345,9 +358,11 @@ function duplicateAjax(arr) {
 			},
 			dateType : 'text',
 			success : function(result) {
+				console.log(result); 
+				console.log(eval(result));
 				var selecter=target=="m_id"?"#id_msg":"#nickname_msg";
 				var msg = null;
-				if(eval(result)){
+				if(!eval(result)){
 					msg= "중복된"+((target=="m_id")?" 아이디 ":" 닉네임 ")+"입니다.";
 				} 
 				focusing($(msgSwith(msg,selecter)),input);

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.spring.portfolio.common.util.member.MemberUtility;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/wepapp/WEB-INF/spring/**/*.xml" })
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class MemberUtilityTest {
 	private MemberUtility util = new MemberUtility();
 

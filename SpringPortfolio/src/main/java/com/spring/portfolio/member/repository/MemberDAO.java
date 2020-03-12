@@ -1,6 +1,7 @@
 package com.spring.portfolio.member.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.portfolio.common.util.UtilityCommand;
 import com.spring.portfolio.common.vo.DuplicateVO;
@@ -16,7 +17,8 @@ public interface MemberDAO extends UtilityCommand{
 	
 	public abstract int delete(String m_id)throws Exception;
 	
-	public abstract List<MemberDTO> list()throws Exception;
+	public abstract List<Object> list(Map<String,Object> map)throws Exception;
 
 	public abstract MemberDTO duplicate(DuplicateVO vo)throws Exception;
+
 }

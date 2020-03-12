@@ -1,58 +1,57 @@
 package com.spring.portfolio.member.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.spring.portfolio.common.namespace.NameSpace;
+import com.spring.portfolio.common.namespace.MapperNameSpaces;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
+
 @Repository(value = "memberDAO")
-public class MemberDAOImpl implements MemberDAO{
+public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+	@Value(MapperNameSpaces.MEMBER)
+	private String ns;
+
 	public MemberDAOImpl() {
 	}
 
-
 	@Override
 	public int insert(MemberDTO dto) throws Exception {
-		return sqlSession.insert(NameSpace.MEMBER+"insert", dto);
-		
-	}
+		return sqlSession.insert(ns + "insert", dto);
 
+	}
 
 	@Override
 	public MemberDTO read(String m_id) throws Exception {
-		return sqlSession.selectOne(NameSpace.MEMBER+"read",m_id);
+		return sqlSession.selectOne(ns + "read", m_id);
 	}
-
 
 	@Override
 	public int update(MemberDTO dto) throws Exception {
-		return sqlSession.update(NameSpace.MEMBER+"update",dto);
+		return sqlSession.update(ns + "update", dto);
 	}
-
 
 	@Override
 	public int delete(String m_id) throws Exception {
-		return sqlSession.delete(NameSpace.MEMBER+"delete", m_id);
+		return sqlSession.delete(ns + "delete", m_id);
 	}
 
-
 	@Override
-	public List<MemberDTO> list() throws Exception {
-		return sqlSession.selectList(NameSpace.MEMBER+"list");
-	} 
-
-	@Override
-	public MemberDTO duplicate(DuplicateVO vo) throws Exception { 
-		
-		return sqlSession.selectOne(NameSpace.MEMBER+"duplicate",vo);
+	public List<Object> list(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(ns + "list", map);
 	}
-	
+
+	@Override
+	public MemberDTO duplicate(DuplicateVO vo) throws Exception {
+
+		return sqlSession.selectOne(ns + "duplicate", vo);
+	}
 
 }

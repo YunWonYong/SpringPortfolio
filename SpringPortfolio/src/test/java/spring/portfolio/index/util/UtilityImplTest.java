@@ -12,17 +12,17 @@ import com.spring.portfolio.common.util.UtilityImpl;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ="file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class UtilityImplTest {
 	private UtilityImpl util = new UtilityImpl();
-	
+
 	public UtilityImplTest() {
 	}
-	
+
 	@Test
 	public void testTransform() {
-		int i =0;
-		int j =1;
+		int i = 0;
+		int j = 1;
 		char ch1 = '0';
 		char ch2 = '1';
 		boolean b1 = true;
@@ -39,7 +39,7 @@ public class UtilityImplTest {
 		assertTrue(resultFlag4);
 		assertTrue(resultFlag5);
 		assertFalse(resultFlag6);
-		
+
 		MemberDTO dto1 = new MemberDTO();
 		MemberDTO dto2 = null;
 		boolean objectFlag1 = util.booleanTransform(dto1);

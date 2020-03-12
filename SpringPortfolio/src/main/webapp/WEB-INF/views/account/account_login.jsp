@@ -17,7 +17,7 @@
 			<strong>${not empty msg?msg:'&nbsp;' }</strong>
 		</div>
 		<div id="account_form_submit">
-			<input type="checkbox" name="autoLogin" value="off" id="autologin" />
+			<input type="checkbox" name="a_autologin_check" value="off" id="autologin" />
 			<label for="autologin">자동로그인</label>
 			<button id="form_submit">로그인</button>
 		</div>

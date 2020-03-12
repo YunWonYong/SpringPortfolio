@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class SqlSessionBeanTest {
 	@Inject
 	private SqlSession sqlSess;

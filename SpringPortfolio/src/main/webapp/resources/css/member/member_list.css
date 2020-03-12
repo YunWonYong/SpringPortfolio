@@ -1,0 +1,88 @@
+@charset "UTF-8";
+.wrap{
+	width: 1300px;
+	position: relative;
+	left: 15%;
+}
+header{
+	display: inline-block;
+}
+
+.pagnation{
+  position: absolute;
+  top: 530px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-50%);
+  
+}
+.all_list{
+	display: inline-block;
+}
+.pagnation a{
+	
+	margin: 6px 2px;
+  display: inline-block;
+  width: 30px;
+  background: powderblue;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-weight: 300;
+  transition: 0.3s;
+  position: relative;
+  padding-right: 6px;
+  border-radius: 4px;
+}
+.pagination a:hover{
+  color: #e74c3c;
+}
+.pagnation a::before, .pagnation a:after{
+  content: "";
+  position: absolute;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+}
+/* .num::before,.next::before{
+  border-right: 20px solid powderblue;
+  right: 100%;
+  min-height: 30px;
+} */
+.member_list_search{
+	
+	display:flex;
+	position: relative;
+    left: 500px;
+    top:500px;
+    width: 500px;
+}
+
+select{
+	position:relative;
+	height: 27px;
+	right: 5px;
+}
+.logo{
+	display: inline-block;
+	top: 20px;
+	position: relative;
+}
+.member_search_target{
+	position:relative;
+	display: inline-block;
+}
+table{
+	text-align: center;
+}
+thead th{
+	text-align:center;
+	background-color: powderblue;
+	border: 1px solid powderblue;
+}
+tbody{
+	border: 2px solid powderblue;
+	border-radius: 5px;
+}
+footer{
+	display: inline-block;
+}

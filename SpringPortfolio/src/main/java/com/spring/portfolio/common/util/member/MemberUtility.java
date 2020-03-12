@@ -17,14 +17,43 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 	private int start, end;
 
 	public MemberUtility() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public String getGrant(char grant) {
+		String returnValue = null;
+		switch (grant) {
+		case 'z':
+			returnValue = "일반회원";
+			break;
+		case 'a':
+			returnValue = "운영자";
+			break;
+		default:
+			break;
+		}
+		return returnValue;
 	}
 
 	public char setGender(String gender) {
-		return gender!=null?'0':'1';
+		return gender != null ? '0' : '1';
 	}
+
 	public String getGender(char gender) {
 		return gender == '1' ? "여자" : "남자";
+	}
+
+	public String searchContentParse(String target, String content) {
+		String returnValue = content;
+		switch (target) {
+		case "m_gender":
+			char gender = setGender(!content.contains("남") ? null : content);
+			returnValue = String.valueOf(gender);
+			break;
+		case "m_grant":
+			returnValue = setGrant(content);
+			break;
+		}
+		return returnValue;
 	}
 
 	public int getAge(final String year) {
@@ -38,7 +67,7 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 		return map;
 	}
 
-	public String ajaxDuplicateResult(Map<String,String> map) {
+	public String ajaxDuplicateResult(Map<String, String> map) {
 		String selecter = (String) map.get("selecter");
 		String flagmsg = (String) map.get("flag");
 		StringBuffer msgSB = new StringBuffer();
@@ -103,5 +132,17 @@ public class MemberUtility extends UtilityImpl implements UtilityCommand {
 	private String monthParSing(final int value) {
 		String pasingValue = parsingString(value);
 		return pasingValue.length() == 1 ? "0" + pasingValue : pasingValue;
+	}
+
+	private String setGrant(String content) {
+		switch (content) {
+		case "일반회원":
+			content = "z";
+			break;
+		case "운영자":
+			content = "a";
+			break;
+		}
+		return content;
 	}
 }
