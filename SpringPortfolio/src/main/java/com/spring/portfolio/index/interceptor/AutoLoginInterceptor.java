@@ -36,7 +36,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 				String a_jsession_id = cookie.getValue();
 				dto = accountService.getOne(a_jsession_id);
 				if (dto != null) {
-					int a_holding_time = dto.getA_holding_time();
+					String a_holding_time = dto.getA_holding_time();
 					dto.setA_holding_time(accountUtil.getHoldingTime());
 					i = accountUtil.lifeTimeCheck(a_holding_time) ? accountService.modify(dto)
 							: accountService.remove(dto);

@@ -19,20 +19,20 @@ public class AccountUtilTest {
 	private Calendar c;
 	private String realTime;
 	private Cookie[] cookies;
-	private int assertValue;
+	private long assertValue;
 
 	@Before
 	public void testSet() {
 		c = Calendar.getInstance();
 		realTime = String.valueOf(c.getTimeInMillis());
-		assertValue = Integer.parseInt(realTime.substring(4, realTime.length()));
+		assertValue = Long.parseLong(realTime);
 		util = new AccountUtility();
 		cookies = new Cookie[] { new Cookie("a_jsession_id", "success"), new Cookie("test", "test") };
 	}
 
 	@Test
 	public void testGetHoldingTime() {
-		assertEquals(assertValue + (60 * 60 * 24), util.getHoldingTime());
+		assertTrue((assertValue + (60 * 60 * 24))==Long.valueOf(util.getHoldingTime()));
 	}
 
 	@Test
@@ -45,9 +45,9 @@ public class AccountUtilTest {
 
 	@Test
 	public void testGetLifeTimeCheck() {
-		int a_holding_time = util.getHoldingTime();
+		String a_holding_time = util.getHoldingTime();
 		assertTrue(util.lifeTimeCheck(a_holding_time));
-		assertFalse(util.lifeTimeCheck(a_holding_time - ((60 * 60 * 24) + 1)));
+		assertFalse(util.lifeTimeCheck(String.valueOf(Long.parseLong(a_holding_time) - ((60 * 60 * 24) + 1))));
 
 	}
 

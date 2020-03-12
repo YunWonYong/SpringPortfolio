@@ -35,5 +35,5 @@
 		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory"/>
 	</bean>
 	
-	<util:properties id="namespace" location="file:src/main/webapp/WEB-INF/properties/namespace/namespace.properties"/>
+	<util:properties id="namespace" location="file:src/main/webapp/WEB-INF/properties/namespace/mapperNameSpace.properties"/>
 </beans>

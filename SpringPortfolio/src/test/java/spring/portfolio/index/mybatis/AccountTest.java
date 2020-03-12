@@ -31,7 +31,7 @@ public class AccountTest {
 	private AccountDTO dto;
 	private Calendar calendar;
 	private String m_id;
-	private int a_holding_time;
+	private String a_holding_time;
 	private String a_jsession_id;
 
 	@Before
@@ -49,15 +49,17 @@ public class AccountTest {
 		calendar = Calendar.getInstance();
 		assertNotNull(calendar);
 		String realTime = String.valueOf(calendar.getTimeInMillis());
-		a_holding_time = Integer.parseInt(realTime.substring(4, realTime.length()));
+		a_holding_time = realTime;
 		a_jsession_id = "D919198DE77E514E";
 		dto.setA_jsession_id(a_jsession_id);
-
+		dto.setA_autologin_check("on");
 	}
 
 	@Test
 	public void testInsert() {
-		dto.setA_holding_time(a_holding_time + (60 * 60 * 24));
+		long holding = Long.parseLong(a_holding_time);
+		holding += (60 * 60 * 24);
+		dto.setA_holding_time(String.valueOf(holding));
 		int i = sqlSession.insert(accountNA + "insert", dto);
 		assertTrue(i == 1);
 	}
@@ -74,14 +76,14 @@ public class AccountTest {
 	@Test
 	public void testUpdate() {
 		testAutoLogin();
-		int target = dto.getA_holding_time(); 
+		long target = Long.parseLong(dto.getA_holding_time());
 		System.out.println(a_holding_time);
-		assertTrue(target > a_holding_time);
-		dto.setA_holding_time(a_holding_time + (60 * 60 * 24));
+		assertTrue(target > Long.parseLong(a_holding_time));
+		dto.setA_holding_time(String.valueOf(Long.parseLong(a_holding_time) + (60 * 60 * 24)));
 		int i = sqlSession.update(accountNA + "update", dto);
 		assertTrue(i == 1);
 		AccountDTO dto = sqlSession.selectOne(accountNA + "autologin", a_jsession_id);
-		assertFalse(target == dto.getA_holding_time());
+		assertFalse(target ==  Long.parseLong(dto.getA_holding_time()));
 
 	}
 

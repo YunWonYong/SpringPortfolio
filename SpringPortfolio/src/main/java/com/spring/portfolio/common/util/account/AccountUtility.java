@@ -16,8 +16,8 @@ public class AccountUtility implements UtilityCommand {
 	public AccountUtility() {
 	}
 
-	public int getHoldingTime() {
-		return getRealTime() + (60 * 60 * 24);
+	public String getHoldingTime() {
+		return String.valueOf(Long.parseLong(getRealTime()) + (60 * 60 * 24));
 
 	}
 
@@ -49,8 +49,8 @@ public class AccountUtility implements UtilityCommand {
 
 	}
 
-	public boolean lifeTimeCheck(int a_holding_time) {
-		return a_holding_time - getRealTime() > 0;
+	public boolean lifeTimeCheck(String a_holding_time) {
+		return Long.parseLong(a_holding_time) - Long.parseLong(getRealTime()) > 0;
 	}
 
 	public Cookie getCookie(Cookie[] cookies) {
@@ -69,9 +69,9 @@ public class AccountUtility implements UtilityCommand {
 		response.addCookie(cookie);
 	}
 
-	private int getRealTime() {
+	private String getRealTime() {
 		Calendar c = Calendar.getInstance();
 		String realTime = String.valueOf(c.getTimeInMillis());
-		return Integer.parseInt(realTime.substring(4, realTime.length()));
+		return realTime;
 	}
 }

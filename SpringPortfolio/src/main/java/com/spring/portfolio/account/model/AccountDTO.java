@@ -8,8 +8,7 @@ public class AccountDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String m_id, m_password, a_autologin_check, m_nickname, m_grant, a_jsession_id;
-	private int a_holding_time;
+	private String m_id, m_password, a_autologin_check, m_nickname, m_grant, a_jsession_id, a_holding_time;
 
 	public AccountDTO() {
 		// TODO Auto-generated constructor stub
@@ -73,11 +72,11 @@ public class AccountDTO implements Serializable {
 		this.a_jsession_id = a_jsession_id;
 	}
 
-	public int getA_holding_time() {
+	public String getA_holding_time() {
 		return a_holding_time;
 	}
 
-	public void setA_holding_time(int a_holding_time) {
+	public void setA_holding_time(String a_holding_time) {
 		this.a_holding_time = a_holding_time;
 	}
 
