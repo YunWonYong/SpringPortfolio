@@ -91,7 +91,7 @@
 					msg += e;
 				} finally {
 					var paging = jsonData.pagingentity[0];
-					msg += "</tbody></table><div class='pagnation'><div>";
+					msg += "</tbody></table><div class='pagnation'><div class='prev'>";
 					if (paging.stopNumber == 0) {
 						msg += "<a href='javascript:pageFunction("
 								+ paging.beginNumber + ")'>"
@@ -108,14 +108,14 @@
 									+ (curr - 1) + ")'><i class='fas fa-angle-left'></i></a>&nbsp";
 						}
 						msg+="</div>";
-						msg+="<div>"; 
+						msg+="<div class='number'>"; 
 						for (var i = paging.beginNumber; i < paging.stopNumber + 1; i++) {
 							var linkColor = curr == i ? "style='color:red;'"
 									: "";
 							msg += "<a href='javascript:pageFunction(" + i
 									+ ")'" + linkColor + ">" + i + "</a>&nbsp";
 						}
-						msg+="</div><div>";
+						msg+="</div><div class='next'>";
 						if (curr != paging.totalPage) {
 							msg += "<a href='javascript:pageFunction("
 									+ (curr + 1) + ")'><i class='fas fa-angle-right'></i></a>&nbsp";

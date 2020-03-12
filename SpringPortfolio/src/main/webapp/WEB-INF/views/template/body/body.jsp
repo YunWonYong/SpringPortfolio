@@ -10,7 +10,7 @@
 <tiles:insertAttribute name="css"/> 
 
 <tiles:insertAttribute name="script"/>
-<title><tiles:insertAttribute name="title" /></title>
+<%-- <title><tiles:insertAttribute name="title" /></title> --%>
 </head>
 <body>
 	<header>

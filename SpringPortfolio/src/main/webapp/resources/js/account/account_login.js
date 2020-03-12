@@ -58,4 +58,8 @@
 			}
 			return flag;
 		}
+		 videoURL($("#first").attr("first"));
 	});
+	function videoURL(play){
+	      document.getElementById("slider").src = play;
+	    }

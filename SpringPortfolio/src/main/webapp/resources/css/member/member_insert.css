@@ -141,6 +141,8 @@ input[type="submit"] {
 input[type="text"]:focus,input[type = "password"]:focus{
 	 width: 280px;
   border-color: #2ecc71;
+  box-shadow: 0 0 10px #2ecc71;
+  
 }
 .txtb:focus{
 	width: 280px;
