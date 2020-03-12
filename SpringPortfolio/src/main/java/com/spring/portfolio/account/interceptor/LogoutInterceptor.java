@@ -28,29 +28,22 @@ public class LogoutInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv)
 			throws Exception {
-		Object obj = mv.getModel().get("cookie");
-		Cookie cookie = obj != null ? obj instanceof Cookie ? (Cookie) obj : null : null;
-		obj = mv.getModel().get("session");
-		HttpSession sess = obj != null ? obj instanceof HttpSession ? (HttpSession) obj : null : null;
-		AccountDTO dto = sess != null ? accountUtil.loginChekc(sess.getAttribute("login")) : null;
-		System.out.println("sds:" + dto);
-		System.out.println("sds:" + cookie);
-		String jsession = null;
-		if (dto != null) {
-			jsession = dto.getA_jsession_id();
-		}
-		if (sess != null) {
-			try {
-				if (jsession == null || dto == null && cookie == null) {
-					throw new AutoLoginOffException();
-				}
-				accountService.remove(dto);
-				accountUtil.cookieDelete(response, cookie);
-			} catch (AutoLoginOffException e) {
-			} finally {
-				sess.invalidate();
-				mv.setViewName("redirect:/");
+		Cookie cookie = accountUtil.getCookie(request.getCookies());
+		AccountDTO dto = null;
+		HttpSession sess = null;
+		try {
+			sess = request.getSession();
+			dto = accountUtil.loginCheck(sess.getAttribute("login"));
+			if (cookie == null) {
+				throw new AutoLoginOffException();
 			}
+			cookie.setPath("/");
+			accountService.remove(dto); 
+			accountUtil.cookieDelete(response, cookie);
+		} catch (AutoLoginOffException e) {
+		} finally {
+			mv.setViewName("redirect:/");
+			sess.invalidate();
 		}
 		super.postHandle(request, response, handler, mv);
 	}

@@ -27,18 +27,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		Cookie[] cookies = request.getCookies();
-		Cookie cookie = null;
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				System.out.println(c.getName());
-				System.out.println(c.getValue());
-				if (c.getName().equals("a_jsession_id")) {
-					System.out.println(c.getPath());
-					cookie = c;
-				}
-			}
-		}
+		Cookie cookie = accountUtil.getCookie(request.getCookies());
 		HttpSession sess = null;
 		AccountDTO dto = null;
 		if (accountUtil.cookieCheck(cookie)) {
@@ -47,7 +36,6 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 				String a_jsession_id = cookie.getValue();
 				dto = accountService.getOne(a_jsession_id);
 				if (dto != null) {
-					// System.out.println(dto);
 					int a_holding_time = dto.getA_holding_time();
 					dto.setA_holding_time(accountUtil.getHoldingTime());
 					i = accountUtil.lifeTimeCheck(a_holding_time) ? accountService.modify(dto)

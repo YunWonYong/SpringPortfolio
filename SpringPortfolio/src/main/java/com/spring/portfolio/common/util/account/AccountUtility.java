@@ -22,12 +22,17 @@ public class AccountUtility implements UtilityCommand {
 	}
 
 	public String injectJsessionID(Cookie[] cookies, String autoCheck) {
-		Cookie cookie = checkJsessionID(cookies, autoCheck);
-		return cookie != null ? cookie.getValue() : null;
+		if (cookies != null && autoCheck.equals("on")) {
+			for (Cookie c : cookies) {
+				if (c.getName().equals("JSESSIONID")) {
+					return c.getValue();
+				}
+			}
+		}
+		return null;
 	}
 
-	public AccountDTO loginChekc(Object obj) {
-		System.out.println(obj instanceof AccountDTO);
+	public AccountDTO loginCheck(Object obj) {
 		return obj != null ? obj instanceof AccountDTO ? (AccountDTO) obj : null : null;
 	}
 
@@ -49,29 +54,19 @@ public class AccountUtility implements UtilityCommand {
 	}
 
 	public Cookie getCookie(Cookie[] cookies) {
-		return tergetCookie(cookies, "a_jsession_id");
-	}
-
-	public void cookieDelete(HttpServletResponse response, Cookie cookie) {
-		System.out.println("cookie delete:" + cookie.getName());
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-		System.out.println("cookie delete!");
-	}
-
-	private Cookie checkJsessionID(Cookie[] cookies, String autoCheck) {
-		return autoCheck.equals("on") ? tergetCookie(cookies, "JSESSIONID") : null;
-	}
-
-	private Cookie tergetCookie(Cookie[] cookies, String target) {
 		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				System.out.println(cookie.getName());
-				System.out.println(cookie.getValue());
-				return cookie.getName().equals(target) ? cookie : null;
+			for (Cookie c : cookies) {
+				if (c.getName().equals("a_jsession_id")) {
+					return c;
+				}
 			}
 		}
 		return null;
+	}
+
+	public void cookieDelete(HttpServletResponse response, Cookie cookie) {
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
 	}
 
 	private int getRealTime() {

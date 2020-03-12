@@ -34,17 +34,14 @@ public class AccountDAOImpl implements AccountDAO {
 		sqlSession.insert(ns + "insert", dto);
 
 	}
- 
+
 	@Override
 	public int delete(AccountDTO dto) throws Exception {
-		System.out.println("data delete!");
-		
 		return sqlSession.delete(ns + "delete", dto);
 	}
 
 	@Override
 	public int update(AccountDTO dto) throws Exception {
-		System.out.println("data update !!");
 		return sqlSession.update(ns + "update", dto);
 	}
 

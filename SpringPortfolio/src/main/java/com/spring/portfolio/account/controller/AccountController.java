@@ -37,17 +37,6 @@ public class AccountController {
 
 	@RequestMapping("logout")
 	public ModelAndView logout(ModelAndView mv, HttpSession sess, HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("a_jsession_id")) {
-					mv.addObject("cookie", cookie);
-				}
-
-			}
-		}
-		mv.addObject("request",request);
-		mv.addObject("session", sess);
 		return mv;
 	}
 }
