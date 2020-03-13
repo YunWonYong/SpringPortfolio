@@ -17,9 +17,16 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:src/main/webapp/WEB-INF/properties/mail/mail.properties</value>
+				<value>file:src/main/webapp/WEB-INF/properties/db/db.properties</value>
+			</list>
+		</property>
+	</bean>
 
-	<context:property-placeholder location="file:src/main/webapp/WEB-INF/properties/db/db.properties"/> 
-	<bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+	<bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${dataSource.driver}"/>
 		<property name="url" value="${dataSource.url}"/> 
 		<property name="username" value="${dataSource.id}"/> 
@@ -34,6 +41,20 @@
 	<bean id = "sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory"/>
 	</bean>
-	
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}"/>
+		<property name="port" value="${email.port}"/>
+		<property name="username" value="${email.id}"/>
+		<property name="password" value="${email.password}"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="javaMailProperties"> 
+			<props>
+				<prop key="${email.smtp.ssl.trust.key}">${email.smtp.ssl.trust.value}</prop>
+				<prop key="${email.smtp.starttles.enable.key}">${email.smtp.starttles.enable.value}</prop>
+				<prop key="${email.mail.smtp.auth.key}">${email.mail.smtp.auth.value}</prop>
+			</props>
+		</property>
+	</bean>
 	<util:properties id="namespace" location="file:src/main/webapp/WEB-INF/properties/namespace/mapperNameSpace.properties"/>
 </beans>

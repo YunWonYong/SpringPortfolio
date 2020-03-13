@@ -58,7 +58,7 @@ public class AccountUtility implements UtilityCommand {
 			for (Cookie c : cookies) {
 				if (c.getName().equals("a_jsession_id")) {
 					return c;
-				}
+				} 
 			}
 		}
 		return null;
