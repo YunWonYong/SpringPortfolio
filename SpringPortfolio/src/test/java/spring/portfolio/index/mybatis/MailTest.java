@@ -43,31 +43,4 @@ public class MailTest {
 		mailSender.send(mimeMessage);
 
 	}
-
-	/**
-	 * @RequestMapping(value="/createEmailCheck.do", method=RequestMethod.GET) @ResponseBody
-	 *                                               public boolean
-	 *                                               createEmailCheck(@RequestParam
-	 *                                               String userEmail, @RequestParam
-	 *                                               int random, HttpServletRequest
-	 *                                               req){ //이메일 인증 int ran = new
-	 *                                               Random().nextInt(900000) +
-	 *                                               100000; HttpSession session =
-	 *                                               req.getSession(true); String
-	 *                                               authCode = String.valueOf(ran);
-	 *                                               session.setAttribute("authCode",
-	 *                                               authCode);
-	 *                                               session.setAttribute("random",
-	 *                                               random); String subject = "회원가입
-	 *                                               인증 코드 발급 안내 입니다.";
-	 *                                               StringBuilder sb = new
-	 *                                               StringBuilder(); sb.append("귀하의
-	 *                                               인증 코드는 " + authCode + "입니다.");
-	 *                                               return
-	 *                                               mailService.send(subject,
-	 *                                               sb.toString(), sendEmailId,
-	 *                                               userEmail, null); }
-	 * 
-	 **/
-
 }
