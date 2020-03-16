@@ -30,6 +30,7 @@
 			<c:otherwise>
 				<a href="/account/login_form">로그인</a>
 				<a href="/member/insert">회원가입</a>
+				<a href="/certification/test">test</a>
 			</c:otherwise>
 		</c:choose>
 	</div>

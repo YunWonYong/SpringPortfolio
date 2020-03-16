@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.repository.AccountDAO;
-import com.spring.portfolio.common.namespace.RepositoryNameSpaces;
-import com.spring.portfolio.common.namespace.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.util.member.MemberUtility;
 
 @Service(ServiceNameSpaces.ACCOUNT)

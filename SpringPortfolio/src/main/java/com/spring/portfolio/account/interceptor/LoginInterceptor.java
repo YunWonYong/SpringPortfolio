@@ -12,8 +12,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.service.AccountService;
 import com.spring.portfolio.common.exception.account.LoginFailException;
-import com.spring.portfolio.common.namespace.ServiceNameSpaces;
-import com.spring.portfolio.common.namespace.UtilNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.account.AccountUtility;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {

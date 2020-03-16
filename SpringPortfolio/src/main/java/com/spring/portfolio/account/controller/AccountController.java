@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.service.AccountService;
-import com.spring.portfolio.common.namespace.ControllerNameSpaces;
-import com.spring.portfolio.common.namespace.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.ControllerNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 
 @Controller
 @RequestMapping(ControllerNameSpaces.ACCOUNT)

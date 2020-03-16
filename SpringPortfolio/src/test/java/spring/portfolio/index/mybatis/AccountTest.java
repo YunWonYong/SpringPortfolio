@@ -18,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.portfolio.account.model.AccountDTO;
-import com.spring.portfolio.common.namespace.MapperNameSpaces;
+import com.spring.portfolio.common.namespaces.MapperNameSpaces;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)

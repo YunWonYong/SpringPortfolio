@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.portfolio.common.exception.ListSwitch;
+import com.spring.portfolio.common.namespaces.ControllerNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.json.JsonParsing;
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.util.sql.SqlMultiObject;
@@ -24,11 +27,11 @@ import com.spring.portfolio.member.model.MemberVO;
 import com.spring.portfolio.member.service.MemberService;
 
 @Controller
-@RequestMapping("member")
+@RequestMapping(ControllerNameSpaces.MEMBER)
 public class MemberController {
-	@Resource(name = "memberService")
+	@Resource(name = ServiceNameSpaces.MEMBER)
 	private MemberService memberService;
-	@Resource(name = "memberUtil")
+	@Resource(name = UtilNameSpaces.MEMBER)
 	private MemberUtility util;
 
 	public MemberController() {

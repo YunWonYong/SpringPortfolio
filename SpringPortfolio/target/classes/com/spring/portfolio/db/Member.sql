@@ -17,10 +17,10 @@ m_registdate date default sysdate,
 c_index number(7) references portfolio_certification(c_index)  on delete cascade
 )
 
-drop table portfolio_member
+drop table portfolio_member cascade constraints
 
 
-delete from portfolio_member
+delete from portfolio_member 
 
 insert into portfolio_member(m_index,
 						     m_id,
@@ -39,20 +39,20 @@ insert into portfolio_member(m_index,
 						     c_index
 						     )
 values((select nvl(max(m_index),0)+1 from portfolio_member),
-									'tester_A',
+									'admin',
 									'1234',
-									'tester_A',
-									'테스트',
-									'a',
+									'admin',
+									'운영자',
+									'z',
 									'1992-11-07',
 									29,
 									00000,
 									'회사사무실',
 									'우리회사18평',
-									'test@gmail.com',
+									'ywyi1992@naver.com',
 									'010-2222-2222',
 									'0',
-									(select c_index from portfolio_certification where c_email ='test@gmail.com')
+									(select c_index from portfolio_certification where c_email ='ywyi1992@naver.com')
 									);
 									
 commit
@@ -100,11 +100,22 @@ create table portfolio_member_backup as select * from portfolio_member
 
 select * from portfolio_member_backup
 
-alter table portfolio_member add contraints fk_certification_email foreign key(m_email)
-references portfolio_certification(m_email) --on delete cascade
+
+drop trigger set_certification_id
+
+select * from all_triggers
+where table_name='PORTFOLIO_MEMBER'
+
+select * from user_errors where type='TRIGGER'
 
 
 
-
+CREATE OR REPLACE TRIGGER set_certification_id
+AFTER insert on portfolio_member FOR EACH ROW
+BEGIN
+	update portfolio_certification set c_id = :new.m_id
+	where c_index = :new.c_index;
+END;
+/
 
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.spring.portfolio.common.namespace.MapperNameSpaces;
+import com.spring.portfolio.common.namespaces.MapperNameSpaces;
 
 
 @Repository("pagingDAO")

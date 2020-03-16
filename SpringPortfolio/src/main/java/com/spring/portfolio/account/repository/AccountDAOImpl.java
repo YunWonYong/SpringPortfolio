@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.account.model.AccountDTO;
-import com.spring.portfolio.common.namespace.MapperNameSpaces;
-import com.spring.portfolio.common.namespace.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.MapperNameSpaces;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
 
 @Repository(RepositoryNameSpaces.ACCOUNT)
 public class AccountDAOImpl implements AccountDAO {

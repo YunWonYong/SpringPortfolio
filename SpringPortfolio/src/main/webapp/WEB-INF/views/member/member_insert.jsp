@@ -146,7 +146,6 @@
 </script>
 </head>
 <body>
-
 	<div class="loginBox">
 		<h1>회원가입</h1>
 		<form class="login-form" action="/member/insert" method="POST">
