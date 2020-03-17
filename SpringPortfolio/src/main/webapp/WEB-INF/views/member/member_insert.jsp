@@ -189,8 +189,6 @@
 					<label for="man">남자</label> <span id="gender_msg" class="msg">&nbsp;</span>
 				</div>
 			</div>
-
-
 			<div class="birth">
 				<p>생년월일</p>
 				<select name="year">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.portfolio.certification">
-	<insert id = "insert">
+	<insert id="insert">
 			<![CDATA[
 				insert into portfolio_certification(c_index,c_email,c_inspection)
 				values(
@@ -10,33 +10,37 @@
 						#{c_email},
 						#{c_inspection}
 						)
-			]]> 
+			]]>
 	</insert>
-	<update id="check" >
+	<update id="check">
 		<![CDATA[
 			update portfolio_certification set c_inspection_check = 1,
 											   c_date = sysdate
 		]]>
 		<where>
-			c_inspection = #{c_inspection}	
+			<![CDATA[
+				c_inspection = #{c_inspection}
+			]]>
 		</where>
 	</update>
-	
+
 	<select id="read" resultType="certificationDTO">
-		<![CDATA[
+		<![CDATA[ 
 			select * from portfolio_certification
 		]]>
 		<where>
-			c_inspection = #{c_inspection}
+			<![CDATA[
+				c_email = #{c_email}
+			]]>
 		</where>
 	</select>
-	
+
 	<delete id="delete">
 		<![CDATA[
 			delete from portfolio_certification
 		]]>
 		<where>
-			
+
 		</where>
 	</delete>
 </mapper>

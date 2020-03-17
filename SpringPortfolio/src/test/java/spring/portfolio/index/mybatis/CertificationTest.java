@@ -1,6 +1,7 @@
 package spring.portfolio.index.mybatis;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -24,34 +25,39 @@ public class CertificationTest {
 	@Inject
 	private SqlSession sqlSession;
 	@Value(MapperNameSpaces.CERTIFICATION)
-	private String NS;
+	private String ns;
 	private CertificationDTO dto;
+
+	public CertificationTest() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Before
 	public void testSetting() throws Exception {
-		dto = new CertificationDTO();
+		dto = new CertificationDTO(); // instance
 		dto.setC_email("ywyi1992@naver.com");
 		dto.setC_inspection(new CertificationUtility().inspectionCode(dto.getC_email()));
+		assertNotNull(ns);
+		assertEquals(ns, "com.spring.portfolio.certification.");
 	}
 
 	@Test
 	public void testRegister() throws Exception {
-		assertTrue(sqlSession.insert(NS + "insert", dto) == 1);
-
+		assertTrue(sqlSession.insert(ns + "insert", dto) == 1);
 	}
 
 	@Test
 	public void testInspectionCheck() throws Exception {
-		assertTrue(sqlSession.update(NS + "check", dto) == 1);
+		assertTrue(sqlSession.update(ns + "check", dto) == 1);
 	}
 
 	@Test
 	public void testGetOne() {
-		Object obj = sqlSession.selectOne(NS + "read", this.dto);
+		Object obj = sqlSession.selectOne(ns + "read", this.dto);
 		assertNotNull(obj);
 		assertTrue(obj instanceof CertificationDTO);
 		CertificationDTO dto = (CertificationDTO) obj;
 		assertEquals(this.dto.getC_inspection(), dto.getC_inspection());
+		assertEquals(dto.getC_inspection_check(),"1");
 	}
-	
 }

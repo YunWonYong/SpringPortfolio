@@ -1,11 +1,16 @@
 create table portfolio_certification(
 	c_index number(7) primary key not null,
 	c_inspection varchar2(100) null,
-	c_email varchar2(30) not null,
+	c_email varchar2(30) not null unique,
 	c_date date null, 
 	c_id varchar2(15) null,
 	c_inspection_check char default '0'
 )
+
+alter table portfolio_certification add unique(c_email )
+
+select * from user_constraints where table_name='PORTFOLIO_CERTIFICATION'
+
 
 insert into portfolio_certification(c_index,c_email) values((select nvl(max(c_index),0)+1 from portfolio_certification),'ywyi1992@naver.com')
 

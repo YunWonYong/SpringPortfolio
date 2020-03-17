@@ -7,11 +7,12 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.Utility;
 import com.spring.portfolio.common.util.UtilityImpl;
 import com.spring.portfolio.common.vo.LoopVO;
 
-@Component(value = "memberUtil")
+@Component(value = UtilNameSpaces.MEMBER) 
 public class MemberUtility extends UtilityImpl implements Utility {
 
 	private int start, end;
@@ -87,7 +88,6 @@ public class MemberUtility extends UtilityImpl implements Utility {
 	}
 
 	private List<String> listLoop(final LoopVO vo) {
-
 		switch (vo.getOperator()) {
 		case 0:
 			vo.setReturnList(monthLoop(vo));

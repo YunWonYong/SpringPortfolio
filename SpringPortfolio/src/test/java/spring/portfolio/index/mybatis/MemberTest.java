@@ -1,115 +1,77 @@
 package spring.portfolio.index.mybatis;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import javax.annotation.Resource;
 
-import javax.inject.Inject;
-
-import org.apache.ibatis.session.SqlSession;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.portfolio.common.vo.DuplicateVO;
-import com.spring.portfolio.common.vo.TargetAndValueAbstractVO;
+import com.spring.portfolio.account.model.AccountDTO;
+import com.spring.portfolio.common.namespaces.MapperNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
+import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.member.model.MemberDTO;
+import com.spring.portfolio.member.model.MemberVO;
+import com.spring.portfolio.member.service.MemberService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class MemberTest {
-	@Inject
-	private SqlSession sqlSession;
-	private String id;
-	private String nickName;
+	@Resource(name = ServiceNameSpaces.MEMBER)
+	private MemberService service;
+	private MemberDTO dto;
+	private String m_id;
+	private String m_email;
+	@Value(MapperNameSpaces.MEMBER)
+	private String ns;
+	@Resource(name = UtilNameSpaces.MEMBER)
+	private MemberUtility util;
 
-	/**
-	 * insert Test start
-	 **/
-	@Test
-	public void testInsert() {
-		/**
-		 * 멤버변수 id,nickName 값을 필수로변경해야함
-		 **/
-		id = "test2";
-		nickName = "test2";
-		testDuplicate();
-		MemberDTO dto = new MemberDTO(2, id, "1234", "테스터", 'z', "2020-03-09", 1, "00000", "테스터는집이없어요", "그래서 주소가없어요.",
-				"email@email.com", "02-1992-1107", '0', null, nickName);
-		assertTrue(sqlSession.insert("insert", dto) == 1);
-		testRead();
+	@Before
+	public void testDataSet() {
+		dto = new MemberDTO();
+		m_id = "junitTest";
+		m_email = "ywyi1992@naver.com";
+		assertNotNull("nameSpace value:" + ns, ns);
+		assertEquals(ns, "com.spring.portfolio.member.");
+		dto.setM_id(m_id);
+		dto.setM_email(m_email);
+		assertNotNull(service);
+		assertNotNull(ns);
+		assertNotNull(util);
 	}
 
 	@Test
-	public void testDuplicate() {
-		TargetAndValueAbstractVO duplicate = new DuplicateVO("m_id", id);
-		MemberDTO dto = sqlSession.selectOne("duplicate", duplicate);
-		assertNull("중복된아이디.", dto);
-
+	public void testServiceRegister() throws Exception {
+		MemberVO vo = new MemberVO();
+		vo.setGenderCheck(null);
+		vo.setYear("1993");
+		dto.setM_password("1234");
+		dto.setM_nickname("윤호윤호");
+		dto.setM_name("이윤효");
+		dto.setM_birth("1993-12-13");
+		dto.setM_age(util.getAge(vo.getYear()));
+		dto.setM_zipcode("15675");
+		dto.setM_address1("서울특별시 강남구 123-123");
+		dto.setM_address2("중앙정보 처리 학원");
+		dto.setM_phone("010-2222-2222");
+		dto.setM_gender(util.setGender(vo.getGenderCheck()));
+		assertTrue(service.register(dto));
 	}
-
+	
 	@Test
-	public void testRead() {
-		MemberDTO dto = new MemberDTO();
-		dto.setM_id(id);
-		dto = sqlSession.selectOne("read", dto);
-		assertNotNull(dto);
-		assertTrue(dto.getM_nickname().equals(nickName));
+	public void testServiceRemove() throws Exception {
+		AccountDTO dto = new AccountDTO();
+		dto.setM_id(m_id);
+		assertTrue(service.remove(dto)); 
+		
 	}
-
-	/**
-	 * insert Test end
-	 **/
-	@Test
-	public void testUpdate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
-	}
-
-//	@Test
-//	public void testList() {
-//		PagingVO page = new PagingVO();
-//		SearchVO searchvo = new SearchVO(null, "admin");
-//		page.setCurrentPage(2, searchvo);
-//		Map<String, Object> map = SqlMultiObject.add(searchvo, page);
-//		Iterator<String> it = map.keySet().iterator();
-//		returnWhile: while (it.hasNext()) {
-//			String key = it.next();
-//			System.out.println(key);
-//			assertTrue(key.equals("searchvo") || key.equals("pagingvo"));
-//			if (key.equals("searchvo")) {
-//				assertTrue(map.get(key) instanceof SearchVO);
-//				SearchVO search = null;
-//				search = (SearchVO) map.get(key);
-//				assertNotNull(search);
-//				if (search.getTarget() != null) {
-//					assertTrue(search.getTarget().equals("m_id"));
-//					assertTrue(search.getValue().equals("admin"));
-//				}
-//				continue returnWhile;
-//			}
-//			assertTrue(map.get(key) instanceof PagingVO);
-//			PagingVO pasing = null;
-//			pasing = (PagingVO) map.get(key);
-//			assertNotNull(pasing);
-//		}
-//		List<Object> list = sqlSession.selectList(NameSpace.MEMBER + "list", map);
-//		assertNotNull(list);
-//		for (Object obj : list) {
-//			assertTrue(obj instanceof MemberDTO);
-//			MemberDTO dto = (MemberDTO) obj;
-//			System.out.println(list.size());
-//			System.out.println(dto.getM_id());
-//		}
-//	}
-
-	@Test
-	public void testSearchList() {
-		fail("Not yet implemented");
-	}
-
 }

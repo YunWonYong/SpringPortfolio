@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.spring.portfolio.common.namespaces.MapperNameSpaces;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
 
 
-@Repository("pagingDAO")
+@Repository(value = RepositoryNameSpaces.PGING)
 public class PagingDAOImpl implements PagingDAO {
 	@Autowired
 	private SqlSession sqlSession;

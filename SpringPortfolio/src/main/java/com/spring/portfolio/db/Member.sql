@@ -14,7 +14,7 @@ m_email varchar2(30) not null,
 m_phone varchar2(13) not null,
 m_gender char(1) check(m_gender in('1','0')) not null,
 m_registdate date default sysdate,
-c_index number(7) references portfolio_certification(c_index)  on delete cascade
+c_index number(7) references portfolio_certification(c_index) on delete cascade
 )
 
 drop table portfolio_member cascade constraints
@@ -51,8 +51,8 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'우리회사18평',
 									'ywyi1992@naver.com',
 									'010-2222-2222',
-									'0',
-									(select c_index from portfolio_certification where c_email ='ywyi1992@naver.com')
+									'0', 
+									(select c_index  from portfolio_certification where c_email = 'ywyi1992@naver.com')
 									);
 									
 commit
@@ -87,14 +87,19 @@ from(
 						)where r<=20
 )where r between 10 and 20
 
+create table portfolio_member_backup as select * from PORTFOLIO_MEMBER
+
+select * from portfolio_member_backup
+
 
 select * from portfolio_member
 
-delete from portfolio_member
+delete from portfolio_member cascade
+
 
 select count(m_index) from portfolio_member where m_gender = '1'
 
-drop table portfolio_member_backup
+drop table portfolio_membe
 
 create table portfolio_member_backup as select * from portfolio_member
 
@@ -108,6 +113,7 @@ where table_name='PORTFOLIO_MEMBER'
 
 select * from user_errors where type='TRIGGER'
 
+select sysdate from PORTFOLIO_ACCOUNT
 
 
 CREATE OR REPLACE TRIGGER set_certification_id
@@ -117,5 +123,3 @@ BEGIN
 	where c_index = :new.c_index;
 END;
 /
-
-

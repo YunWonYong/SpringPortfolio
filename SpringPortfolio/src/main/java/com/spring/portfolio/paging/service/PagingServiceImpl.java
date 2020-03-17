@@ -6,13 +6,15 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.vo.PagingVO;
 import com.spring.portfolio.paging.model.PagingEntity;
 import com.spring.portfolio.paging.repository.PagingDAO;
 
-@Service("pagingService")
+@Service(value = ServiceNameSpaces.PGING)
 public class PagingServiceImpl implements PagingService {
-	@Resource(name = "pagingDAO")
+	@Resource(name = RepositoryNameSpaces.PGING)
 	private PagingDAO dao;
 
 	public PagingServiceImpl() {
