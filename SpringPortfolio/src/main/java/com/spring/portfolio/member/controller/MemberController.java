@@ -7,11 +7,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.common.exception.ListSwitch;
 import com.spring.portfolio.common.namespaces.ControllerNameSpaces;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
@@ -62,26 +64,27 @@ public class MemberController {
 
 	@RequestMapping("read")
 	public ModelAndView read(String id, ModelAndView mv, HttpServletRequest request) {
+		AccountDTO adto = null;
 		MemberDTO dto = null;
 		try {
 			if (id == null) {
 				Object obj = request.getSession(false).getAttribute("login");
-				if (obj instanceof MemberDTO)
-					dto = (MemberDTO) obj;
-				if (dto == null)
+				if (obj instanceof AccountDTO)
+					adto = (AccountDTO) obj;
+				if (adto == null)
 					throw new Exception();
-				id = dto.getM_id();
+				id = adto.getM_id();
 			}
 			dto = memberService.getOne(id);
 			dto.setM_realGender(util.getGender(dto.getM_gender()));
 			dto.setM_realGrant(util.getGrant(dto.getM_grant()));
 			dto.setM_birth(dto.getM_birth().split(" ")[0]);
 			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);
+			mv.setViewName("/member/read");
 		} catch (Exception e) {
-			mv.setViewName("fail");
+			mv.setViewName("/error/fail");
 		} finally {
 			mv.addObject("dto", dto);
-			mv.setViewName("/member/read");
 		}
 		return mv;
 	}
@@ -115,6 +118,24 @@ public class MemberController {
 	@RequestMapping("list")
 	public ModelAndView list(ModelAndView mv) {
 		mv.setViewName("/member/list");
+		return mv;
+	}
+
+	@RequestMapping("update/{key}")
+	public ModelAndView updateui(@PathVariable String key, ModelAndView mv) {
+		String inputElement = util.setUpdateForm(key);
+		try {
+			if (inputElement == null) {
+				throw new Exception();
+			}
+			mv.addObject("input", inputElement);
+			mv.addObject("title", util.getLogo(key));
+			mv.setViewName("/member/update");
+		} catch (Exception e) {
+			mv.setViewName("/error/fail");
+		} finally {
+
+		}
 		return mv;
 	}
 }

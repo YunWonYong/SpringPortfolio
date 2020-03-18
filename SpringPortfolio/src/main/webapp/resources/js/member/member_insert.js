@@ -1,7 +1,4 @@
 $(function() {
-	var $year = $("select[name='year']");
-	var $month = $("select[name='month']");
-	var $date = $("select[name='date']");
 	var $id_input = $("input[name='m_id']");
 	var $name_input = $("input[name='m_name']");
 	var $password_1 = $("input[name='m_password']");
@@ -12,10 +9,6 @@ $(function() {
 	var $phone_input = $("input[name='m_phone']"); 
 	var $zipcode_input = $("input[name='m_zipcode']");
 	var $nickname_input = $("input[name='m_nickname']");
-	var $old_year = $year.val();
-	var $old_month = $month.val();
-	var $new_year = null;
-	var $new_month = null; 
 	var dbTarget = ""; 
 	var addressflag = null;
 	$("input[name='m_zipcode'],input[name='m_address1'],input[name='m_address2']").click(function() {
@@ -57,28 +50,7 @@ $(function() {
 					});
 				}
 			});
-	$($year).change(function() {
-		$new_year = $(this).val();
-		$old_year = null;
-		dateChange([ $new_year, $old_month, $new_month ]);
-		if(birthArr()==1){
-			$(this).focus();
-		}
-	});
-	$($month).change(function() {
-		$new_month = $(this).val();
-		$old_month = null;
-		dateChange([ $old_year, $new_year, $new_month ]);
-		if(birthArr()==2){
-			$(this).focus();
-		}
-	});
-	$($date).change(function() {
-		if (birthArr()==4) {
-			$($email_input).focus();
-			emailCheck($email_input);
-		}
-	});
+
 	$($email_input).click(function(){
 		birthArr($new_year==null?"년도를 선택해 주세요.":undefined);
 	});
@@ -149,23 +121,7 @@ $(function() {
 			}
 		});
 	});
-	$($month).click(function(){
-		if(birthArr()==1){
-			$(this).children('option').prop('disabled',false);
-			birthArr($new_year==null?"년도를 선택해 주세요.":undefined);
-		}
-	});
-	$($date).click(function(){
-		var msg;
-		
-		if(birthArr()==1){
-			$(this).children('option').prop('disabled',false);
-			msg = $new_year==null?"년도를 선택해 주세요.":undefined;
-		}else if(birthArr()==2){
-			msg = "월을 선택해 주세요.";
-		}
-		birthArr(msg);
-	});
+
 	$($phone_input).change(function() {
 		var msg = null;
 		var phone = $(this).val();
@@ -181,11 +137,6 @@ $(function() {
 		}
 		focusing(msgSwith(msg, "#phone_msg"), $(this));
 	});
-	dateCheck($date);
-	dateChange([ $old_year, $old_month ]);
-	function birthArr(msg) {
-		return birthCheck([ $year, $month, $date, msg ]);
-	}
 });  
 function birthCheck(birth) {
 	var continueValue = ((new Date().getFullYear()) - $(birth[0]).val());
@@ -226,14 +177,6 @@ function emailCheck($email){
 			msg="Email을 입력해 주세요.";
 		}
 		focusing(msgSwith(msg,"#email_msg"),$(this));
-	});
-}
-
-function dateCheck(date){
-	$(date).change(function(){
-		if($(date).val()!=0){
-		msgSwith(null,"#birth_msg");  
-		}
 	});
 }
 function successMsg(target) {
@@ -393,74 +336,7 @@ function passwordCheck(password_1,password_2){
 	});
 }
 
-
-function dateChange(arr) {
-	var date =new Array();
-	var j = 0;
-	$.each(arr,function(i){
-		if(arr[i]!=null){
-			date[j]=arr[i];
-			j++;
-		}
-		
-	});
-	getDate(date[0],date[1]);
-}
-function getDate(year, month) {
-	var date = new Date(year, month, 0).getDate();
-	$("#date").html("");
-	var value;
-	for (var i = 0; i <= date; i++) {
-		value = String(i).length == 1 ? "0" + i : i;
-		$("#date").append("<option value='" + i + "'>" + value + "</option>");
-	}
-}
-
 /*******************************************************************************
  * address function
  * 
  ******************************************************************************/
-function daumPostcode() {
-	new daum.Postcode({
-		oncomplete : function(data) {
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			var fullAddr = ''; // 최종 주소 변수
-			var extraAddr = ''; // 조합형 주소 변수
-
-			// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				fullAddr = data.roadAddress;
-
-			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				fullAddr = data.jibunAddress;
-			}
-
-			// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-			if (data.userSelectedType === 'R') {
-				// 법정동명이 있을 경우 추가한다.
-				if (data.bname !== '') {
-					extraAddr += data.bname;
-				}
-				// 건물명이 있을 경우 추가한다.
-				if (data.buildingName !== '') {
-					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName
-							: data.buildingName);
-				}
-				// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-				fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
-			}
-
-			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('m_zipcode').value = data.zonecode; // 5자리
-			// 새우편번호
-			// 사용
-			document.getElementById('m_address1').value = fullAddr;
-
-			// 커서를 상세주소 필드로 이동한다.
-			document.getElementById('m_address2').focus();
-		}
-	}).open();
-}

@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
 		dto = dao.login(dto);
 		if (dto != null) {
 			dto.setA_autologin_check(autoChekc);
-			dto.setM_grant(new MemberUtility().getGender(dto.getM_grant().charAt(0)));
+			dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 		}
 		return dto;
 	}

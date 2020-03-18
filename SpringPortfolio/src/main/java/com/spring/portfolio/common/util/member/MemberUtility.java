@@ -12,7 +12,7 @@ import com.spring.portfolio.common.util.Utility;
 import com.spring.portfolio.common.util.UtilityImpl;
 import com.spring.portfolio.common.vo.LoopVO;
 
-@Component(value = UtilNameSpaces.MEMBER) 
+@Component(value = UtilNameSpaces.MEMBER)
 public class MemberUtility extends UtilityImpl implements Utility {
 
 	private int start, end;
@@ -145,4 +145,80 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		}
 		return content;
 	}
+
+	public String setUpdateForm(String key) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("identify", "m_password#m_nickname");
+		map.put("userinfo", "m_name#m_birth#m_age#m_gender");
+		map.put("useraddress", "m_phone#m_email#m_zipcode#m_address1#m_address2");
+		map.put("grantupdate", "m_grant");
+		return setInput(map.get(key));
+	}
+
+	private String setInput(String key) {
+		StringBuffer input = new StringBuffer();
+
+		String[] elements = key.split("\\#");
+		for (String element : elements) {
+			input.append("<p class='test'>");
+			input.append(getTarget(element));
+			input.append("</p>");
+			input.append("<input type='");
+			input.append(element.equals("m_gender") ? "radio" : element.equals("m_password") ? "password" : "text");
+			input.append("'/>");
+		}
+		return input.toString();
+	}
+
+	private String getTarget(String element) {
+		String title = null;
+		switch (element) {
+		case "m_password":
+			title = "비밀번호";
+			break;
+		case "m_nickname":
+			title = "닉네임";
+			break;
+		case "m_name":
+			title = "이름";
+			break;
+		case "m_birth":
+			title = "생년월일";
+			break;
+		case "m_age":
+			title = "나이";
+			break;
+		case "m_gender":
+			title = "성별";
+			break;
+		case "m_phone":
+			title = "전화번호";
+			break;
+		case "m_zipcode":
+			title = "우편번호";
+			break;
+		case "m_address1":
+			title = "주소";
+			break;
+		case "m_address2":
+			title = "상세주소";
+			break;
+		case "m_email":
+			title = "이메일";
+			break;
+		case "m_grant":
+			title = "등급";
+			break;
+		}
+		return title;
+	}
+
+	public String getLogo(String key) {
+		return key.equals("identify") ? "회원 닉네임 및 비밀변호 변경"
+				: key.equals("userinfo") ? "회원 정보 수정"
+						: key.equals("useraddress") ? "회원 연락처 및 주소 수정" 
+								: key.equals("grantupdate") ? "회원 등급 수정" 
+										: null;
+	}
+
 }

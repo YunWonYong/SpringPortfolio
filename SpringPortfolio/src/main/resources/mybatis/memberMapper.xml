@@ -135,36 +135,37 @@
 
 	<update id="update">
 		 <![CDATA[
-		 	update portfolio_member set		 
+		 	update portfolio_member set
 		 ]]>
 		<choose>
-			<when test="m_password != null">
+			<when test="m_password != null and m_nickname">
 				<![CDATA[
 					 m_password = #{m_password},
 					 m_nickname = #{m_nickname}
 				]]>
 			</when>
-			<when test="m_name != null">
+			<when test="m_name != null and m_birth != null and m_gender != null">
 		 		<![CDATA[
 		 			m_name = #{m_name},
 		 			m_birth = #{m_birth},
+		 			m_age = #{m_age},
 		 			m_gender = #{m_gender}
 				]]>
 			</when>
-			<when test="m_grant !=null">
+			<when test="m_grant != ''">
 				<![CDATA[
 					m_grant = #{m_grant}
 				]]>
 			</when>
-			<otherwise>
+			<when test="m_phone != null and m_zipcode != null and m_address2 != null and m_email != null">
 		 		<![CDATA[
 		 			m_phone = #{m_phone},
-					m_zipcode = #{m_zipcode}
+					m_zipcode = #{m_zipcode},
 		 			m_address1 = #{m_address1},
 		 			m_address2 = #{m_address2},
 		 			m_email = #{m_email}
 				]]>
-			</otherwise>
+			</when>
 		</choose>
 		<where>
 		  	<![CDATA[

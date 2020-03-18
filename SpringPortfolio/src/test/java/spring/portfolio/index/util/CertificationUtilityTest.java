@@ -43,7 +43,7 @@ public class CertificationUtilityTest {
 		helper.setSubject("학경아 이메일 인증 해보자");
 		helper.setText("<a href='http://localhost/certification/test?code=qwondqowdno'>이메일 인증</a>", true);
 		helper.setFrom("portfolioemail0215@gmail.com");
-		helper.setTo("ywyi1992@naver.com");
+		helper.setTo("ywyi1992@gmail.com");
 		mailSender.send(mimeMessage);
  
 	}

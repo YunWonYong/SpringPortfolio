@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<!DOCTYPE html>
-<html> 
-<head>
-<meta charset="UTF-8"> 
-<tiles:insertAttribute name="css"/> 
-
-<tiles:insertAttribute name="script"/>
+<!DOCTYPE html> 
+<html>
+<head> 
+<meta charset="UTF-8">
 <title><tiles:insertAttribute name="title" /></title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<tiles:insertAttribute name="default_css" />
+<tiles:insertAttribute name="transform_css" />
+<tiles:insertAttribute name="default_js" />
+<tiles:insertAttribute name="transform_js" />
 </head>
 <body>
 	<header>

@@ -13,8 +13,8 @@
 			<c:when test="${not empty id }">
 				<div id="header_user_info">
 					<c:choose>
-						<c:when test="${grant eq '운영자'}">
-							<div id="header_user_grant_z">
+						<c:when test="${grant != '운영자'}"> 
+							<div id="header_user_grant_z"> 
 								<samp>${nickname}님 환영합니다.</samp>
 							</div>
 						</c:when>

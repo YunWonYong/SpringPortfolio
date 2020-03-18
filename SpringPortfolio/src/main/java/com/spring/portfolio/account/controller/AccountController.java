@@ -36,7 +36,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("logout")
-	public ModelAndView logout(ModelAndView mv, HttpSession sess, HttpServletRequest request) {
+	public ModelAndView logout(ModelAndView mv) {
 		return mv;
 	}
 }

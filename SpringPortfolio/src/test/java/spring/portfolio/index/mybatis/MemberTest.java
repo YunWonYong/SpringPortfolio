@@ -66,12 +66,41 @@ public class MemberTest {
 		dto.setM_gender(util.setGender(vo.getGenderCheck()));
 		assertTrue(service.register(dto));
 	}
-	
+
+	@Test
+	public void testServiceModify() throws Exception {
+		MemberDTO dto1 = new MemberDTO();
+		MemberVO vo = new MemberVO();
+		vo.setYear("1993");
+		vo.setGenderCheck("on");
+		dto1.setM_id(m_id);
+		dto1.setM_password("4321");
+		dto1.setM_nickname("호윤호윤");
+		MemberDTO dto2 = new MemberDTO();
+		dto2.setM_id(m_id);
+		dto2.setM_name("호윤이");
+		dto2.setM_birth("1993-05-05");
+		dto2.setM_age(util.getAge(vo.getYear()));
+		dto2.setM_gender(util.setGender(vo.getGenderCheck()));
+		MemberDTO dto3 = new MemberDTO();
+		dto3.setM_id(m_id);
+		dto3.setM_phone("010-3333-4444");
+		dto3.setM_zipcode("06134");
+		dto3.setM_address1("서울 강남구 테헤란로7길 7 (역삼동)");
+		dto3.setM_address2("에스코 빌딩 6층 1강의실");
+		dto3.setM_email("ywyi1992@gmail.com");
+		MemberDTO dto4 = new MemberDTO();
+		dto4.setM_id(m_id);
+		dto4.setM_grant('z');
+		assertTrue(service.modify(dto4));
+		
+	}
+
 	@Test
 	public void testServiceRemove() throws Exception {
 		AccountDTO dto = new AccountDTO();
 		dto.setM_id(m_id);
-		assertTrue(service.remove(dto)); 
-		
+		assertTrue(service.remove(dto));
 	}
+
 }

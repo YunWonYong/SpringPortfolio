@@ -4,7 +4,7 @@ m_id varchar2(15) primary key not null,
 m_password varchar2(20) not null,
 m_nickname varchar2(15) unique,
 m_name varchar2(21) not null,
-m_grant char(1) default 'z', 
+m_grant char(1) default 'z' check(REGEXP_LIKE(m_grant,'[a-z]')),  
 m_birth date not null,
 m_age number(3) default 1 check(m_age between 1 and 150) not null,
 m_zipcode number(5) not null,
@@ -17,7 +17,12 @@ m_registdate date default sysdate,
 c_index number(7) references portfolio_certification(c_index) on delete cascade
 )
 
+select * from PORTFOLIO_MEMBER where regexp_like(m_grant,'[c]')
+
 drop table portfolio_member cascade constraints
+
+alter table portfolio_member add 
+constraint grant_value_check check(REGEXP_LIKE(m_grant,'[a-z]'))
 
 
 delete from portfolio_member 
