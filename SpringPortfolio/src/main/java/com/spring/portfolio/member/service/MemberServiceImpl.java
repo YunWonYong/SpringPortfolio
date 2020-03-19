@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import com.spring.portfolio.account.model.AccountDTO;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.util.sql.SqlMultiObject;
 import com.spring.portfolio.common.vo.DuplicateVO;
 import com.spring.portfolio.member.model.MemberDTO;
@@ -11,11 +15,11 @@ import com.spring.portfolio.member.repository.MemberDAO;
 import com.spring.portfolio.paging.model.PagingEntity;
 import com.spring.portfolio.paging.service.PagingService;
 
-@Service("memberService")
+@Service(value = ServiceNameSpaces.MEMBER)
 public class MemberServiceImpl implements MemberService {
-	@Resource(name = "memberDAO")
+	@Resource(name = RepositoryNameSpaces.MEMBER)
 	private MemberDAO memberDAO;
-	@Resource(name = "pagingService")
+	@Resource(name = ServiceNameSpaces.PGING)
 	private PagingService pagingService;
 
 	public MemberServiceImpl() {
@@ -27,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int register(MemberDTO dto) throws Exception {
+	public boolean register(MemberDTO dto) throws Exception {
 		return memberDAO.insert(dto);
 	}
 
@@ -37,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean modify(String id) throws Exception {
-		return false;
+	public boolean modify(MemberDTO dto) throws Exception {
+		return memberDAO.update(dto);
 	}
 
 	@Override
@@ -53,5 +57,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String checkDuplicate(DuplicateVO vo) throws Exception {
 		return memberDAO.duplicate(vo) == null ? "true" : "false";
+	}
+
+	@Override
+	public boolean remove(AccountDTO dto) throws Exception {
+		return memberDAO.delete(dto);
 	}
 }

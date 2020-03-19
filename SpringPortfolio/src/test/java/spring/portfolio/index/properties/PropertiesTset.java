@@ -3,49 +3,45 @@ package spring.portfolio.index.properties;
 import static org.junit.Assert.*;
 
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.Reader;
 import java.util.Properties;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.portfolio.common.namespace.MapperNameSpaces;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class PropertiesTset {
-	@Value(MapperNameSpaces.MEMBER)
-	private final String MEMBER;
-	@Value(MapperNameSpaces.ACCOUNT)
-	private final String ACCOUNT;
-	@Value(MapperNameSpaces.PAGING)
-	private final String PAGING;
+	private String path = "src/main/webapp/WEB-INF/properties/";
+	private final Properties PRO = new Properties();
 
 	public PropertiesTset() {
-		MEMBER = null;
-		ACCOUNT = null;
-		PAGING = null;
 	}
 
 	@Test
-	public void testProperties() {
-		Properties pro = new Properties(); 
-		FileReader resource = null;
+	public void testMapperNameSpaceProperties() {
+		setProperties(path + "namespace/mapperNameSpace.properties");
+		assertEquals("com.spring.portfolio.account.", PRO.get("account.mapper"));
+		assertEquals("com.spring.portfolio.member.", PRO.get("member.mapper"));
+		assertEquals("com.spring.portfolio.paging.", PRO.get("paging.mapper"));
+	}
+
+	@Test
+	public void testMailProperties() {
+		setProperties(path+"mail/mail.properties");
+		assertEquals("smtp.gmail.com",PRO.get("email.host"));
+	}
+
+	private void setProperties(String path) {
+		Reader resource = null;
 		try {
-			resource =  new FileReader("src/main/webapp/WEB-INF/properties/namespace/namespace.properties");
-			pro.load(resource);
-		} catch (IOException e) {
+			resource = new FileReader(path);
+			PRO.load(resource);
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			assertNotNull(MEMBER);
-			assertNotNull(ACCOUNT);
-			assertNotNull(PAGING);
-			assertEquals(MEMBER, pro.get("member.mapper"));
-			assertEquals(ACCOUNT, pro.get("account.mapper"));
-			assertEquals(PAGING, pro.get("paging.mapper"));
 		}
 	}
 }

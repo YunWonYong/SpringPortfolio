@@ -13,8 +13,8 @@
 			<c:when test="${not empty id }">
 				<div id="header_user_info">
 					<c:choose>
-						<c:when test="${grant eq '운영자'}">
-							<div id="header_user_grant_z">
+						<c:when test="${grant != '운영자'}"> 
+							<div id="header_user_grant_z"> 
 								<samp>${nickname}님 환영합니다.</samp>
 							</div>
 						</c:when>
@@ -30,6 +30,7 @@
 			<c:otherwise>
 				<a href="/account/login_form">로그인</a>
 				<a href="/member/insert">회원가입</a>
+				<a href="/certification/test">test</a>
 			</c:otherwise>
 		</c:choose>
 	</div>

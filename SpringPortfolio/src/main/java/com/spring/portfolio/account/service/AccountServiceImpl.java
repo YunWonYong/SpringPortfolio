@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.repository.AccountDAO;
-import com.spring.portfolio.common.namespace.RepositoryNameSpaces;
-import com.spring.portfolio.common.namespace.ServiceNameSpaces;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.util.member.MemberUtility;
 
 @Service(ServiceNameSpaces.ACCOUNT)
@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
 		dto = dao.login(dto);
 		if (dto != null) {
 			dto.setA_autologin_check(autoChekc);
-			dto.setM_grant(new MemberUtility().getGender(dto.getM_grant().charAt(0)));
+			dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 		}
 		return dto;
 	}

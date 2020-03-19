@@ -1,6 +1,6 @@
 package com.spring.portfolio.common.util;
 
-public class UtilityImpl implements UtilityCommand {
+public class UtilityImpl implements Utility {
 
 	public UtilityImpl() {
 	}

@@ -4,40 +4,52 @@
 <mapper namespace="com.spring.portfolio.member">
 
 	<insert id="insert">
-	<![CDATA[
-		insert into portfolio_member(
-									 m_index,
-						     		 m_id,
-						     		 m_password,
-						     		 m_nickname,
-						     		 m_name,
-						     		 m_birth,
-						     		 m_age,
-						     		 m_zipcode,
-						     		 m_address1,
-						     		 m_address2,
-						     		 m_email,
-						     		 m_phone,
-						     		 m_gender
-						     )
-						     values(
-									(select nvl(max(m_index),0)+1 from portfolio_member),
-									#{m_id},
-									#{m_password},
-									#{m_nickname},
-									#{m_name},
-									#{m_birth},
-									#{m_age},
-									#{m_zipcode},
-									#{m_address1},
-									#{m_address2},
-									#{m_email},
-									#{m_phone},
-									#{m_gender}
-							)
-	
-	]]>
+		<![CDATA[
+			insert into portfolio_member(
+										 m_index,
+						     			 m_id,
+						     			 m_password,
+						     			 m_nickname,
+						     			 m_name,
+						     			 m_birth,
+						     			 m_age,
+						     			 m_zipcode,
+						     			 m_address1,
+						     			 m_address2,
+						     			 m_email,
+						     		     m_phone,
+						     		 	 m_gender,
+						     			 c_index
+						   			     )
+						     		values(
+										(select nvl(max(m_index),0)+1 from portfolio_member),
+										#{m_id},
+										#{m_password},
+										#{m_nickname},
+										#{m_name},
+										#{m_birth},
+										#{m_age},
+										#{m_zipcode},
+										#{m_address1},
+										#{m_address2},
+										#{m_email},
+										#{m_phone},
+										#{m_gender},
+										(select c_index from portfolio_certification
+			]]>
+		<where>
+			<![CDATA[
+				c_email = #{m_email} ))
+			]]>
+		</where>
 	</insert>
+
+
+
+
+
+
+
 
 
 
@@ -62,6 +74,12 @@
 			m_id = #{m_id}
 		</where>
 	</select>
+
+
+
+
+
+
 	<select id="duplicate" resultType="memberDTO">
 		<![CDATA[
 			select m_id from portfolio_member
@@ -70,6 +88,11 @@
 			${target} = #{value}
 		</where>
 	</select>
+
+
+
+
+
 
 	<select id="list" resultType="memberDTO" parameterType="hashmap">
 		<![CDATA[
@@ -85,6 +108,9 @@
 				   							   m_registdate, 
 				   							   rownum as r from portfolio_member
 		]]>
+
+
+
 		<if test="searchvo!=null ? searchvo.target != null:false">
 			<where>
 				<![CDATA[
@@ -104,4 +130,57 @@
 			</where>
 		</if>
 	</select>
+
+
+
+	<update id="update">
+		 <![CDATA[
+		 	update portfolio_member set
+		 ]]>
+		<choose>
+			<when test="m_password != null and m_nickname">
+				<![CDATA[
+					 m_password = #{m_password},
+					 m_nickname = #{m_nickname}
+				]]>
+			</when>
+			<when test="m_name != null and m_birth != null and m_gender != null">
+		 		<![CDATA[
+		 			m_name = #{m_name},
+		 			m_birth = #{m_birth},
+		 			m_age = #{m_age},
+		 			m_gender = #{m_gender}
+				]]>
+			</when>
+			<when test="m_grant != ''">
+				<![CDATA[
+					m_grant = #{m_grant}
+				]]>
+			</when>
+			<when test="m_phone != null and m_zipcode != null and m_address2 != null and m_email != null">
+		 		<![CDATA[
+		 			m_phone = #{m_phone},
+					m_zipcode = #{m_zipcode},
+		 			m_address1 = #{m_address1},
+		 			m_address2 = #{m_address2},
+		 			m_email = #{m_email}
+				]]>
+			</when>
+		</choose>
+		<where>
+		  	<![CDATA[
+			  	m_id = #{m_id}
+		  	]]>
+		</where>
+	</update>
+	<delete id="delete" parameterType="accountDTO">
+		<![CDATA[
+			delete from portfolio_certification		
+		]]>
+		<where>
+			<![CDATA[
+				c_id = #{m_id}
+			]]>
+		</where>
+	</delete>
 </mapper>

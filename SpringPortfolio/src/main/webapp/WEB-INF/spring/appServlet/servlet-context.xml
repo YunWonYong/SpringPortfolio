@@ -26,11 +26,11 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2" />
 	</beans:bean>
+	
 	<beans:bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="order" value="1" />
-		<beans:property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</beans:bean>
 
 	<beans:bean id="tilesConfigurer"
@@ -42,11 +42,18 @@
 		</beans:property>
 	</beans:bean>
 
-	<context:component-scan
-		base-package="com.spring.portfolio" use-default-filters="false">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+
+	<annotation-driven>
+		<message-converters>
+			<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<beans:property name="supportedMediaTypes">
+					<beans:list>
+						<beans:value>text/html;charset=UTF-8</beans:value>
+					</beans:list>
+				</beans:property>
+			</beans:bean>
+		</message-converters>
+	</annotation-driven>
 	<interceptors>
 		<interceptor>
 			<mapping path="/" />										 
@@ -61,4 +68,8 @@
 			<beans:bean class="com.spring.portfolio.account.interceptor.LogoutInterceptor"/> 
 		</interceptor>
 	</interceptors>
+	
+	<context:component-scan base-package="com.spring.portfolio" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 </beans:beans>

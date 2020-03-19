@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import com.spring.portfolio.account.model.AccountDTO;
-import com.spring.portfolio.common.util.UtilityCommand;
+import com.spring.portfolio.common.util.Utility;
 
 @Component("accountUtil")
-public class AccountUtility implements UtilityCommand {
+public class AccountUtility implements Utility {
 
 	public AccountUtility() {
 	}
@@ -58,7 +58,7 @@ public class AccountUtility implements UtilityCommand {
 			for (Cookie c : cookies) {
 				if (c.getName().equals("a_jsession_id")) {
 					return c;
-				}
+				} 
 			}
 		}
 		return null;
