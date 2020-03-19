@@ -35,16 +35,16 @@ thead, tbody {
 						<input class="txtb" required type="text" name="m_id"> <span
 							id="id_msg" class="msg">&nbsp;</span>
 					</div>
-					<div class="pw">
+					<div class='pw'>
 						<p>비밀번호</p>
-						<input class="txtb" type="password" name="m_password"
-							id="password_1" /> <span id="password_msg_1" class="msg">&nbsp;</span>
+						<input class='txtb' type='password' name='m_password'
+							id='password_1' /> <span id='password_msg_1' class='msg'>&nbsp;</span>
 					</div>
 
-					<div class="pwcheck">
+					<div class='pwcheck'>
 						<p>비밀번호 재확인</p>
-						<input class="txtb" type="password" name="password_2"
-							id="password_2" /> <span id="password_msg_2" class="msg">&nbsp;</span>
+						<input class='txtb' type='password' name='password_2'
+							id='password_2' /> <span id='password_msg_2' class='msg'>&nbsp;</span>
 					</div>
 
 					<div>

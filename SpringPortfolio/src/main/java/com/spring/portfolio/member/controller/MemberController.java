@@ -122,12 +122,17 @@ public class MemberController {
 	}
 
 	@RequestMapping("update/{key}")
-	public ModelAndView updateui(@PathVariable String key, ModelAndView mv) {
-		String inputElement = util.setUpdateForm(key);
+	public ModelAndView updateui(@PathVariable String key, ModelAndView mv, HttpServletRequest request) {
+		Object obj = request.getSession().getAttribute("login");
+		AccountDTO adto = null;
+		String inputElement = null;
 		try {
-			if (inputElement == null) {
+			System.out.println(obj);
+			adto = obj instanceof AccountDTO ? (AccountDTO) obj : null;
+			if (adto == null) {
 				throw new Exception();
 			}
+			inputElement = util.setUpdateForm(key,memberService.getOne(adto.getM_id()));
 			mv.addObject("input", inputElement);
 			mv.addObject("title", util.getLogo(key));
 			mv.setViewName("/member/update");
