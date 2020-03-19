@@ -8,11 +8,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/resources/css/member/member_insert.css">
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript"
-	src="/resources/js/member/member_insert.js"></script>
+<script type="text/javascript" src="/resources/js/member/member_insert.js"></script>
 <style>
 thead, tbody {
 	display: inline;

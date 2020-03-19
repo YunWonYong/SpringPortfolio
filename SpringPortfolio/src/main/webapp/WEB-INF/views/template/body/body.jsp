@@ -5,7 +5,6 @@
 <head> 
 <meta charset="UTF-8">
 <title><tiles:insertAttribute name="title" /></title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <tiles:insertAttribute name="default_css" />
 <tiles:insertAttribute name="transform_css" />
 <tiles:insertAttribute name="default_js" />
