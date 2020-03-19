@@ -30,7 +30,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	}
 
-	@Override 
+	@Override
 	public MemberDTO read(String m_id) throws Exception {
 		return sqlSession.selectOne(ns + "read", m_id);
 	}
