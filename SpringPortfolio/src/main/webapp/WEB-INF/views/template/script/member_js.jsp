@@ -1,6 +1,1 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script type="text/javascript" src="/resources/js/member/member_insert.js"></script>
-<script type="text/javascript" src="/resources/js/member/common/addressFunction.js"></script>
-<script type="text/javascript" src="/resources/js/member/common/dateFunction.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
-<script src="https://kit.fontawesome.com/84ab9164ab.js"></script>
