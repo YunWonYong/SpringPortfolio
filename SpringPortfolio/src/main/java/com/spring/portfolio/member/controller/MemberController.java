@@ -127,11 +127,10 @@ public class MemberController {
 		AccountDTO adto = null;
 		String inputElement = null;
 		try {
-			System.out.println(obj);
 			adto = obj instanceof AccountDTO ? (AccountDTO) obj : null;
 			if (adto == null) {
 				throw new Exception();
-			}
+			} 
 			inputElement = util.setUpdateForm(key,memberService.getOne(adto.getM_id()));
 			mv.addObject("input", inputElement);
 			mv.addObject("title", util.getLogo(key));

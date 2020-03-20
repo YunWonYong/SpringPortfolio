@@ -1,1 +1,0 @@
-<link rel="stylesheet" href="/resources/css/member/member_read.css">

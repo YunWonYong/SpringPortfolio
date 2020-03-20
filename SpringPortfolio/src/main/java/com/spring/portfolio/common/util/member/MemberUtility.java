@@ -146,8 +146,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		return content;
 	}
 
-	public String setUpdateForm(String key, MemberDTO dto) {
-		System.out.println("param dto:" + dto);
+	public String setUpdateForm(String key,MemberDTO dto) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("identify", "m_password#m_nickname");
 		map.put("userinfo", "m_name#m_birth#m_age#m_gender");
@@ -157,10 +156,9 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		return getForm(map.get(key));
 	}
 
-	private String getForm(String key) {
+	private String getForm(String value) {
 		StringBuffer input = new StringBuffer();
-
-		String[] elements = key.split("\\#");
+		String[] elements = value.split("#");
 		for (String element : elements) {
 			input.append(setElement(element));
 		}
@@ -171,7 +169,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		StringBuffer input = new StringBuffer();
 		switch (element) {
 		case "m_password":
-			input.append("<div class='pw'>");
+			input.append("<div class=''>");
 			input.append("<p>기존 비밀번호 확인</p>");
 			input.append("<input class='txtb' type='password' id='password_1' />");
 			input.append("<p>수정할 비밀번호</p>");
@@ -181,8 +179,11 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_nickname":
-			input.append("<div class='ni'>");
-			break; 
+			input.append("<div class=''>");
+			input.append("<p>닉네임</p>");
+			input.append("<input class='txtb' type='text' name='m_nickname' id='m_nickname' value ='"+dto.getM_nickname()+"'/>");
+			input.append("</div>");
+			break;
 		case "m_name":
 			break;
 		case "m_birth":
@@ -203,14 +204,16 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			break;
 		case "m_grant":
 			break;
-		}
+		} 
 		return input.toString();
 	}
 
 	public String getLogo(String key) {
 		return key.equals("identify") ? "회원 닉네임 및 비밀변호 변경"
 				: key.equals("userinfo") ? "회원 정보 수정"
-						: key.equals("useraddress") ? "회원 연락처 및 주소 수정" : key.equals("grantupdate") ? "회원 등급 수정" : null;
+						: key.equals("useraddress") ? "회원 연락처 및 주소 수정" 
+								: key.equals("grantupdate") ? "회원 등급 수정" 
+										: null;
 	}
 
 }

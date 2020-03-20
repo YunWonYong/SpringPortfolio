@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 .wrap {
 	position: absolute;
 	top: 50%;
@@ -10,14 +11,52 @@
 	box-sizing: border-box;
 	padding-top: 46px;
 }
+
 .input input {
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
 	border-radius: 25px;
-	border: 2px solid black; 
+	border: 2px solid black;
 	outline: none;
 	font-size: 15px;
 	padding: 5px;
 	transition: 0.25s;
+}
+
+.selectsort select {
+	position: relative;
+	width: 80px;
+	height: 25px;
+	color: black;
+	border-radius: 25px;
+	outline: none;
+	border: 1px solid #673ab7;
+	font-size: 13px;
+	text-align: right;
+}
+
+.selectsort select option {
+	color: black;
+	border-radius: 25px; 
+}
+
+.selectsort select:hover {
+	border: 2px solid #673ab7;
+	color: #673ab7;
+}
+
+.radiosort {
+	display: inline;
+}
+
+.radiosort input {
+	display: inline-block;
+	width: 10%;
+}
+
+.hyphen {
+	position: relative;
+	right: 5px;
+	font-size: 20px;
 }

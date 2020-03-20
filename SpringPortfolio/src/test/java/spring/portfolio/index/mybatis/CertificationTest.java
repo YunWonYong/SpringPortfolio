@@ -35,7 +35,7 @@ public class CertificationTest {
 	@Before
 	public void testSetting() throws Exception {
 		dto = new CertificationDTO(); // instance
-		dto.setC_email("ywyi1992@naver.com");
+		dto.setC_email("ywyi1992@nate.com"); 
 		dto.setC_inspection(new CertificationUtility().inspectionCode(dto.getC_email()));
 		assertNotNull(ns);
 		assertEquals(ns, "com.spring.portfolio.certification.");
