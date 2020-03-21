@@ -64,9 +64,10 @@ commit
 delete from PORTFOLIO_MEMBER
 
 select * from PORTFOLIO_MEMBER
+ 
 
+update portfolio_member set m_grant = 'a'
 
-update portfolio_member set m_age = 32 where m_index = 2
 
 
 select m_index,

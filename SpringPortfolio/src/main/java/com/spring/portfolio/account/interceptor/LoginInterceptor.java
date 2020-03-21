@@ -35,6 +35,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				throw new LoginFailException();
 			HttpSession sess = request.getSession();
 			sess.setAttribute("login", dto); 
+			System.out.println("interceptor:"+dto.getM_grant()); 
 			String jsessionID = accountUtil.injectJsessionID(request.getCookies(), dto.getA_autologin_check());
 			if (jsessionID != null) {
 				dto.setA_holding_time(accountUtil.getHoldingTime());
@@ -49,7 +50,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			mv.setViewName("redirect:/");
 		} catch (Exception e) {
 			mv.addObject("msg", "아이디와 비빌번호를 확인해 주세요.");
-			mv.setViewName("/account/login");
+			mv.setViewName("/account/login/로그인");
 		} finally {
 			super.postHandle(request, response, handler, mv);
 		}

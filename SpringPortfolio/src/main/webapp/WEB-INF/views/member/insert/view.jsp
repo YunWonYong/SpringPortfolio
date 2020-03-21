@@ -98,8 +98,7 @@
 			</div>
 		</form>
 	</div>
-
 	<div class="btn">
-		<input class=".txtb" type="submit" value="회원가입">
+		<input class="txtb" type="submit" value="회원가입">
 	</div>
 </div>

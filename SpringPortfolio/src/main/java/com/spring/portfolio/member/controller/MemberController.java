@@ -38,11 +38,11 @@ public class MemberController {
 
 	public MemberController() {
 	}
-
+   
 	@RequestMapping("insert")
 	public ModelAndView insert(ModelAndView mv) throws Exception {
 		mv.addObject("util", util.getBirth());
-		mv.setViewName("/member/insert");
+		mv.setViewName("/member/insert/회원가입"); 
 		return mv;
 	}
 
@@ -80,7 +80,7 @@ public class MemberController {
 			dto.setM_realGrant(util.getGrant(dto.getM_grant()));
 			dto.setM_birth(dto.getM_birth().split(" ")[0]);
 			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);
-			mv.setViewName("/member/read");
+			mv.setViewName("/member/read/회원조회");
 		} catch (Exception e) {
 			mv.setViewName("/error/fail");
 		} finally {
@@ -95,7 +95,7 @@ public class MemberController {
 		List<Object> list = null;
 		Object value = null;
 		String result = null;
-		SearchVO searchVO = null;
+		SearchVO searchVO = null; 
 		try {
 			if (target.equals("null") && content.equals("null")) {
 				throw new ListSwitch();
@@ -105,19 +105,17 @@ public class MemberController {
 			value = target.equals("m_index") ? Integer.parseInt(content) : content;
 			searchVO = new SearchVO(target, value);
 		} catch (ListSwitch e) {
-			searchVO = new SearchVO(null, null);
+			searchVO = new SearchVO(null,null); 
 		} finally {
-			list = memberService
-					.allList(SqlMultiObject.add(new PagingVO("m_index", "portfolio_member", currentPage), searchVO));
+			list = memberService.allList(SqlMultiObject.add(new PagingVO("m_index", "portfolio_member", currentPage), searchVO));
 			result = list != null ? new JsonParsing().parsingList(list) : null;
 		}
-
 		return result;
 	}
 
 	@RequestMapping("list")
 	public ModelAndView list(ModelAndView mv) {
-		mv.setViewName("/member/list");
+		mv.setViewName("/member/list/회원목록");
 		return mv;
 	}
 
@@ -134,7 +132,7 @@ public class MemberController {
 			inputElement = util.setUpdateForm(key,memberService.getOne(adto.getM_id()));
 			mv.addObject("input", inputElement);
 			mv.addObject("title", util.getLogo(key));
-			mv.setViewName("/member/update");
+			mv.setViewName("/member/update/회원수정");
 		} catch (Exception e) {
 			mv.setViewName("/error/fail");
 		} finally {

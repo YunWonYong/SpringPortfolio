@@ -14,6 +14,7 @@ import com.spring.portfolio.common.exception.account.AutoLoginOffException;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.account.AccountUtility;
+import com.spring.portfolio.common.util.member.MemberUtility;
 
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
@@ -43,9 +44,11 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 				}
 				if (i != 1)
 					throw new AutoLoginOffException();
-				sess = request.getSession();
+				sess = request.getSession();  
+				dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 				sess.setAttribute("login", dto);
 			} catch (AutoLoginOffException e) {
+				System.out.println("여기서 발생하는 오류있음?"); 
 				accountUtil.cookieDelete(response, cookie);
 				sess = request.getSession();
 				sess.invalidate();

@@ -2,16 +2,14 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
        
-<tiles-definitions>					
-	<definition name ="index_body" extends="body">
-		<put-attribute name="header" value="/WEB-INF/views/template/header/index_header.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/template/footer/index_footer.jsp"/>
-		<put-attribute name="transform_css" value="/WEB-INF/views/template/css/index_css.jsp"/>
-		<put-attribute name="transform_js" value="/WEB-INF/views/template/script/index_js.jsp"/>
-	</definition>  
-    <definition name="/" extends="index_body">   
+<tiles-definitions>					 
+    <definition name="/index" extends="body">
     	<put-attribute name="title" value="index"/> 
-        <put-attribute name="content" value="/WEB-INF/views/index.jsp" />
-    </definition>
+    	<put-attribute name="header" value="/WEB-INF/views/index/template/header.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/index/view.jsp" />
+    	<put-attribute name="footer" value="/WEB-INF/views/index/template/footer.jsp"/>
+        <put-attribute name="css" value="/WEB-INF/views/index/css.jsp"/>
+		<put-attribute name="js" value="/WEB-INF/views/index/js.jsp"/> 
+    </definition> 
 </tiles-definitions>
      
