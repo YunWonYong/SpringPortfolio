@@ -30,7 +30,7 @@ public class AccountController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ModelAndView login(ModelAndView mv, AccountDTO dto) throws Exception {
-		mv.addObject("dto", accountService.login(dto));
+		mv.addObject("dto", accountService.login(dto)); 
 		mv.addObject("m_id", dto.getM_id());
 		return mv;
 	}

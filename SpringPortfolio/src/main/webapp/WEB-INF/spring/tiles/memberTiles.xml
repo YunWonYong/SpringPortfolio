@@ -10,7 +10,7 @@
        	<put-attribute name="transform_css" value="/WEB-INF/views/template/css/member_css.jsp"/>
         <put-attribute name="transform_js" value="/WEB-INF/views/template/script/member_js.jsp"/>
 	</definition>
-	 <definition name="/member/list" extends="member_body">
+	 <definition name="/member/list" extends="member_body"> 
 		<put-attribute name="title" value="회원리스트" />
 		<put-attribute name="content" value="/WEB-INF/views/member/member_list.jsp" />
 	</definition>

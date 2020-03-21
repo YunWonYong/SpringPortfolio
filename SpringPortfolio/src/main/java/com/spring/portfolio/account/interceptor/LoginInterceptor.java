@@ -34,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			if (dto == null)
 				throw new LoginFailException();
 			HttpSession sess = request.getSession();
-			sess.setAttribute("login", dto);
+			sess.setAttribute("login", dto); 
 			String jsessionID = accountUtil.injectJsessionID(request.getCookies(), dto.getA_autologin_check());
 			if (jsessionID != null) {
 				dto.setA_holding_time(accountUtil.getHoldingTime());

@@ -34,8 +34,8 @@
       </div>
 
 <div id="account_form_submit" class="auto">
-      <input type="checkbox" name="autoLogin" value="off" id="autologin"/>
-  <label for="autologin">자동로그인</label>
+      <input type="checkbox" name="a_autologin_check" value="off" id="autologin"/>
+  <label for="autologin">자동로그인</label> 
 </div>
 
 <div class="submit">

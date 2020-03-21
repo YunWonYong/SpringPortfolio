@@ -1,7 +1,6 @@
 package spring.portfolio.index.mybatis;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -29,13 +28,12 @@ public class CertificationTest {
 	private CertificationDTO dto;
 
 	public CertificationTest() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Before
 	public void testSetting() throws Exception {
 		dto = new CertificationDTO(); // instance
-		dto.setC_email("ywyi1992@nate.com"); 
+		dto.setC_email("ywyi1992@naver.com"); 
 		dto.setC_inspection(new CertificationUtility().inspectionCode(dto.getC_email()));
 		assertNotNull(ns);
 		assertEquals(ns, "com.spring.portfolio.certification.");

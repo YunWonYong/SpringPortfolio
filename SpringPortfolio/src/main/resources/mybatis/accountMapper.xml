@@ -4,12 +4,11 @@
 	<insert id="insert">
 		<![CDATA[
 		insert into portfolio_account 
-		values(#{m_id},#{m_id},#{a_jsession_id},#{a_holding_time},#{a_autologin_check})		
+		values(#{m_id},#{a_jsession_id},#{a_holding_time},#{a_autologin_check})		
 		]]>
 
 	</insert>
-	<select id="autologin" resultType="accountDTO"
-		parameterType="String">
+	<select id="autologin" resultType="accountDTO" parameterType="String">
 		<![CDATA[ 
 		select
 			m.m_id,
@@ -20,9 +19,12 @@
 			a.a_holding_time,
 			a.a_autologin_check
 			from portfolio_member m, portfolio_account a
+			
 		]]>
 		<where>
-			m.m_id = a.a_id and a.a_jsession_id =#{a_jsession_id}
+			<![CDATA[
+				a.a_id = m.m_id and a.a_jsession_id =#{a_jsession_id}
+			]]>
 		</where>
 	</select>
 	<select id="login" resultType="accountDTO">

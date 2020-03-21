@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.common.namespaces.MapperNameSpaces;
+import com.spring.portfolio.common.util.account.AccountUtility;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +37,7 @@ public class AccountTest {
 
 	@Before
 	public void testLogin() {
-		m_id = "tester_A";
+		m_id = "admin";
 		String m_password = "1234";
 		assertNotNull(sqlSession);
 		MemberDTO mdto = new MemberDTO();
@@ -50,7 +51,7 @@ public class AccountTest {
 		assertNotNull(calendar);
 		String realTime = String.valueOf(calendar.getTimeInMillis());
 		a_holding_time = realTime;
-		a_jsession_id = "D919198DE77E514E";
+		a_jsession_id ="testSessionID"; 
 		dto.setA_jsession_id(a_jsession_id);
 		dto.setA_autologin_check("on");
 	}
@@ -75,9 +76,8 @@ public class AccountTest {
 
 	@Test
 	public void testUpdate() {
-		testAutoLogin();
+		testAutoLogin(); 
 		long target = Long.parseLong(dto.getA_holding_time());
-		System.out.println(a_holding_time);
 		assertTrue(target > Long.parseLong(a_holding_time));
 		dto.setA_holding_time(String.valueOf(Long.parseLong(a_holding_time) + (60 * 60 * 24)));
 		int i = sqlSession.update(accountNA + "update", dto);
@@ -91,6 +91,5 @@ public class AccountTest {
 	public void testDelete() {
 		int i = sqlSession.delete(accountNA + "delete", dto);
 		assertTrue(i == 1);
-		this.dto = null;
 	}
 }
