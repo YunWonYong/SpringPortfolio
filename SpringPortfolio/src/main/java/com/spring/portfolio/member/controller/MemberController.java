@@ -34,22 +34,22 @@ public class MemberController {
 	@Resource(name = ServiceNameSpaces.MEMBER)
 	private MemberService memberService;
 	@Resource(name = UtilNameSpaces.MEMBER)
-	private MemberUtility util;
+	private MemberUtility memberUtil;
 
 	public MemberController() {
 	}
-   
+
 	@RequestMapping("insert")
 	public ModelAndView insert(ModelAndView mv) throws Exception {
-		mv.addObject("util", util.getBirth());
-		mv.setViewName("/member/insert/회원가입"); 
+		mv.addObject("util", memberUtil.getBirth());
+		mv.setViewName("/member/insert/회원가입");
 		return mv;
 	}
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public ModelAndView insert(MemberDTO dto, MemberVO vo, ModelAndView mv) throws Exception {
-		dto.setM_gender(util.setGender(vo.getGenderCheck()));
-		dto.setM_age(util.getAge(vo.getYear()));
+		dto.setM_gender(memberUtil.setGender(vo.getGenderCheck()));
+		dto.setM_age(memberUtil.getAge(vo.getYear()));
 		dto.setM_birth(vo.getBirth());
 		memberService.register(dto);
 		mv.setViewName("redirect:/");
@@ -76,8 +76,8 @@ public class MemberController {
 				id = adto.getM_id();
 			}
 			dto = memberService.getOne(id);
-			dto.setM_realGender(util.getGender(dto.getM_gender()));
-			dto.setM_realGrant(util.getGrant(dto.getM_grant()));
+			dto.setM_realGender(memberUtil.getGender(dto.getM_gender()));
+			dto.setM_realGrant(memberUtil.getGrant(dto.getM_grant()));
 			dto.setM_birth(dto.getM_birth().split(" ")[0]);
 			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);
 			mv.setViewName("/member/read/회원조회");
@@ -95,7 +95,7 @@ public class MemberController {
 		List<Object> list = null;
 		Object value = null;
 		String result = null;
-		SearchVO searchVO = null; 
+		SearchVO searchVO = null;
 		try {
 			if (target.equals("null") && content.equals("null")) {
 				throw new ListSwitch();
@@ -105,7 +105,7 @@ public class MemberController {
 			value = target.equals("m_index") ? Integer.parseInt(content) : content;
 			searchVO = new SearchVO(target, value);
 		} catch (ListSwitch e) {
-			searchVO = new SearchVO(null,null); 
+			searchVO = new SearchVO(null, null);
 		} finally {
 			list = memberService.allList(SqlMultiObject.add(new PagingVO("m_index", "portfolio_member", currentPage), searchVO));
 			result = list != null ? new JsonParsing().parsingList(list) : null;
@@ -128,10 +128,10 @@ public class MemberController {
 			adto = obj instanceof AccountDTO ? (AccountDTO) obj : null;
 			if (adto == null) {
 				throw new Exception();
-			} 
-			inputElement = util.setUpdateForm(key,memberService.getOne(adto.getM_id()));
-			mv.addObject("input", inputElement);
-			mv.addObject("title", util.getLogo(key));
+			}
+			inputElement = memberUtil.setUpdateForm(key, memberService.getOne(adto.getM_id()));
+			mv.addObject("input", inputElement); 
+			mv.addObject("title", memberUtil.getLogo(key));
 			mv.setViewName("/member/update/회원수정");
 		} catch (Exception e) {
 			mv.setViewName("/error/fail");
