@@ -14,11 +14,12 @@ import com.spring.portfolio.common.exception.account.AutoLoginOffException;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.account.AccountUtility;
+import com.spring.portfolio.common.util.member.MemberUtility;
 
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;
-	@Resource(name = UtilNameSpaces.ACCOUN)
+	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
 
 	public AutoLoginInterceptor() {
@@ -43,7 +44,8 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 				}
 				if (i != 1)
 					throw new AutoLoginOffException();
-				sess = request.getSession();
+				sess = request.getSession();  
+				dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 				sess.setAttribute("login", dto);
 			} catch (AutoLoginOffException e) {
 				accountUtil.cookieDelete(response, cookie);

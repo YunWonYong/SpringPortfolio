@@ -24,7 +24,6 @@ public class CertificationController {
 	private CertificationUtility certificationUtil;
 
 	public CertificationController() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@RequestMapping(value = "inspection_check", produces = "text/html; charset=UTF-8")

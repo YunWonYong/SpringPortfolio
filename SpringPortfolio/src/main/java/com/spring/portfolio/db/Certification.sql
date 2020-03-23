@@ -11,10 +11,13 @@ alter table portfolio_certification add unique(c_email )
 
 select * from user_constraints where table_name='PORTFOLIO_CERTIFICATION'
 
+drop table portfolio_certification
 
 insert into portfolio_certification(c_index,c_email) values((select nvl(max(c_index),0)+1 from portfolio_certification),'ywyi1992@naver.com')
 
-delete from portfolio_certification where c_index = 1;
+delete from portfolio_certification
+
+
 
 drop table portfolio_certification cascade constraints
 
@@ -26,6 +29,8 @@ alter table portfolio_certification rename column m_id to c_id
 
 select * from PORTFOLIO_MEMBER m, portfolio_certification c, portfolio_account
 where m.c_index = c.c_index
+
+update PORTFOLIO_CERTIFICATION set c_id = (select m_id from PORTFOLIO_MEMBER where c_index = 1)
 
 
 delete from portfolio_certification

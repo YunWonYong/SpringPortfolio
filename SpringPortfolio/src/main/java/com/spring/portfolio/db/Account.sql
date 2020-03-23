@@ -8,7 +8,8 @@ create table portfolio_account(
 
 insert into portfolio_account values('admin','TESTJSESSION','123128802','on')
 
- 
+update portfolio_account set a_holding_time = 0 
+
 
 delete from PORTFOLIO_ACCOUNT
 

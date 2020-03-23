@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request, ModelAndView mv) {
-		mv.setViewName("/");
+		mv.setViewName("/index");
 		return mv; 
 	}
 }

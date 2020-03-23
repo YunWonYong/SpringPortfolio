@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import com.spring.portfolio.account.model.AccountDTO;
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.Utility;
 
-@Component("accountUtil")
+@Component(UtilNameSpaces.ACCOUNT)
 public class AccountUtility implements Utility {
 
 	public AccountUtility() {
-	}
+	} 
 
 	public String getHoldingTime() {
-		return String.valueOf(Long.parseLong(getRealTime()) + (60 * 60 * 24));
+		return String.valueOf(Long.parseLong(getRealTime()) + (60 * 60 * 24 * 1000));
 
 	}
 

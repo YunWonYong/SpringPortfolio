@@ -1,9 +1,5 @@
 @charset "UTF-8";
-.wrap{
-	width: 1300px;
-	position: relative;
-	left: 15%;
-}
+
 header{
 	display: inline-block;
 }

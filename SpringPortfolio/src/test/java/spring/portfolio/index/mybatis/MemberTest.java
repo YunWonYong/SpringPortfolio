@@ -38,7 +38,7 @@ public class MemberTest {
 	@Before
 	public void testDataSet() {
 		dto = new MemberDTO();
-		m_id = "junitTest";
+		m_id = "admin"; 
 		m_email = "ywyi1992@naver.com";
 		assertNotNull("nameSpace value:" + ns, ns);
 		assertEquals(ns, "com.spring.portfolio.member.");
@@ -48,22 +48,23 @@ public class MemberTest {
 		assertNotNull(ns);
 		assertNotNull(util);
 	}
-
+ 
 	@Test
 	public void testServiceRegister() throws Exception {
 		MemberVO vo = new MemberVO();
-		vo.setGenderCheck(null);
-		vo.setYear("1993");
+		vo.setGenderCheck("on");
+		vo.setYear("1992");
 		dto.setM_password("1234");
-		dto.setM_nickname("윤호윤호");
-		dto.setM_name("이윤효");
-		dto.setM_birth("1993-12-13");
+		dto.setM_nickname("admin");
+		dto.setM_name("윤원용");
+		dto.setM_birth("1992-11-07");
 		dto.setM_age(util.getAge(vo.getYear()));
 		dto.setM_zipcode("15675");
 		dto.setM_address1("서울특별시 강남구 123-123");
 		dto.setM_address2("중앙정보 처리 학원");
 		dto.setM_phone("010-2222-2222");
 		dto.setM_gender(util.setGender(vo.getGenderCheck()));
+		dto.setM_grant('a');
 		assertTrue(service.register(dto));
 	}
 
@@ -72,27 +73,27 @@ public class MemberTest {
 		MemberDTO dto1 = new MemberDTO();
 		MemberVO vo = new MemberVO();
 		vo.setYear("1993");
-		vo.setGenderCheck("on");
+		vo.setGenderCheck(null);
 		dto1.setM_id(m_id);
-		dto1.setM_password("4321");
-		dto1.setM_nickname("호윤호윤");
+		dto1.setM_password("4333");
+		dto1.setM_nickname("호윤호윤2");
 		MemberDTO dto2 = new MemberDTO();
 		dto2.setM_id(m_id);
-		dto2.setM_name("호윤이");
-		dto2.setM_birth("1993-05-05");
+		dto2.setM_name("이윤호");
+		dto2.setM_birth("1994-11-05");
 		dto2.setM_age(util.getAge(vo.getYear()));
 		dto2.setM_gender(util.setGender(vo.getGenderCheck()));
 		MemberDTO dto3 = new MemberDTO();
 		dto3.setM_id(m_id);
-		dto3.setM_phone("010-3333-4444");
-		dto3.setM_zipcode("06134");
-		dto3.setM_address1("서울 강남구 테헤란로7길 7 (역삼동)");
-		dto3.setM_address2("에스코 빌딩 6층 1강의실");
-		dto3.setM_email("ywyi1992@gmail.com");
+		dto3.setM_phone("010-1111-2222");
+		dto3.setM_zipcode("05555");
+		dto3.setM_address1("서울 강남구 강남동 강남면 (역삼동)");
+		dto3.setM_address2("에스코 빌딩 6층 54강의실");
+		dto3.setM_email("lolo18@gmail.com");
 		MemberDTO dto4 = new MemberDTO();
 		dto4.setM_id(m_id);
 		dto4.setM_grant('z');
-		assertTrue(service.modify(dto4));
+		assertTrue(service.modify(dto3));
 		
 	}
 

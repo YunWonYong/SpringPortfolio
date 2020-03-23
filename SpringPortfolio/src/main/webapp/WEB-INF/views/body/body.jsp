@@ -4,11 +4,11 @@
 <html>
 <head> 
 <meta charset="UTF-8">
+<meta name = "viewport" content="width=device-width initial-scale=1">
 <title><tiles:insertAttribute name="title" /></title>
-<tiles:insertAttribute name="default_css" />
-<tiles:insertAttribute name="transform_css" />
-<tiles:insertAttribute name="default_js" />
-<tiles:insertAttribute name="transform_js" />
+<tiles:insertAttribute name="library"/>
+<tiles:insertAttribute name="css"/>
+<tiles:insertAttribute name="js"/>
 </head>
 <body>
 	<header>

@@ -10,11 +10,11 @@ m_age number(3) default 1 check(m_age between 1 and 150) not null,
 m_zipcode number(5) not null,
 m_address1 varchar2(100) not null,
 m_address2 varchar2(100) not null,
-m_email varchar2(30) not null,
+m_email varchar2(30) not null unique,
 m_phone varchar2(13) not null,
 m_gender char(1) check(m_gender in('1','0')) not null,
 m_registdate date default sysdate,
-c_index number(7) references portfolio_certification(c_index) on delete cascade
+c_index number(7) references portfolio_certification(c_index) on delete cascade not null
 )
 
 select * from PORTFOLIO_MEMBER where regexp_like(m_grant,'[c]')
@@ -48,7 +48,7 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									'1234',
 									'admin',
 									'운영자',
-									'z',
+									'a',
 									'1992-11-07',
 									29,
 									00000,
@@ -61,8 +61,13 @@ values((select nvl(max(m_index),0)+1 from portfolio_member),
 									);
 									
 commit
+delete from PORTFOLIO_MEMBER
 
-update portfolio_member set m_age = 32 where m_index = 2
+select * from PORTFOLIO_MEMBER
+ 
+
+update portfolio_member set m_grant = 'a'
+
 
 
 select m_index,
@@ -104,7 +109,7 @@ delete from portfolio_member cascade
 
 select count(m_index) from portfolio_member where m_gender = '1'
 
-drop table portfolio_membe
+drop table portfolio_member
 
 create table portfolio_member_backup as select * from portfolio_member
 
@@ -112,8 +117,8 @@ select * from portfolio_member_backup
 
 
 drop trigger set_certification_id
-
-select * from all_triggers
+ 
+select * from all_triggers 
 where table_name='PORTFOLIO_MEMBER'
 
 select * from user_errors where type='TRIGGER'
@@ -121,10 +126,21 @@ select * from user_errors where type='TRIGGER'
 select sysdate from PORTFOLIO_ACCOUNT
 
 
+select * from portfolio_member 
+
+select c_index from PORTFOLIO_member
+
+
+
 CREATE OR REPLACE TRIGGER set_certification_id
 AFTER insert on portfolio_member FOR EACH ROW
 BEGIN
 	update portfolio_certification set c_id = :new.m_id
-	where c_index = :new.c_index;
+	where c_index = :new.c_index and c_email = :new.m_email; 
 END;
 /
+
+update PORTFOLIO_MEMBER set m_grant = 'a'
+
+
+select * from portfolio_member
