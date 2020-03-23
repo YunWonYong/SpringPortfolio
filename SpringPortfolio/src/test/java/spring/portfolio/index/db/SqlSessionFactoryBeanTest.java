@@ -1,7 +1,6 @@
 package spring.portfolio.index.db;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/junit/junitTest.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class SqlSessionFactoryBeanTest {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;

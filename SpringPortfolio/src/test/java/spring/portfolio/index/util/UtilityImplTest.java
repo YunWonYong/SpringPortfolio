@@ -1,28 +1,40 @@
 package spring.portfolio.index.util;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.UtilityImpl;
+import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.member.model.MemberDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ="file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/junit/*Junit.xml")
 public class UtilityImplTest {
-	private UtilityImpl util = new UtilityImpl();
-	
+	@Resource(name = UtilNameSpaces.MEMBER)
+	private MemberUtility util;
+
 	public UtilityImplTest() {
 	}
+	@Test 
+	public void testtUtilDI() {
 	
+		System.out.println(util);
+		assertNotNull(util);
+	}
 	@Test
 	public void testTransform() {
-		int i =0;
-		int j =1;
+		UtilityImpl util = new UtilityImpl();
+		int i = 0;
+		int j = 1;
 		char ch1 = '0';
 		char ch2 = '1';
 		boolean b1 = true;
@@ -39,7 +51,7 @@ public class UtilityImplTest {
 		assertTrue(resultFlag4);
 		assertTrue(resultFlag5);
 		assertFalse(resultFlag6);
-		
+
 		MemberDTO dto1 = new MemberDTO();
 		MemberDTO dto2 = null;
 		boolean objectFlag1 = util.booleanTransform(dto1);
@@ -47,5 +59,8 @@ public class UtilityImplTest {
 		assertTrue(objectFlag1);
 		assertFalse(objectFlag2);
 	}
-
+	
+	
+	
+	
 }

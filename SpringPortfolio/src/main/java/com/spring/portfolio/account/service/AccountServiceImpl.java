@@ -1,24 +1,19 @@
 package com.spring.portfolio.account.service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.repository.AccountDAO;
-import com.spring.portfolio.member.model.MemberDTO;
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
+import com.spring.portfolio.common.util.member.MemberUtility;
 
-@Service("accountService")
+@Service(ServiceNameSpaces.ACCOUNT)
 public class AccountServiceImpl implements AccountService {
-	@Resource(name = "accountDAO")
+	@Resource(name = RepositoryNameSpaces.ACCOUNT)
 	private AccountDAO dao;
 
 	public AccountServiceImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -26,28 +21,37 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public boolean login(ModelAndView mv) throws Exception {
-		boolean flag = false;
-		try {
-			ModelMap map = mv.getModelMap();
-			HttpServletRequest request = (HttpServletRequest) map.get("request");
-			HttpServletResponse response = (HttpServletResponse) map.get("response");
-			AccountDTO dto = (AccountDTO) map.get("dto");
-			MemberDTO login = dao.login(dto); 
-			if(login!=null) {
-				request.getSession().setAttribute("login", login);
-				if(dto.getAutoLogin()!=null) {
-//				Cookie cookie = new Cookie("asd",dto.getM_id());
-//				cookie.setPath("/");
-//				cookie.setMaxAge(60*60);
-//				response.addCookie(cookie);
-				}
-				flag = true;
-			} 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return flag;
+	public AccountDTO login(AccountDTO dto) throws Exception {
+		String autoChekc = dto.getA_autologin_check() == null ? "off" : "on";
+		dto = dao.login(dto);
+		System.out.println(dto);
+		if (dto != null) {
+			dto.setA_autologin_check(autoChekc);
+			dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
+		}  
+		System.out.println(dto.getA_autologin_check());
+		System.out.println(dto.getM_grant());
+		return dto;
+	}
+
+	@Override
+	public AccountDTO getOne(String a_jsession_id) throws Exception {
+		return dao.read(a_jsession_id);
+	}
+
+	@Override
+	public void register(AccountDTO dto) throws Exception {
+		dao.insert(dto);
+	}
+
+	@Override
+	public int remove(AccountDTO dto) throws Exception {
+		return dao.delete(dto) == 1 ? 2 : 0;
+	}
+
+	@Override
+	public int modify(AccountDTO dto) throws Exception {
+		return dao.update(dto);
 	}
 
 }

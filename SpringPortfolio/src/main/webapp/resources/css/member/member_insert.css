@@ -1,13 +1,7 @@
-body {
-	margin: 0;
-	padding: 0;
-	font-family: sans-serif;
-	color: #673ab7;
-}
 
-.loginBox {
+.wrap {
 	position: absolute;
-	top: 50%;
+	top: 55%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 500px;
@@ -16,6 +10,7 @@ body {
 	box-sizing: border-box;
 	padding-top: 46px;
 }
+
 
 h1 {
 	position: relative;
@@ -26,70 +21,51 @@ h1 {
 	justify-content: center;
 }
 
-.loginBox p {
+.wrap p {
 	margin: 0;
 	padding: 0;
 	font-weight: bold;
 	color: black;
 }
 
-.loginBox input {
+.wrap input {
 	width: 60%;
 	margin-bottom: 20px;
 	line-height: 25px;
 }
 
-.loginBox input[type="submit"] {
+.wrap input[type="submit"] {
+	position:relative;
+	right:15px;
+	width:250px;
 	height: 40px;
 	font-weight: bold;
 	font-size: 18px;
 }
-
-.gender div {
-	display: inline;
+input[type="submit"] {
+	position: relative;
+	bottom: 30px;
+	color: #fff;
+	background: #673ab7;
+	border-radius: 25px;
+	outline: none;
+	border: 1px solid #673ab7;
 }
 
-input[type="radio"] {
-	display: inline-block;
-	width: 10%;
-}
+
 
 .birth p {
 	margin-bottom: 5px;
 }
 
-select {
-	position: relative;
-	width: 80px;
-	height: 25px;
-	color: black;
-	border-radius: 25px;
-	outline: none;
-	border: 1px solid #673ab7;
-	font-size: 13px;
-	text-align: right;
-}
 
-select option {
-	color: #fff;
-	border-radius: 25px;
-}
 
-select:hover {
-	border: 2px solid #673ab7;
-	color: #673ab7;
-}
-
-samp {
-	position: relative;
-	right: 5px;
-}
 
 button {
 	color: black;
 	position: relative;
 	bottom: 55px;
-	left: 260px;
+	left: 280px;
 	height: 30px;
 	width: 70px;
 	border-radius: 25px;
@@ -111,33 +87,44 @@ button:hover {
 	box-sizing: border-box;
 	width: 100%;
 	border-radius: 25px;
-	border: 2px solid #ccc;
+	border: 2px solid black; 
 	outline: none;
 	font-size: 15px;
 	padding: 5px;
+	transition: 0.25s;
 }
+}
+.success{
+	border: 2px solid green; 
+}
+ .fail{
+	border: 2px solid red;
+}	
 
-.txtb:hover {
+/* .txtb:hover {
 	border: 2px solid #673ab7;
 	color: #673ab7;
-}
+} */
 
-input[type="submit"] {
+
+input[type="text"]:focus,input[type = "password"]:focus{
+	 width: 280px;
+  border-color: #2ecc71;
+}
+.txtb:focus{
+	width: 280px;
+  border-color: #2ecc71;
+}
+.hover{
+		 width: 280px;
+  border-color: #2ecc71;
+}
+.address1 {
 	position: relative;
 	bottom: 30px;
-	color: #fff;
-	background: #673ab7;
-	border-radius: 25px;
-	outline: none;
-	border: 1px solid #673ab7;
 }
 
-.adress {
-	position: relative;
-	bottom: 30px;
-}
-
-.adress2 {
+.address2 {
 	position: relative;
 	bottom: 35px;
 }
@@ -150,5 +137,38 @@ span {
 	position: relative;
 	bottom: 20px;
 	color: black;
+	text-align:  center;
+	
+} 
+.birth span{
+	position:relative;
+	right:65px;
+	margin-top:20px;
+	display: block;
 	text-align: center;
+}
+input[type="submit"]:hover{
+	background: #fff;
+	border-radius: 25px;
+	outline: none;
+	border: 1px solid #673ab7;
+	color: black;
+	text-align: center;
+}
+.btn{
+	width: 200px;
+}
+.member_title{
+	margin-top:50px;
+	position: relative;
+    left: 550px;
+    display: inline-block;
+}
+header{
+	position: relative;
+	top: 170px;
+}
+footer{
+	position: absolute;
+	bottom: -350px;
 }

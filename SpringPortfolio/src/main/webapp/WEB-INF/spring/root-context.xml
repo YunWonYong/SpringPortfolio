@@ -19,7 +19,14 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 
-	<context:property-placeholder location="/WEB-INF/properties/db/db.properties"/> 
+	<bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/properties/db/db.properties</value>
+				<value>/WEB-INF/properties/mail/mail.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="${dataSource.driver}"/>
@@ -37,9 +44,24 @@
 		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory"/>
 	</bean>
 	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}"/>
+		<property name="port" value="${email.port}"/>
+		<property name="username" value="${email.id}"/>
+		<property name="password" value="${email.password}"/> 
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="${email.smtp.ssl.trust.key}">${email.smtp.ssl.trust.value}</prop>
+				<prop key="${email.smtp.starttles.enable.key}">${email.smtp.starttles.enable.value}</prop>
+				<prop key="${email.mail.smtp.auth.key}">${email.mail.smtp.auth.value}</prop>
+			</props>
+		</property>
+	</bean>
+	<util:properties id="namespace" location="/WEB-INF/properties/namespace/*NameSpace.properties"/>
+		
 	<context:component-scan base-package="com.spring.portfolio">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	
-	<util:properties id="namespace" location="/WEB-INF/properties/namespace/namespace.properties"/>
 </beans>
+ 
