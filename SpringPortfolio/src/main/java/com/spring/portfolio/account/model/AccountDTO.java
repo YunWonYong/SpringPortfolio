@@ -8,16 +8,16 @@ public class AccountDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String m_id, m_password, autoLoing;
+	private String m_id, m_password, a_autologin_check, m_nickname, m_grant, a_jsession_id, a_holding_time;
 
 	public AccountDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDTO(String m_id, String m_password, String autoLoing) {
+	public AccountDTO(String m_id, String m_password, String a_autologin_check) {
 		this.m_id = m_id;
 		this.m_password = m_password;
-		this.autoLoing = autoLoing;
+		this.a_autologin_check = a_autologin_check;
 	}
 
 	public String getM_id() {
@@ -36,16 +36,48 @@ public class AccountDTO implements Serializable {
 		this.m_password = m_password;
 	}
 
-	public String getAutoLoing() {
-		return autoLoing;
+	public String getA_autologin_check() {
+		return a_autologin_check;
 	}
 
-	public void setAutoLoing(String autoLoing) {
-		this.autoLoing = autoLoing;
+	public void setA_autologin_check(String a_autologin_check) {
+		this.a_autologin_check = a_autologin_check;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getM_nickname() {
+		return m_nickname;
+	}
+
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
+
+	public String getM_grant() {
+		return m_grant;
+	}
+
+	public void setM_grant(String m_grant) {
+		this.m_grant = m_grant;
+	}
+
+	public String getA_jsession_id() {
+		return a_jsession_id;
+	}
+
+	public void setA_jsession_id(String a_jsession_id) {
+		this.a_jsession_id = a_jsession_id;
+	}
+
+	public String getA_holding_time() {
+		return a_holding_time;
+	}
+
+	public void setA_holding_time(String a_holding_time) {
+		this.a_holding_time = a_holding_time;
 	}
 
 	@Override
@@ -72,4 +104,12 @@ public class AccountDTO implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "AccountDTO [m_id=" + m_id + ", m_password=" + m_password + ", a_autologin_check=" + a_autologin_check
+				+ ", m_nickname=" + m_nickname + ", m_grant=" + m_grant + ", a_jsession_id=" + a_jsession_id
+				+ ", a_holding_time=" + a_holding_time + "]";
+	}
+
 }

@@ -5,11 +5,13 @@ import java.util.List;
 
 public class LoopVO {
 	private int start, end, operator;
-	private  List<String> returnList = new ArrayList<String>();
-
-	public LoopVO() {
+	private List<String> returnList = new ArrayList<String>();
+	
+	@SuppressWarnings("unused")
+	private LoopVO() {
+		
 	}
-
+	
 	public LoopVO(int start, int end, int operator) {
 		this.start = start;
 		this.end = end;

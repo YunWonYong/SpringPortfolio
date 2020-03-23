@@ -1,17 +1,19 @@
 package com.spring.portfolio.account.service;
 
-import javax.inject.Inject;
-
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.repository.AccountDAO;
-@Service("accountService")
+import com.spring.portfolio.common.namespaces.RepositoryNameSpaces;
+import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
+import com.spring.portfolio.common.util.member.MemberUtility;
+
+@Service(ServiceNameSpaces.ACCOUNT)
 public class AccountServiceImpl implements AccountService {
-	@Inject
-	private AccountDAO dao;	
+	@Resource(name = RepositoryNameSpaces.ACCOUNT)
+	private AccountDAO dao;
+
 	public AccountServiceImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -19,8 +21,37 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public boolean login(AccountDTO dto) throws Exception {
-		return false;
+	public AccountDTO login(AccountDTO dto) throws Exception {
+		String autoChekc = dto.getA_autologin_check() == null ? "off" : "on";
+		dto = dao.login(dto);
+		System.out.println(dto);
+		if (dto != null) {
+			dto.setA_autologin_check(autoChekc);
+			dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
+		}  
+		System.out.println(dto.getA_autologin_check());
+		System.out.println(dto.getM_grant());
+		return dto;
+	}
+
+	@Override
+	public AccountDTO getOne(String a_jsession_id) throws Exception {
+		return dao.read(a_jsession_id);
+	}
+
+	@Override
+	public void register(AccountDTO dto) throws Exception {
+		dao.insert(dto);
+	}
+
+	@Override
+	public int remove(AccountDTO dto) throws Exception {
+		return dao.delete(dto) == 1 ? 2 : 0;
+	}
+
+	@Override
+	public int modify(AccountDTO dto) throws Exception {
+		return dao.update(dto);
 	}
 
 }

@@ -1,11 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>	
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="spring.portfolio.accounts">
-
-	<select id="login" resultType="map">
+<mapper namespace="com.spring.portfolio.account">
+	<insert id="insert">
 		<![CDATA[
-		select m_id,m_grant from portfolio_member
-		where m_id = #{m_id} and m_password = #{m_password}
+		insert into portfolio_account 
+		values(#{m_id},#{a_jsession_id},#{a_holding_time},#{a_autologin_check})		
 		]]>
+
+	</insert>
+	<select id="autologin" resultType="accountDTO" parameterType="String">
+		<![CDATA[ 
+		select
+			m.m_id,
+			m.m_password,
+			m.m_grant,
+			m.m_nickname, 
+			a.a_jsession_id,
+			a.a_holding_time,
+			a.a_autologin_check
+			from portfolio_member m, portfolio_account a
+			
+		]]>
+		<where>
+			<![CDATA[
+				a.a_id = m.m_id and a.a_jsession_id =#{a_jsession_id}
+			]]>
+		</where>
 	</select>
+	<select id="login" resultType="accountDTO">
+		<![CDATA[
+		select m_id,m_grant,m_nickname from portfolio_member
+		]]>
+		<where>
+			m_id = #{m_id} and m_password = #{m_password}
+		</where>
+	</select>
+	<update id="update">
+		<![CDATA[
+		update portfolio_account set a_holding_time = #{a_holding_time}
+		]]>
+		<where>
+			a_jsession_id = #{a_jsession_id}
+		</where>
+	</update>
+
+	<delete id="delete">
+		<![CDATA[ 
+			delete from portfolio_account
+		]]>
+		<where>
+			a_id = #{m_id} and a_jsession_id = #{a_jsession_id}
+		</where>
+	</delete>
 </mapper>
