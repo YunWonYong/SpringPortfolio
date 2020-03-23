@@ -6,7 +6,9 @@ $(function() {
 	var $old_month = $month.val();
 	var $new_year = null;
 	var $new_month = null;
-	dateChange([ $old_year, $old_month ]);
+	if ($($date).val() == "00") {
+		dateChange([ $old_year, $old_month ]);
+	}
 	dateCheck($date);
 	function birthArr(msg) {
 		return birthCheck([ $year, $month, $date, msg ]);
@@ -63,7 +65,7 @@ function dateChange(arr) {
 	});
 	getDate(date[0], date[1]);
 }
- 
+
 function dateCheck(date) {
 	$(date).change(function() {
 		if ($(date).val() != 0) {

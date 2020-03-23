@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+.<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="container">
@@ -39,16 +39,16 @@
 				<div class="prfile5">
 					<p>전화번호:</p>
 					<p>우편번호:</p>
+					<p>주소:</p>
 					<p>상세주소:</p>
 					<p>이메일:</p>
-					<p>주소:</p>
 				</div>
 				<div class="profile6">
 					<p>${dto.m_phone}</p>
 					<p>${dto.m_zipcode}</p>
+					<p>${dto.m_address1}</p>
 					<p>${dto.m_address2}</p>
 					<p>${dto.m_email}</p>
-					<p>${dto.m_address1}</p>
 				</div>
 				<a href="/member/update/useraddress">정보수정</a>
 			</div>
