@@ -19,7 +19,7 @@ import com.spring.portfolio.paging.service.PagingService;
 public class MemberServiceImpl implements MemberService {
 	@Resource(name = RepositoryNameSpaces.MEMBER)
 	private MemberDAO memberDAO;
-	@Resource(name = ServiceNameSpaces.PGING)
+	@Resource(name = ServiceNameSpaces.PAGING)
 	private PagingService pagingService;
 
 	public MemberServiceImpl() {

@@ -17,7 +17,7 @@ import com.spring.portfolio.common.namespaces.UtilNameSpaces;
 import com.spring.portfolio.common.util.account.AccountUtility;
 
 public class LogoutInterceptor extends HandlerInterceptorAdapter {
-	@Resource(name = UtilNameSpaces.ACCOUN)
+	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;

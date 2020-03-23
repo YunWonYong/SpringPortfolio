@@ -7,8 +7,8 @@
 <meta name = "viewport" content="width=device-width initial-scale=1">
 <title><tiles:insertAttribute name="title" /></title>
 <tiles:insertAttribute name="library"/>
-<tiles:insertAttribute name="css" />
-<tiles:insertAttribute name="js" />
+<tiles:insertAttribute name="css"/>
+<tiles:insertAttribute name="js"/>
 </head>
 <body>
 	<header>

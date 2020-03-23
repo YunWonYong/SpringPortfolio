@@ -19,7 +19,7 @@ import com.spring.portfolio.common.util.account.AccountUtility;
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;
-	@Resource(name = UtilNameSpaces.ACCOUN)
+	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
 
 	public LoginInterceptor() {

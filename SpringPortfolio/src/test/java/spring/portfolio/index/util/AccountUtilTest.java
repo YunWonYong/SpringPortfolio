@@ -32,7 +32,7 @@ public class AccountUtilTest {
 
 	@Test
 	public void testGetHoldingTime() {
-		assertTrue((assertValue + (60 * 60 * 24))==Long.valueOf(util.getHoldingTime()));
+		assertTrue((assertValue + (60 * 60 * 24 * 1000))==Long.valueOf(util.getHoldingTime()));
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class AccountUtilTest {
 	public void testGetLifeTimeCheck() {
 		String a_holding_time = util.getHoldingTime();
 		assertTrue(util.lifeTimeCheck(a_holding_time));
-		assertFalse(util.lifeTimeCheck(String.valueOf(Long.parseLong(a_holding_time) - ((60 * 60 * 24) + 1))));
+		assertFalse(util.lifeTimeCheck(String.valueOf(Long.parseLong(a_holding_time) - ((60 * 60 * 24 * 1000) + 1))));
 
 	}
 

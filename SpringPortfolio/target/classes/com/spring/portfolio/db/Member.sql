@@ -139,3 +139,8 @@ BEGIN
 	where c_index = :new.c_index and c_email = :new.m_email; 
 END;
 /
+
+update PORTFOLIO_MEMBER set m_grant = 'a'
+
+
+select * from portfolio_member
