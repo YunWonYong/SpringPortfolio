@@ -42,10 +42,9 @@ drop trigger modify_member_email
 CREATE OR REPLACE TRIGGER modify_member_email
 AFTER update on portfolio_certification FOR EACH ROW
 BEGIN
-	if :new.c_inspection_check = '1'
-	then
-	update portfolio_member set m_email = :new.c_email
-	where c_index = :new.c_index; 
+	if :new.c_inspection_check = '1' then
+		update portfolio_member set m_email = :new.c_email
+		where c_index = :new.c_index; 
 	end if;
 END;
 /

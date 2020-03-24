@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.spring.portfolio.common.exception.ListSwitch;
 import com.spring.portfolio.common.namespaces.ControllerNameSpaces;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.namespaces.UtilNameSpaces;
+import com.spring.portfolio.common.util.account.AccountUtility;
 import com.spring.portfolio.common.util.json.JsonParsing;
 import com.spring.portfolio.common.util.member.MemberUtility;
 import com.spring.portfolio.common.util.sql.SqlMultiObject;
@@ -35,6 +37,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Resource(name = UtilNameSpaces.MEMBER)
 	private MemberUtility memberUtil;
+	@Resource(name = UtilNameSpaces.ACCOUNT)
+	private AccountUtility accountUtil;
 
 	public MemberController() {
 	}
@@ -121,18 +125,20 @@ public class MemberController {
 	}
 
 	@RequestMapping("update/{key}")
-	public ModelAndView updateui(@PathVariable String key, ModelAndView mv, HttpServletRequest request) {
-		Object obj = request.getSession().getAttribute("login");
+	public ModelAndView updateui(@PathVariable String key, ModelAndView mv, HttpSession sess) {
 		AccountDTO adto = null;
 		String inputElement = null;
 		try {
-			adto = obj instanceof AccountDTO ? (AccountDTO) obj : null;
+			adto = accountUtil.loginCheck(sess.getAttribute("login"));
 			if (adto == null) {
 				throw new Exception();
 			}
 			inputElement = memberUtil.setUpdateForm(key, memberService.getOne(adto.getM_id()));
 			mv.addObject("input", inputElement);
 			mv.addObject("title", memberUtil.getLogo(key));
+			if (key.equals("certification")) {
+				mv.addObject("change", "c");
+			}
 			mv.setViewName("/member/update/회원수정");
 		} catch (Exception e) {
 			mv.setViewName("/error/fail");
@@ -141,4 +147,24 @@ public class MemberController {
 		}
 		return mv;
 	}
+
+	@RequestMapping("passwordCheck")
+	@ResponseBody
+	public String passwordCheck(MemberDTO dto, HttpSession sess) {
+		AccountDTO adto = accountUtil.loginCheck(sess.getAttribute("login"));
+		String msg = null;
+		try {
+			if(adto==null) {
+				throw new Exception();
+			}
+			dto.setM_id(adto.getM_id());
+			System.out.println(dto.getM_password());
+			System.out.println(dto.getM_id());
+		} catch (Exception e) {
+			msg = "no";
+		}
+
+		return msg;
+	}
+
 }

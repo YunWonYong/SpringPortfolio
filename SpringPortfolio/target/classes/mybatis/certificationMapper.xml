@@ -32,6 +32,9 @@
 			<![CDATA[
 				c_email = #{c_email}
 			]]>
+			<if test='c_id !=null'> 
+				and c_id = #{c_id}
+			</if>
 		</where>
 	</select>
 

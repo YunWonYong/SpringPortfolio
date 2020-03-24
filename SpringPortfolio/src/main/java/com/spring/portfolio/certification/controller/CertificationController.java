@@ -14,6 +14,7 @@ import com.spring.portfolio.certification.service.CertificationService;
 import com.spring.portfolio.common.namespaces.ControllerNameSpaces;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.namespaces.UtilNameSpaces;
+import com.spring.portfolio.common.util.account.AccountUtility;
 import com.spring.portfolio.common.util.certification.CertificationUtility;
 
 @Controller
@@ -23,8 +24,32 @@ public class CertificationController {
 	private CertificationService certificationService;
 	@Resource(name = UtilNameSpaces.CERTIFICATION)
 	private CertificationUtility certificationUtil;
+	@Resource(name = UtilNameSpaces.ACCOUNT)
+	private AccountUtility accountUtil;
 
 	public CertificationController() {
+	}
+
+	@RequestMapping(value = "read", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String read(String to, HttpSession sess) {
+		String msg = "";
+		try {
+			CertificationDTO dto = new CertificationDTO();
+			AccountDTO login = accountUtil.loginCheck(sess.getAttribute("login"));
+			if (login != null) {
+				dto.setC_email(to);
+				dto.setC_id(login.getM_id());
+			}
+			dto = certificationService.getOne(dto);
+			if (!dto.getC_inspection_check().equals("1")) {
+				throw new Exception();
+			}
+			msg = "ok";
+		} catch (Exception e) {
+			msg = "no";
+		}
+		return msg;
 	}
 
 	@RequestMapping(value = "inspection_check", produces = "text/html; charset=UTF-8")
@@ -69,24 +94,20 @@ public class CertificationController {
 			Object obj = from.equals("insert") ? certificationService.register(dto) : certificationService.getOne(dto);
 			boolean flag = obj instanceof Integer ? true : false;
 			dto = (CertificationDTO) obj;
-			msg = flag ? "이메일이 발송 되었습니다. 인증해 주세요." : null;
-
+			msg = flag ? "이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요." : null;
 			msg = msg == null
-					? dto == null ? "이메일이 발송 되었습니다. 인증해 주세요."
-							: dto.getC_inspection_check().equals("1")? "인증이 완료된 이메일입니다." : "인증이 안된 이메일입니다."
+					? dto == null ? "이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요."
+							: dto.getC_email().equals(to) ? "중복된 이메일 입니다."
+									: dto.getC_inspection_check().equals("1") ? "인증이 완료된 이메일입니다." : "인증이 안된 이메일입니다."
 					: null;
-			if (msg.equals("이메일이 발송 되었습니다. 인증해 주세요.")|| msg.equals("인증이 안된 이메일입니다.")) {
+			if (msg.equals("이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요.") || msg.equals("인증이 안된 이메일입니다.")) {
 				if (from.equals("update")) {
-					Object sessObject = sess.getAttribute("login");
-					AccountDTO accountDTO = null;
-					if (sessObject != null ? sessObject instanceof AccountDTO : false) {
-						accountDTO = (AccountDTO) sessObject;
-					}
-					if (accountDTO != null) {
+					AccountDTO login = accountUtil.loginCheck(sess.getAttribute("login"));
+					if (login != null) {
 						dto = new CertificationDTO();
 						dto.setC_email(vo.getTo());
 						dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
-						dto.setC_id(accountDTO.getM_id());
+						dto.setC_id(login.getM_id());
 						dto.setC_inspection_check("0");
 						certificationService.modify(dto);
 					}

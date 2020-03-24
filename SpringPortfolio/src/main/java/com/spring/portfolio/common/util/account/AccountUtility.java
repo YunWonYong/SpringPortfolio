@@ -21,7 +21,6 @@ public class AccountUtility implements Utility {
 		return String.valueOf(Long.parseLong(getRealTime()) + (60 * 60 * 24 * 1000));
 
 	}
-
 	public String injectJsessionID(Cookie[] cookies, String autoCheck) {
 		if (cookies != null && autoCheck.equals("on")) {
 			for (Cookie c : cookies) {
