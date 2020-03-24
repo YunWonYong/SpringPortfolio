@@ -1,12 +1,13 @@
 package com.spring.portfolio.certification.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.certification.model.CertificationDTO;
 import com.spring.portfolio.certification.model.CertificationVO;
 import com.spring.portfolio.certification.service.CertificationService;
@@ -53,19 +54,53 @@ public class CertificationController {
 		return script.toString();
 	}
 
-	@RequestMapping("inspection")
-	public String insert(@RequestParam("m_email") String to) {
+	@RequestMapping(value = "inspection", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String insert(String to, String from, HttpSession sess) throws Exception {
+		String msg = "";
+		boolean isSend = false;
+		CertificationVO vo = null;
+		CertificationDTO dto = null;
 		try {
-			CertificationVO vo = new CertificationVO(certificationUtil.setContent(to), to);
-			if (certificationUtil.send(vo)) {
-				CertificationDTO dto = new CertificationDTO();
-				dto.setC_email(vo.getTo());
-				dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
-				certificationService.register(dto);
+			vo = new CertificationVO(certificationUtil.setContent(to), to);
+			dto = new CertificationDTO();
+			dto.setC_email(vo.getTo());
+			dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
+			Object obj = from.equals("insert") ? certificationService.register(dto) : certificationService.getOne(dto);
+			boolean flag = obj instanceof Integer ? true : false;
+			dto = (CertificationDTO) obj;
+			msg = flag ? "이메일이 발송 되었습니다. 인증해 주세요." : null;
+
+			msg = msg == null
+					? dto == null ? "이메일이 발송 되었습니다. 인증해 주세요."
+							: dto.getC_inspection_check().equals("1")? "인증이 완료된 이메일입니다." : "인증이 안된 이메일입니다."
+					: null;
+			if (msg.equals("이메일이 발송 되었습니다. 인증해 주세요.")|| msg.equals("인증이 안된 이메일입니다.")) {
+				if (from.equals("update")) {
+					Object sessObject = sess.getAttribute("login");
+					AccountDTO accountDTO = null;
+					if (sessObject != null ? sessObject instanceof AccountDTO : false) {
+						accountDTO = (AccountDTO) sessObject;
+					}
+					if (accountDTO != null) {
+						dto = new CertificationDTO();
+						dto.setC_email(vo.getTo());
+						dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
+						dto.setC_id(accountDTO.getM_id());
+						dto.setC_inspection_check("0");
+						certificationService.modify(dto);
+					}
+				}
+				isSend = true;
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
+			msg = "이메일 발송이 실패되었습니다.";
+		} finally {
+			if (isSend) {
+				certificationUtil.send(vo);
+			}
 		}
-		return "/certification/inspection";
+		return msg;
 	}
 }

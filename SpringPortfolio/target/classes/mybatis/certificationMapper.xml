@@ -43,4 +43,16 @@
 
 		</where>
 	</delete>
+	<update id="update">
+		<![CDATA[
+			update portfolio_certification set c_email = #{c_email},
+											   c_inspection = #{c_inspection},
+											   c_inspection_check = #{c_inspection_check}
+		]]>
+		<where>
+			<![CDATA[
+				c_id = #{c_id}		
+			]]>	
+		</where>
+	</update>
 </mapper>

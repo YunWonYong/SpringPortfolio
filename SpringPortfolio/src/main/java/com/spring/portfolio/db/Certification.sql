@@ -36,3 +36,16 @@ update PORTFOLIO_CERTIFICATION set c_id = (select m_id from PORTFOLIO_MEMBER whe
 delete from portfolio_certification
 where c_index = (select c.c_index from PORTFOLIO_MEMBER m,portfolio_certification c
 				 where m.c_index = c.c_index)
+				 
+drop trigger modify_member_email
+				 
+CREATE OR REPLACE TRIGGER modify_member_email
+AFTER update on portfolio_certification FOR EACH ROW
+BEGIN
+	if :new.c_inspection_check = '1'
+	then
+	update portfolio_member set m_email = :new.c_email
+	where c_index = :new.c_index; 
+	end if;
+END;
+/

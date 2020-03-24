@@ -90,8 +90,9 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("identify", "m_password#m_nickname");
 		map.put("userinfo", "m_name#m_birth#m_gender");
-		map.put("useraddress", "m_phone#m_email#m_zipcode#m_address1#m_address2");
+		map.put("useraddress", "m_phone#m_zipcode#m_address1#m_address2");
 		map.put("grantupdate", "m_grant");
+		map.put("certification","m_email");
 		this.dto = dto;
 		return getForm(map.get(key));
 	}
@@ -251,7 +252,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		case "m_phone":
 			input.append("<div class=''>");
 			input.append("<p>전화번호</p>");
-			input.append("<input class='txtb' type='text' name='m_email' value='");
+			input.append("<input class='txtb' type='text' name='m_phone' value='");
 			input.append(dto.getM_phone());
 			input.append("'/>");
 			input.append("<span id='phone_msg' class='msg'>&nbsp;</span>");
@@ -263,7 +264,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("<input class='txtb' name='m_zipcode' id='m_zipcode' readonly value='");
 			input.append(dto.getM_zipcode());
 			input.append("'/>");
-			input.append("<button onclick='daumPostcode()'>우편찾기</button>");
+			input.append("<button type='button' onclick='daumPostcode()'>우편찾기</button>");
 			input.append("</div>");
 			break;
 		case "m_address1":
@@ -282,6 +283,14 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_email":
+			input.append("<div class=''>");
+			input.append("<p>이메일</p>");
+			input.append("<input type='text' class='txtb' name='m_email' id='m_email' value='");
+			input.append(dto.getM_email());
+			input.append("'/>");
+			input.append("<button type='button' id='certification'>인증하기</button>");
+			input.append("<span id='email_msg' class='msg'>&nbsp;</span>");
+			input.append("</div>");
 			break;
 		case "m_grant":
 			break;

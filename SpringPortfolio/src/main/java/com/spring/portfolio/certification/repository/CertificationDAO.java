@@ -4,10 +4,12 @@ import com.spring.portfolio.certification.model.CertificationDTO;
 
 public interface CertificationDAO {
 
-	public abstract void insert(CertificationDTO dto) throws Exception;
+	public abstract Integer insert(CertificationDTO dto) throws Exception;
 
 	public abstract CertificationDTO read(CertificationDTO dto) throws Exception;
 
 	public abstract boolean check(CertificationDTO dto) throws Exception;
+
+	public abstract void update(CertificationDTO dto)throws Exception;
 
 }

@@ -107,7 +107,8 @@ public class MemberController {
 		} catch (ListSwitch e) {
 			searchVO = new SearchVO(null, null);
 		} finally {
-			list = memberService.allList(SqlMultiObject.add(new PagingVO("m_index", "portfolio_member", currentPage), searchVO));
+			list = memberService
+					.allList(SqlMultiObject.add(new PagingVO("m_index", "portfolio_member", currentPage), searchVO));
 			result = list != null ? new JsonParsing().parsingList(list) : null;
 		}
 		return result;
@@ -130,7 +131,7 @@ public class MemberController {
 				throw new Exception();
 			}
 			inputElement = memberUtil.setUpdateForm(key, memberService.getOne(adto.getM_id()));
-			mv.addObject("input", inputElement); 
+			mv.addObject("input", inputElement);
 			mv.addObject("title", memberUtil.getLogo(key));
 			mv.setViewName("/member/update/회원수정");
 		} catch (Exception e) {

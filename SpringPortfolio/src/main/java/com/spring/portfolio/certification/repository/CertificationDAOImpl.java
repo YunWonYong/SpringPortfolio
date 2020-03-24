@@ -21,8 +21,8 @@ public class CertificationDAOImpl implements CertificationDAO {
 	}
 
 	@Override
-	public void insert(CertificationDTO dto) throws Exception {
-		sqlSession.insert(ns + "insert", dto);
+	public Integer insert(CertificationDTO dto) throws Exception {
+		return sqlSession.insert(ns + "insert", dto);
 	}
 
 	@Override
@@ -33,6 +33,11 @@ public class CertificationDAOImpl implements CertificationDAO {
 	@Override
 	public boolean check(CertificationDTO dto) throws Exception {
 		return sqlSession.update(ns + "check", dto) != 0;
+	}
+
+	@Override
+	public void update(CertificationDTO dto) throws Exception {
+		sqlSession.update(ns + "update", dto);
 	}
 
 }

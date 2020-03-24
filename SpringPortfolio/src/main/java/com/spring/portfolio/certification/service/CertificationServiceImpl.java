@@ -19,8 +19,8 @@ public class CertificationServiceImpl implements CertificationService{
 	}
 
 	@Override
-	public void register(CertificationDTO dto) throws Exception {
-		dao.insert(dto);
+	public Integer register(CertificationDTO dto) throws Exception {
+		return dao.insert(dto);
 	}
 
 	@Override
@@ -31,6 +31,11 @@ public class CertificationServiceImpl implements CertificationService{
 	@Override
 	public boolean inspectionCheck(CertificationDTO dto) throws Exception {
 		return dao.check(dto);
+	}
+
+	@Override
+	public void modify(CertificationDTO dto) throws Exception {
+		dao.update(dto);
 	}
 
 }
