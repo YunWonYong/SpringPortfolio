@@ -1,6 +1,3 @@
-@charset "UTF-8";
-
-
 @import url('http://font.gooleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
 body{
    margin: 0 ;
@@ -30,7 +27,7 @@ main{
    
    position: relative;
    top:250px;
-   left:100px;
+   left:0px;
   /*  left:50%;
    top:50%; */
    display: grid;
@@ -274,4 +271,7 @@ main{
 footer{
 	position: absolute;
 	bottom: 0;
+}
+header{
+	
 }

@@ -10,11 +10,12 @@
 			<form action="/member/update" method="post">
 				<div class="input">
 					${input}
+					<span id="certification_key">${change}</span>
 				</div>
 			</form>
 		</div>
 		<div class="btn">
-			<a href='javascript:formSubmit()'>수정</a> 
-			<a href='javascript:window.history.back()'>되돌아가기</a>
+			<a href='javascript:formSubmit()' id = "submit">수정</a> 
+			<a href='/member/read'>되돌아가기</a>
 		</div>
 	</div>

@@ -66,7 +66,7 @@ delete from PORTFOLIO_MEMBER
 select * from PORTFOLIO_MEMBER
  
 
-update portfolio_member set m_grant = 'a'
+update portfolio_member set m_gender = '0' where m_id = 'admin'
 
 
 

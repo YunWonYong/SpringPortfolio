@@ -33,14 +33,14 @@ public class CertificationTest {
 	@Before
 	public void testSetting() throws Exception {
 		dto = new CertificationDTO(); // instance
-		dto.setC_email("ywyi1992@naver.com"); 
+		dto.setC_email("egniz@naver.com"); 
 		dto.setC_inspection(new CertificationUtility().inspectionCode(dto.getC_email()));
 		assertNotNull(ns);
 		assertEquals(ns, "com.spring.portfolio.certification.");
 	}
 
 	@Test
-	public void testRegister() throws Exception {
+	public void testrRegister() throws Exception {
 		assertTrue(sqlSession.insert(ns + "insert", dto) == 1);
 	}
 

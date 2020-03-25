@@ -46,7 +46,7 @@ public class CertificationUtility implements Utility {
 		text.append("<br>");
 		text.append("회원가입을 진행하기 전에 이메일 인증을 진행하겠습니다.");
 		text.append("<br>");  
-		text.append("<a href='http://192.168.0.25/certification/inspection_check?code=");
+		text.append("<a href='http://192.168.0.34/certification/inspection_check?code=");
 		text.append(inspectionCode(to));
 		text.append("'>여기를 클릭해 주세요.</a>"); 
 		return text.toString();
@@ -62,5 +62,6 @@ public class CertificationUtility implements Utility {
 		}
 		return code.toString();
 	}
+	
 
 }

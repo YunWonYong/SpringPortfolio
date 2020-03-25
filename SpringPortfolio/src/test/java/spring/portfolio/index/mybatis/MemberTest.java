@@ -38,8 +38,8 @@ public class MemberTest {
 	@Before
 	public void testDataSet() {
 		dto = new MemberDTO();
-		m_id = "admin"; 
-		m_email = "ywyi1992@naver.com";
+		m_id = "egniz"; 
+		m_email = "egniz@naver.com";
 		assertNotNull("nameSpace value:" + ns, ns);
 		assertEquals(ns, "com.spring.portfolio.member.");
 		dto.setM_id(m_id);
@@ -55,7 +55,7 @@ public class MemberTest {
 		vo.setGenderCheck("on");
 		vo.setYear("1992");
 		dto.setM_password("1234");
-		dto.setM_nickname("admin");
+		dto.setM_nickname("admin6");
 		dto.setM_name("윤원용");
 		dto.setM_birth("1992-11-07");
 		dto.setM_age(util.getAge(vo.getYear()));

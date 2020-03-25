@@ -183,4 +183,15 @@
 			]]>
 		</where>
 	</delete>
+	
+	<select id="passwordCheck" resultType="memberDTO">
+		<![CDATA[
+			select * from portfolio_member
+		]]>
+		<where>
+			<![CDATA[
+				m_password = #{m_password} and m_id = #{m_id}
+			]]>
+		</where>
+	</select>
 </mapper>
