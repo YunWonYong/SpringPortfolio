@@ -19,7 +19,7 @@ import com.spring.portfolio.common.util.account.AccountUtility;
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;
-	@Resource(name = UtilNameSpaces.ACCOUN)
+	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
 
 	public LoginInterceptor() {
@@ -35,7 +35,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				throw new LoginFailException();
 			HttpSession sess = request.getSession();
 			sess.setAttribute("login", dto); 
-			System.out.println("interceptor:"+dto.getM_grant()); 
 			String jsessionID = accountUtil.injectJsessionID(request.getCookies(), dto.getA_autologin_check());
 			if (jsessionID != null) {
 				dto.setA_holding_time(accountUtil.getHoldingTime());

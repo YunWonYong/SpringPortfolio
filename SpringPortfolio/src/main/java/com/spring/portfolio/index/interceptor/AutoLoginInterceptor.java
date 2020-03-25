@@ -19,7 +19,7 @@ import com.spring.portfolio.common.util.member.MemberUtility;
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 	@Resource(name = ServiceNameSpaces.ACCOUNT)
 	private AccountService accountService;
-	@Resource(name = UtilNameSpaces.ACCOUN)
+	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
 
 	public AutoLoginInterceptor() {
@@ -48,7 +48,6 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 				dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 				sess.setAttribute("login", dto);
 			} catch (AutoLoginOffException e) {
-				System.out.println("여기서 발생하는 오류있음?"); 
 				accountUtil.cookieDelete(response, cookie);
 				sess = request.getSession();
 				sess.invalidate();

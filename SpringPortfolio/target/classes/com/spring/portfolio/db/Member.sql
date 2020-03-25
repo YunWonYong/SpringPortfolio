@@ -66,7 +66,7 @@ delete from PORTFOLIO_MEMBER
 select * from PORTFOLIO_MEMBER
  
 
-update portfolio_member set m_grant = 'a'
+update portfolio_member set m_gender = '0' where m_id = 'admin'
 
 
 
@@ -139,3 +139,8 @@ BEGIN
 	where c_index = :new.c_index and c_email = :new.m_email; 
 END;
 /
+
+update PORTFOLIO_MEMBER set m_grant = 'a'
+
+
+select * from portfolio_member

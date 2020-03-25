@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="member_title ">
 	<h1>회원가입</h1>
 </div>
@@ -42,7 +43,7 @@
 					<input type="radio" name="genderCheck" id="man" checked="checked" />
 					<label for="woman">여자</label>
 					<input type="radio" id="woman" /> 
-					<span id="gender_msg" class="msg">&nbsp;</span>
+				
 				</div>
 
 				<div class="selectsort">
@@ -52,13 +53,15 @@
 							<option value="${year }">${year }</option>
 						</c:forEach>
 					</select>
-					<span class='hyphen'>-</span>
+					
+					<span><i class='fa fa-minus' aria-hidden='true'></i></span>
 					<select name="month">
 						<c:forEach items="${util.month }" var="month">
 							<option value="${month }">${month }</option>
 						</c:forEach>
 					</select>
-					<span class='hyphen'>-</span> 
+					
+					<span><i class='fa fa-minus' aria-hidden='true'></i></span>
 					<select name="date" id="date">
 						<option value="00">00</option>
 					</select> 

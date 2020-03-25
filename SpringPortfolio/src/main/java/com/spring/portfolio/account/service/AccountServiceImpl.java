@@ -24,13 +24,10 @@ public class AccountServiceImpl implements AccountService {
 	public AccountDTO login(AccountDTO dto) throws Exception {
 		String autoChekc = dto.getA_autologin_check() == null ? "off" : "on";
 		dto = dao.login(dto);
-		System.out.println(dto);
 		if (dto != null) {
 			dto.setA_autologin_check(autoChekc);
 			dto.setM_grant(new MemberUtility().getGrant(dto.getM_grant().charAt(0)));
 		}  
-		System.out.println(dto.getA_autologin_check());
-		System.out.println(dto.getM_grant());
 		return dto;
 	}
 

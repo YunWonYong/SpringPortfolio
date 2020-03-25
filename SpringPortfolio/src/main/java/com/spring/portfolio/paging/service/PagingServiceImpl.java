@@ -12,9 +12,9 @@ import com.spring.portfolio.common.vo.PagingVO;
 import com.spring.portfolio.paging.model.PagingEntity;
 import com.spring.portfolio.paging.repository.PagingDAO;
 
-@Service(value = ServiceNameSpaces.PGING)
+@Service(value = ServiceNameSpaces.PAGING)
 public class PagingServiceImpl implements PagingService {
-	@Resource(name = RepositoryNameSpaces.PGING)
+	@Resource(name = RepositoryNameSpaces.PAGING)
 	private PagingDAO dao;
 
 	public PagingServiceImpl() {

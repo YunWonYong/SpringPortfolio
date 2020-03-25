@@ -20,4 +20,6 @@ public interface MemberService extends MainService {
 	public abstract String checkDuplicate(DuplicateVO vo) throws Exception;
 
 	public abstract boolean remove(AccountDTO dto) throws Exception;
+
+	public abstract MemberDTO passwordCheck(MemberDTO dto)throws Exception;
 }
