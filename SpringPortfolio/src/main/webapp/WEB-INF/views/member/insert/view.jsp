@@ -13,7 +13,6 @@
 					<input class="txtb" required type="text" name="m_id"/> 
 					<span id="id_msg" class="msg">&nbsp;</span>
 				</div>
-
 				<div>
 					<p>비밀번호</p>
 					<input class='txtb' type='password' name='m_password'id='password_1' /> 
@@ -35,12 +34,13 @@
 				<div>
 					<p>이름</p>
 					<input class="txtb" type="text" name="m_name" />
+					<span id="name_msg" class="msg">&nbsp;</span>
 				</div>
 
 				<div class="radiosort">
 					<p>성별</p>
 					<label for="man">남자</label> 
-					<input type="radio" name="genderCheck" id="man" checked="checked" />
+					<input type="radio" name="genderCheck" id="man" checked/>
 					<label for="woman">여자</label>
 					<input type="radio" id="woman" /> 
 				
@@ -63,45 +63,44 @@
 					
 					<span><i class='fa fa-minus' aria-hidden='true'></i></span>
 					<select name="date" id="date">
-						<option value="00">00</option>
 					</select> 
 					<span id="birth_msg" class="msg">&nbsp;</span>
 				</div>
 
 				<div>
 					<p>이메일</p>
-					<input class="txtb" type="text" name="m_email"/> <span
-						id="email_msg" class="msg">&nbsp;</span>
+					<input class="txtb" type="text" name="m_email"/>
+					<button type="button" id ='certification_insert'>이메일인증</button>
+					<span id="email_msg" class="msg">&nbsp;</span>
 				</div>
 
 				<div>
 					<p>핸드폰 번호</p>
-					<input class="txtb" name="m_phone"> <span id="phone_msg"
-						class="msg">&nbsp;</span>
+					<input class="txtb" name="m_phone"> 
+					<span id="phone_msg" class="msg">&nbsp;</span>
 				</div>
 
 				<div class="zipcode">
 					<p>우편번호</p>
 					<input class="txtb" name="m_zipcode" id="m_zipcode" readonly/>
-					<button onclick="daumPostcode()">우편찾기</button>
+					<button type = "button" onclick="daumPostcode()">우편찾기</button>
 				</div>
 
 				<div class="address1">
 					<p>주소</p>
 					<input class="txtb" name="m_address1" id="m_address1" readonly/>
-					<span id="adress1_msg" class="msg">&nbsp;</span>
 				</div>
 
 				<div class="address2">
 					<p>상세주소</p>
 					<input class="txtb" name="m_address2" id="m_address2" >
-					<span id="adress2_msg" class="msg">&nbsp;</span>
+					<span id="address2_msg" class="msg">&nbsp;</span>
 				</div>
 
 			</div>
 		</form>
 	</div>
 	<div class="btn">
-		<input class="txtb" type="submit" value="회원가입">
+		<a href='javascript:formSubmit()' id = "submit">회원가입</a>
 	</div>
 </div>

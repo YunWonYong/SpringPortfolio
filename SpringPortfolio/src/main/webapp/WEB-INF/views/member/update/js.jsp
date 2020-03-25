@@ -4,5 +4,6 @@
 <script type="text/javascript" src="/resources/js/member/common/addressFunction.js"></script>
 <script type="text/javascript" src="/resources/js/member/common/certification.js"></script>
 <script type="text/javascript" src="/resources/js/member/common/submit.js"></script>
-<script type="text/javascript" src="/resources/js/member/member_update.js"></script>
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript" src="/resources/js/member/member_update.js"></script>

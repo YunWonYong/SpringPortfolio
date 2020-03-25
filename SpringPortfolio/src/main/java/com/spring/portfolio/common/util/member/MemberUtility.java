@@ -65,7 +65,9 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
 		map.put("year", getYear());
 		map.put("month", getMonth());
-		map.put("date",getDate());
+		if(dto!=null) { 
+			map.put("date",getDate());
+		}
 		return map;
 	}
 
@@ -103,7 +105,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 	}
 
 	private List<String> getMonth() {
-		return listLoop(new LoopVO(0, 12, 0));
+		return listLoop(new LoopVO(1, 12, 0));
 	}
 	private List<String> getDate() { 
 		String[] birth =  dto.getM_birth().split(" ")[0].split("-");

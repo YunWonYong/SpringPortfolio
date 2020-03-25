@@ -15,13 +15,25 @@ drop table portfolio_certification
 
 insert into portfolio_certification(c_index,c_email) values((select nvl(max(c_index),0)+1 from portfolio_certification),'ywyi1992@naver.com')
 
-delete from portfolio_certification
+delete from portfolio_certification where c_index = 4
 
+
+update PORTFOLIO_CERTIFICATION set c_email = 'ywyi1992@gamil.com', c_inspection_check = '0'
+where c_index = 4
+
+update PORTFOLIO_CERTIFICATION set c_inspection = 'test' , c_inspection_check = '1'
+where c_index = 4
 
 
 drop table portfolio_certification cascade constraints
 
 select * from portfolio_certification
+
+update PORTFOLIO_CERTIFICATION set c_inspection_check = '1'
+
+delete from PORTFOLIO_CERTIFICATION where c_date is null
+
+delete from portfolio_certification where c_email = 'lolo18@naver.com'
 
 alter table portfolio_certification rename column m_email to c_email
 
@@ -38,11 +50,12 @@ where c_index = (select c.c_index from PORTFOLIO_MEMBER m,portfolio_certificatio
 				 where m.c_index = c.c_index)
 				 
 drop trigger modify_member_email
+
 				 
 CREATE OR REPLACE TRIGGER modify_member_email
 AFTER update on portfolio_certification FOR EACH ROW
 BEGIN
-	if :new.c_inspection_check = '1' then
+	if :new.c_inspection_check = '1' and :old.c_inspection_check ='0' then
 		update portfolio_member set m_email = :new.c_email
 		where c_index = :new.c_index; 
 	end if;

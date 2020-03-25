@@ -16,6 +16,13 @@
 		</div>
 		<div class="btn">
 			<a href='javascript:formSubmit()' id = "submit">수정</a> 
-			<a href='/member/read'>되돌아가기</a>
+			<c:choose>
+				<c:when test="${login.m_grant eq '운영자'}">
+					<a href='/member/list'>되돌아가기</a>
+				</c:when> 
+				<c:otherwise>
+					<a href='/member/read'>되돌아가기</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>

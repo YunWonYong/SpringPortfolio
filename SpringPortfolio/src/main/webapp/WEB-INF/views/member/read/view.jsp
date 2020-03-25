@@ -55,6 +55,17 @@
 	</div>
 	<div class="box">
 		<div class="content">
+			<div class="prfile5">
+				<p>이메일:</p>
+			</div>
+			<div class="profile6">
+				<p>${dto.m_email}</p>
+			</div>
+			<a href="/member/update/certification">정보수정</a>
+		</div>
+	</div>
+	<div class="box">
+		<div class="content">
 			<div class="profile7">
 				<p>등급:</p>
 				<p>가입일짜:</p>
@@ -63,20 +74,9 @@
 				<p>${dto.m_realGrant}</p>
 				<p>${dto.m_registdate}</p>
 			</div>
-			<c:if test="${dto.m_realGrant eq '운영자'}">
+			<c:if test="${login.m_grant eq '운영자'}">
 				<a href="/member/update/grantupdate">정보수정</a>
 			</c:if>
-		</div>
-	</div>
-	<div class="box">
-		<div class="content">
-			<div class="prfile5">
-				<p>이메일:</p>
-			</div>
-			<div class="profile6">
-				<p>${dto.m_email}</p>
-			</div>
-			<a href="/member/update/certification">정보수정</a>
 		</div>
 	</div>
 

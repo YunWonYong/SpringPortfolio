@@ -44,15 +44,6 @@
 		</where>
 	</insert>
 
-
-
-
-
-
-
-
-
-
 	<select id="read" resultType="memberDTO">
 		<![CDATA[
 			select m_index,

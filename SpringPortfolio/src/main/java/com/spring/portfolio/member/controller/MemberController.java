@@ -66,8 +66,8 @@ public class MemberController {
 		return memberService.checkDuplicate(new DuplicateVO(target, value));
 	}
 
-	@RequestMapping("read")
-	public ModelAndView read(String id, ModelAndView mv, HttpServletRequest request) {
+	@RequestMapping("read/{id}")
+	public ModelAndView read(@PathVariable String id, ModelAndView mv, HttpServletRequest request) {
 		AccountDTO adto = null;
 		MemberDTO dto = null;
 		try {
@@ -80,6 +80,30 @@ public class MemberController {
 				id = adto.getM_id();
 			}
 			dto = memberService.getOne(id);
+			dto.setM_realGender(memberUtil.getGender(dto.getM_gender()));
+			dto.setM_realGrant(memberUtil.getGrant(dto.getM_grant()));
+			dto.setM_birth(dto.getM_birth().split(" ")[0]);
+			dto.setM_registdate(dto.getM_registdate().split(" ")[0]);
+			mv.setViewName("/member/read/회원조회");
+		} catch (Exception e) {
+			mv.setViewName("/error/fail");
+		} finally {
+			mv.addObject("dto", dto);
+		}
+		return mv;
+	}
+
+	@RequestMapping("read")
+	public ModelAndView read(ModelAndView mv, HttpServletRequest request) {
+		AccountDTO adto = null;
+		MemberDTO dto = null;
+		try {
+			Object obj = request.getSession(false).getAttribute("login");
+			if (obj instanceof AccountDTO)
+				adto = (AccountDTO) obj;
+			if (adto == null)
+				throw new Exception();
+			dto = memberService.getOne(adto.getM_id());
 			dto.setM_realGender(memberUtil.getGender(dto.getM_gender()));
 			dto.setM_realGrant(memberUtil.getGrant(dto.getM_grant()));
 			dto.setM_birth(dto.getM_birth().split(" ")[0]);

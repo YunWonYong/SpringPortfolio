@@ -58,7 +58,7 @@ function getData(arr) {
 						
 						$.each(arrs, function(i, dto) {
 							msg += "<tr><td>" + dto.m_index + "</td>";
-							msg += "<td><a href='/member/read/" + dto.m_index
+							msg += "<td><a href='/member/read/" + dto.m_id
 									+ "'>";
 							msg += dto.m_id + "</a></td>";
 							msg += "<td>" + dto.m_nickname + "</td>";

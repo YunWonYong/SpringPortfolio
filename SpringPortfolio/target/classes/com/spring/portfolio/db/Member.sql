@@ -121,8 +121,6 @@ drop trigger set_certification_id
 select * from all_triggers 
 where table_name='PORTFOLIO_MEMBER'
 
-select * from user_errors where type='TRIGGER'
-
 select sysdate from PORTFOLIO_ACCOUNT
 
 

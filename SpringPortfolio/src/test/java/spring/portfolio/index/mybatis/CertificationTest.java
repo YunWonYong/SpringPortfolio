@@ -58,4 +58,12 @@ public class CertificationTest {
 		assertEquals(this.dto.getC_inspection(), dto.getC_inspection());
 		assertEquals(dto.getC_inspection_check(),"1");
 	}
+	
+	@Test
+	public void testModify() {
+		dto.setC_inspection_check("0");
+		dto.setC_id("egniz");
+		assertTrue(sqlSession.update(ns+"update",dto)==1);
+		assertTrue(sqlSession.update(ns+"check",dto)==1);
+	}
 }
