@@ -1,15 +1,30 @@
 $(function() {
 	var $email = $("input[name='m_email']");
-	$("#certification").click(
-			function() {
-
+	$("#certification_update,#certification_insert").click(function() {
+				var msg = regular('email',$($email).val());
+				if (msg!=null) {
+					$("#email_msg").html(msg);
+					$("#email_msg").attr('class','fail_msg');
+					$($email).focus();
+					return; 
+				}
+				var from = $(this).attr("id");
+				from = from.split("_")[1];
 				ajaxFunction([ '/certification/inspection', $($email).val(),
-						"update", $email ]);
+						from, $email ]);
 			});
-	$("#submit").click(
-			function() {
-				if ($("span").attr('id')=="#success_email") {
+	$($email).focusout(
+			function() { 
+				if ($("#email_msg").attr("class") == "success_msg") {
+					$("#email_msg").html("인증이 완료되었습니다.");
 					return;
+				}
+				var msg = regular('email',$($email).val());
+				if (msg!=null) {
+					$("#email_msg").html(msg);
+					$("#email_msg").attr('class','fail_msg');
+					$($email).focus();
+					return; 
 				}
 				ajaxFunction([ '/certification/read', $($email).val(), "read",
 						$email ]);
@@ -27,15 +42,18 @@ $(function() {
 			},
 			success : function(data) {
 				if (from == "update" || from == "insert") {
-					$("#fail_email").html(data);
+					$("#email_msg").html(data);
 					$(input).focus();
 				} else {
 					if (data == "ok") {
-						$("#fail_email").attr('class', 'success_msg');
-						$("#fail_email").attr('id', 'success_email');
-						$("#success_email").html("인증이 완료되었습니다.");
-					} else {
-						$("#fail_email").html("인증이 안되었습니다. 다시 시도해주세요.");
+						$("#email_msg").attr('class', 'success_msg');
+						$("#email_msg").html("인증이 완료되었습니다.");
+					}else if(data =="stay"){
+						$("#email_msg").attr('class',  'fail_msg');
+						$("#email_msg").html("이메일 발송 중 입니다. 잠시만 기달려 주세요.");
+					}else {
+						$("#email_msg").attr('class', 'fail_msg'); 
+						$("#email_msg").html("인증이 안되었습니다. 다시 시도해주세요.");
 						$(input).focus();
 					}
 				}

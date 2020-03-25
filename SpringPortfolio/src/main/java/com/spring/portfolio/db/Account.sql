@@ -6,10 +6,11 @@ create table portfolio_account(
 );
 
 
-insert into portfolio_account values('admin','TESTJSESSION','123128802','on')
+insert into portfolio_account values('admin','TESTJSESSION1','123128802','on')
 
 update portfolio_account set a_holding_time = 0 
 
+update PORTFOLIO_ACCOUNT set a_id = null where a_id = 'admin' and a_jsession_id !='TESTJSESSION4'
 
 delete from PORTFOLIO_ACCOUNT
 
@@ -25,4 +26,23 @@ commit
 update portfolio_account set a_holding_time =a_holding_time -(60*60*24)
 
 
+select * from user_errors where type='TRIGGER'
 
+drop trigger  autoLogin_old_id_delete
+
+delete from portfolio_account where a_jsession_id 
+
+select count(a_jsession_id) from portfolio_account where a_id = 'admin';
+
+
+CREATE OR REPLACE TRIGGER autoLogin_old_id_delete
+AFTER insert or update on portfolio_account FOR EACH ROW
+BEGIN
+	if updating then
+	delete from portfolio_account where a_id is null;
+	end if;
+	if inserting then
+	update PORTFOLIO_ACCOUNT set a_id = null where a_id = :new.a_id;
+	end if;
+END;
+/

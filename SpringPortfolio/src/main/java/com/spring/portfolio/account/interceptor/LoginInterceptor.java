@@ -48,6 +48,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			mv.clear();
 			mv.setViewName("redirect:/");
 		} catch (Exception e) {
+			e.printStackTrace();
 			mv.addObject("msg", "아이디와 비빌번호를 확인해 주세요.");
 			mv.setViewName("/account/login/로그인");
 		} finally {

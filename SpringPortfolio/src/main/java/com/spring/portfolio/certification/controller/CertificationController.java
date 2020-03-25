@@ -1,5 +1,8 @@
 package com.spring.portfolio.certification.controller;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -37,16 +40,21 @@ public class CertificationController {
 		try {
 			CertificationDTO dto = new CertificationDTO();
 			AccountDTO login = accountUtil.loginCheck(sess.getAttribute("login"));
+			dto.setC_email(to);
 			if (login != null) {
-				dto.setC_email(to);
 				dto.setC_id(login.getM_id());
 			}
 			dto = certificationService.getOne(dto);
+			if(dto==null) {
+				throw new NullPointerException();
+			}
 			if (!dto.getC_inspection_check().equals("1")) {
 				throw new Exception();
 			}
 			msg = "ok";
-		} catch (Exception e) {
+		} catch(NullPointerException e) {
+			msg = "stay";
+		}catch (Exception e) {
 			msg = "no";
 		}
 		return msg;
@@ -69,7 +77,6 @@ public class CertificationController {
 			}
 			result = "인증이 성공적으로 끝낫습니다. 회원가입을 진행해 주세요.";
 		} catch (Exception e) {
-			e.printStackTrace();
 			result = "인증에 실패하였습니다. 다시 한번 시도해 주세요.";
 		} finally {
 			script.append(result);
@@ -86,24 +93,31 @@ public class CertificationController {
 		boolean isSend = false;
 		CertificationVO vo = null;
 		CertificationDTO dto = null;
-		try {
+		try { 
 			vo = new CertificationVO(certificationUtil.setContent(to), to);
 			dto = new CertificationDTO();
 			dto.setC_email(vo.getTo());
 			dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
+			CertificationDTO duplicateDTO =certificationService.getOne(dto); 
+			if(duplicateDTO!=null) {
+				if(duplicateDTO.getC_inspection_check().equals("0")){
+					from = "update";
+				}else {
+					throw new SQLException();
+				}
+			}
 			Object obj = from.equals("insert") ? certificationService.register(dto) : certificationService.getOne(dto);
 			boolean flag = obj instanceof Integer ? true : false;
-			dto = (CertificationDTO) obj;
-			msg = flag ? "이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요." : null;
+			dto = !flag ?(CertificationDTO) obj:null;
+			msg = flag ? "이메일이 발송 되었습니다. 인증확인해 주세요." : null;
 			msg = msg == null
-					? dto == null ? "이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요."
-							: dto.getC_email().equals(to) ? "중복된 이메일 입니다."
-									: dto.getC_inspection_check().equals("1") ? "인증이 완료된 이메일입니다." : "인증이 안된 이메일입니다."
-					: null;
-			if (msg.equals("이메일이 발송 되었습니다. 인증확인하시고 수정을 눌러주세요.") || msg.equals("인증이 안된 이메일입니다.")) {
+					? dto == null ? "이메일이 발송 되었습니다. 인증확인해 주세요."
+									: dto.getC_inspection_check().equals("1") ? "인증이 완료된 이메일입니다." : "이메일이 발송 되었습니다. 인증확인해 주세요."
+					:msg;
+			if (msg!=null?msg.equals("이메일이 발송 되었습니다. 인증확인해 주세요."):false) {
 				if (from.equals("update")) {
 					AccountDTO login = accountUtil.loginCheck(sess.getAttribute("login"));
-					if (login != null) {
+					if (login != null) { 
 						dto = new CertificationDTO();
 						dto.setC_email(vo.getTo());
 						dto.setC_inspection(certificationUtil.inspectionCode(vo.getTo()));
@@ -114,10 +128,12 @@ public class CertificationController {
 				}
 				isSend = true;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			msg = "다른 사람이 인증한 아이디 입니다.";
+		}catch (Exception e) {
 			e.printStackTrace();
 			msg = "이메일 발송이 실패되었습니다.";
-		} finally {
+		}finally {
 			if (isSend) {
 				certificationUtil.send(vo);
 			}
