@@ -148,19 +148,22 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping("passwordCheck")
+	@RequestMapping(value = "passwordCheck", produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String passwordCheck(MemberDTO dto, HttpSession sess) {
 		AccountDTO adto = accountUtil.loginCheck(sess.getAttribute("login"));
 		String msg = null;
 		try {
-			if(adto==null) {
+			if (adto == null) {
 				throw new Exception();
 			}
 			dto.setM_id(adto.getM_id());
-			System.out.println(dto.getM_password());
-			System.out.println(dto.getM_id());
+			msg = "비밀번호를 확인 되셨습니다.";
+			if (memberService.passwordCheck(dto) == null) {
+				msg = "비밀번호가 맞지 않습니다. 확인해 주세요.";
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			msg = "no";
 		}
 

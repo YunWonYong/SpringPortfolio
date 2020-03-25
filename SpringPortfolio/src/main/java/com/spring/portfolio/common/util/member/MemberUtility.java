@@ -105,7 +105,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 	private List<String> getMonth() {
 		return listLoop(new LoopVO(0, 12, 0));
 	}
-	private List<String> getDate() {
+	private List<String> getDate() { 
 		String[] birth =  dto.getM_birth().split(" ")[0].split("-");
 		int year = parsingInteger(birth[0]);
 		int month = parsingInteger(birth[1]);
@@ -217,7 +217,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_birth": 
-			input.append("<div class=''>");
+			input.append("<div class='birth'>");
 			input.append("<p>생년월일</p>");
 			input.append("<select name='year'>");
 			input.append(appendOptionTag("year"));
@@ -236,21 +236,23 @@ public class MemberUtility extends UtilityImpl implements Utility {
 		case "m_gender":
 			String man = dto.getM_gender() =='0'?"checked":"";
 			String woman = dto.getM_gender() !='0'?"checked":"";
-			input.append("<div class=''>");
+			input.append("<div class='gender'>");
 			input.append("<p>성별<p>");
+			input.append("<div class='man'>");
 			input.append("<label for='man'>남자</label>");
 			input.append("<input type='radio' name='genderCheck' id='man' ");
 			input.append(man);
-			input.append("/>");
+			input.append("/></div>");
+			input.append("<div class='girl'>");
 			input.append("<label for='woman'>여자</label>");
 			input.append("<input type='radio' id='woman' ");
 			input.append(woman);
-			input.append("/>");
+			input.append("/></div>");
 			input.append("<span id='gender_msg' class='msg'>&nbsp;</span>");
 			input.append("</div>");
 			break;
 		case "m_phone":
-			input.append("<div class=''>");
+			input.append("<div class='box'>");
 			input.append("<p>전화번호</p>");
 			input.append("<input class='txtb' type='text' name='m_phone' value='");
 			input.append(dto.getM_phone());
@@ -259,7 +261,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_zipcode":
-			input.append("<div class=''>");
+			input.append("<div class='box'>");
 			input.append("<p>우편번호</p>");
 			input.append("<input class='txtb' name='m_zipcode' id='m_zipcode' readonly value='");
 			input.append(dto.getM_zipcode());
@@ -268,14 +270,14 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_address1":
-			input.append("<div class=''>");
+			input.append("<div class='box'>");
 			input.append("<input class='txtb' name='m_address1' id='m_address1' readonly value='");
 			input.append(dto.getM_address1());
 			input.append("'/>");
 			input.append("</div>");
 			break;
 		case "m_address2":
-			input.append("<div class=''>");
+			input.append("<div class='box'>");
 			input.append("<input class='txtb' name='m_address2' id='m_address2' value='");
 			input.append(dto.getM_address2());
 			input.append("'/>");
@@ -283,7 +285,7 @@ public class MemberUtility extends UtilityImpl implements Utility {
 			input.append("</div>");
 			break;
 		case "m_email":
-			input.append("<div class=''>");
+			input.append("<div class='box'>");
 			input.append("<p>이메일</p>");
 			input.append("<input type='text' class='txtb' name='m_email' id='m_email' value='");
 			input.append(dto.getM_email());

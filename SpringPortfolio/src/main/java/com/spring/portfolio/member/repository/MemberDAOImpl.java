@@ -56,4 +56,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne(ns + "duplicate", vo);
 	}
 
+	@Override
+	public MemberDTO passwordCheck(MemberDTO dto) throws Exception {
+		return sqlSession.selectOne(ns+"passwordCheck",dto);
+	}
+
 }

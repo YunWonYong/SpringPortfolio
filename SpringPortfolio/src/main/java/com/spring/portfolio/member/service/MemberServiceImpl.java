@@ -63,4 +63,9 @@ public class MemberServiceImpl implements MemberService {
 	public boolean remove(AccountDTO dto) throws Exception {
 		return memberDAO.delete(dto);
 	}
+
+	@Override
+	public MemberDTO passwordCheck(MemberDTO dto) throws Exception {
+		return memberDAO.passwordCheck(dto);
+	}
 }

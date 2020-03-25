@@ -22,4 +22,6 @@ public interface MemberDAO extends Utility {
 
 	public abstract MemberDTO duplicate(DuplicateVO vo) throws Exception;
 
+	public abstract MemberDTO passwordCheck(MemberDTO dto) throws Exception;
+
 }
