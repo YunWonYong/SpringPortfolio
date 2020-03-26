@@ -101,6 +101,6 @@
 		</form>
 	</div>
 	<div class="btn">
-		<a href='javascript:formSubmit()' id = "submit">회원가입</a>
+		<a href='javascript:insertFormSubmit()' id = "submit">회원가입</a>
 	</div>
 </div>

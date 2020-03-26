@@ -1,4 +1,4 @@
-function formSubmit() {
+function insertFormSubmit() {
 	var $span = $("span");
 	var flag = false;
 	$.each($span, function(index, element) {
@@ -21,9 +21,26 @@ function formSubmit() {
 			flag = true;
 		}
 
-	}); 
+	});
 	console.log(flag);
 	if (flag) {
 		$("form").submit();
 	}
+}
+$(function() {
+	var $initInput =$("input");
+	var elementList = new Array();
+	$.each($initInput, function(index,element){
+		elementList.push($(element).val());
+	});
+	$("#updateSubmit").click(function(){
+		updateFormSubmit(elementList);
+	});
+});
+function updateFormSubmit(elementList) {
+	console.log(elementList);
+	var $inputArr = $("input");
+	$.each($inputArr,function(index,element){
+		
+	});
 }
