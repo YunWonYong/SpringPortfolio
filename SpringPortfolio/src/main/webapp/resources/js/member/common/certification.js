@@ -16,6 +16,7 @@ $(function() {
 	$($email).focusout(
 			function() { 
 				if ($("#email_msg").attr("class") == "success_msg") {
+					$($email).prop('readonly',true);
 					$("#email_msg").html("인증이 완료되었습니다.");
 					return;
 				}
@@ -48,6 +49,8 @@ $(function() {
 					if (data == "ok") {
 						$("#email_msg").attr('class', 'success_msg');
 						$("#email_msg").html("인증이 완료되었습니다.");
+						$($email).prop('readonly',true);
+						$($email).focusout();
 					}else if(data =="stay"){
 						$("#email_msg").attr('class',  'fail_msg');
 						$("#email_msg").html("이메일 발송 중 입니다. 잠시만 기달려 주세요.");

@@ -38,4 +38,9 @@ public class CertificationServiceImpl implements CertificationService{
 		dao.update(dto);
 	}
 
+	@Override
+	public void remove() throws Exception {
+		dao.delete();
+	}
+
 }

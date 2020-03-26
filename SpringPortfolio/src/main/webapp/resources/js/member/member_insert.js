@@ -15,6 +15,11 @@ $(function() {
 		}
 		duplicateAjax($(this));
 	});
+	$($input_password_2).focusout(function(){
+		if($(this).val()!= $($input_password_1).val()){
+			$("#password_msg_2").attr('class', 'fail_msg');
+		}
+	});
 	$($input_password_1).change(function() {
 		var msg = regular("password", $(this).val());
 		if (msg != null) {
@@ -85,7 +90,6 @@ $(function() {
 		}
 	});
 	$("select[name='year'],select[name='month'],select[name='date']").dblclick(function(){
-		alert($(this).val());
 	});
 	$("input[name='m_address2']").change(function(){
 		if($(this).val().length==0){

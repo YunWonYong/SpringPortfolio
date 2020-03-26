@@ -12,4 +12,6 @@ public interface CertificationDAO {
 
 	public abstract void update(CertificationDTO dto)throws Exception;
 
+	public abstract void delete()throws Exception;
+
 }

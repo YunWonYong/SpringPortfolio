@@ -14,9 +14,8 @@ select * from user_constraints where table_name='PORTFOLIO_CERTIFICATION'
 drop table portfolio_certification
 
 insert into portfolio_certification(c_index,c_email) values((select nvl(max(c_index),0)+1 from portfolio_certification),'ywyi1992@naver.com')
-
-delete from portfolio_certification where c_index = 4
-
+ 
+delete from portfolio_certification
 
 update PORTFOLIO_CERTIFICATION set c_email = 'ywyi1992@gamil.com', c_inspection_check = '0'
 where c_index = 4
@@ -51,4 +50,12 @@ where c_index = (select c.c_index from PORTFOLIO_MEMBER m,portfolio_certificatio
 				 
 drop trigger modify_member_email
 
-				 
+CREATE OR REPLACE TRIGGER modify_member_email
+AFTER update on portfolio_certification FOR EACH ROW
+BEGIN
+   if :new.c_inspection_check = '1' and :old.c_inspection_check ='0' then
+      update portfolio_member set m_email = :new.c_email
+      where c_index = :new.c_index; 
+   end if;
+END;
+/			 

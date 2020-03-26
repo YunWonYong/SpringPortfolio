@@ -6,10 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.spring.portfolio.account.model.AccountDTO;
 import com.spring.portfolio.account.service.AccountService;
+import com.spring.portfolio.certification.service.CertificationService;
 import com.spring.portfolio.common.exception.account.AutoLoginOffException;
 import com.spring.portfolio.common.namespaces.ServiceNameSpaces;
 import com.spring.portfolio.common.namespaces.UtilNameSpaces;
@@ -21,7 +23,8 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 	private AccountService accountService;
 	@Resource(name = UtilNameSpaces.ACCOUNT)
 	private AccountUtility accountUtil;
-
+	@Resource(name = ServiceNameSpaces.CERTIFICATION)
+	private CertificationService certificationService;
 	public AutoLoginInterceptor() {
 	}
 
@@ -55,4 +58,13 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 		}
 		return true;
 	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		certificationService.remove();
+		super.postHandle(request, response, handler, modelAndView);
+	}
+	
+	
 }

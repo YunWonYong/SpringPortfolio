@@ -69,7 +69,7 @@
 
 				<div>
 					<p>이메일</p>
-					<input class="txtb" type="text" name="m_email"/>
+					<input class="txtb" type="text" name="m_email" />
 					<button type="button" id ='certification_insert'>이메일인증</button>
 					<span id="email_msg" class="msg">&nbsp;</span>
 				</div>

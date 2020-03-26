@@ -12,4 +12,6 @@ public interface CertificationService {
 
 	public abstract void modify(CertificationDTO dto) throws Exception;
 
+	public abstract void remove() throws Exception;
+
 }

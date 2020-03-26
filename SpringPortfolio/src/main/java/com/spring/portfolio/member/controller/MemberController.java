@@ -193,5 +193,13 @@ public class MemberController {
 
 		return msg;
 	}
+	
+	@RequestMapping("update")
+	public ModelAndView update(MemberDTO dto,MemberVO vo, ModelAndView mv) {
+		
+		mv.setViewName("/member/read/회원조회");
+		
+		return mv;
+	}
 
 }

@@ -1,29 +1,26 @@
 function insertFormSubmit() {
 	var $span = $("span");
-	var flag = false;
+	var flag = new Array();
 	$.each($span, function(index, element) {
-		console.log(index);
-		console.log($(element).attr('class'));
 		var className = $(element).attr('class');
 		var idName = "#" + $(element).attr("id");
-		console.log(idName);
-		if (className == "fail_msg") {
-			$(idName).html("정확히 입력해 주세요.");
-			flag = false;
+		if (className == "success_msg") {
+			flag.push("true");
 		} else if (className == "msg") {
 			var msg = "필수 입력란 입니다.";
 			if (idName == "#birth_msg") {
 				msg = "필수 선택 사항입니다.";
-			}
+			} 
 			$(idName).html(msg);
-			flag = false;
-		} else if (className == "success_msg") {
-			flag = true;
+			flag.push("false");
+			
+		} else if (className == "fail_msg") {
+			$(idName).html("정확히 입력해 주세요.");
+			flag.push("false");
 		}
 
 	});
-	console.log(flag);
-	if (flag) {
+	if (flag.indexOf("false")==-1) {
 		$("form").submit();
 	}
 }
@@ -38,9 +35,12 @@ $(function() {
 	});
 });
 function updateFormSubmit(elementList) {
-	console.log(elementList);
 	var $inputArr = $("input");
+	var flag = -1;
 	$.each($inputArr,function(index,element){
-		
+		flag = elementList.indexOf($(element).val());
 	});
+	if(flag >- 1){
+		$("form").submit();
+	}
 }

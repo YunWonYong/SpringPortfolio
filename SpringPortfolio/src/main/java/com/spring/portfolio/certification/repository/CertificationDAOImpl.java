@@ -40,4 +40,9 @@ public class CertificationDAOImpl implements CertificationDAO {
 		sqlSession.update(ns + "update", dto);
 	}
 
+	@Override 
+	public void delete() throws Exception {
+		sqlSession.delete(ns+"isNullDelete"); 
+	}
+
 }
