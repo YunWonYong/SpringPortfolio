@@ -10,7 +10,6 @@ insert into portfolio_account values('admin','TESTJSESSION1','123128802','on')
 
 update portfolio_account set a_holding_time = 0 
 
-update PORTFOLIO_ACCOUNT set a_id = null where a_id = 'admin' and a_jsession_id !='TESTJSESSION4'
 
 delete from PORTFOLIO_ACCOUNT
 
