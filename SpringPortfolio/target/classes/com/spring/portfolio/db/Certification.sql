@@ -52,12 +52,3 @@ where c_index = (select c.c_index from PORTFOLIO_MEMBER m,portfolio_certificatio
 drop trigger modify_member_email
 
 				 
-CREATE OR REPLACE TRIGGER modify_member_email
-AFTER update on portfolio_certification FOR EACH ROW
-BEGIN
-	if :new.c_inspection_check = '1' and :old.c_inspection_check ='0' then
-		update portfolio_member set m_email = :new.c_email
-		where c_index = :new.c_index; 
-	end if;
-END;
-/
