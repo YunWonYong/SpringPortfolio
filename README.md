@@ -1,28 +1,19 @@
-Editor : STS 4.2.1, 
-ORM : mybatis,
-DBMS : Oracle11g,
-Server : Aphache,
-WAS : Tomcat v7.0,
-Language : Java(JDK 1.8)
+Language : Java(JDK 1.8 version), jsp/servlet, javascript, JQuery, ajax, JSON, HTML5, CSS3
 
-trigger :
-portfolio_certification{
-CREATE OR REPLACE TRIGGER modify_member_email
-AFTER update on portfolio_certification FOR EACH ROW
-BEGIN
-   if :new.c_inspection_check = '1' and :old.c_inspection_check ='0' then
-      update portfolio_member set m_email = :new.c_email
-      where c_index = :new.c_index; 
-   end if;
-END;
-/		
-},
-portfolio_member{
-CREATE OR REPLACE TRIGGER set_certification_id
-AFTER insert on portfolio_member FOR EACH ROW
-BEGIN
-	update portfolio_certification set c_id = :new.m_id
-	where c_index = :new.c_index and c_email = :new.m_email; 
-END;
-/
-}
+IDE : STS
+
+Framework : SpringFrameWork 4.2.1 version , Tiles 3.0.8 version
+
+Library : javax.mail, JQuery, bootstrap
+
+DBMS : Oracle 11g
+
+ORM : Mybatis 1.2.2 version
+
+WAS : Tomcat 7.0
+
+Model : MVC2
+
+설계모형 : 애자일
+
+형상 관리 툴 : git
